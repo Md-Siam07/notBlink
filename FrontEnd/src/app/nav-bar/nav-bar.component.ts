@@ -10,8 +10,9 @@ import { Router } from '@angular/router';
 export class NavBarComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) { }
-  
+  status: boolean = false;
   ngOnInit(): void {
+    //this.status = this.userService.loginStatus;
   }
 
   getStatus():boolean{
