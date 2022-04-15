@@ -12,7 +12,7 @@ export class UserService {
   //http methods
   
   selectedUser: User = new User();
-
+  loginStatus: boolean = false;
   constructor(private http: HttpClient) { }
 
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
