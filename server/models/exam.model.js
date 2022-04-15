@@ -31,6 +31,9 @@ var ExamSchema = new mongoose.Schema({
     },
     participants:{
         type: Array
+    },
+    teacherName:{
+        type: String
     }
 });
 

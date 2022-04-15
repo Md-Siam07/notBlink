@@ -9,6 +9,7 @@ module.exports.create = (req, res, next) => {
     exam.duration = req.body.duration;
     exam.examDate = req.body.examDate;
     exam.teacherID = req.body.teacherID;
+    exam.teacherName = req.body.teacherName;
     exam.participants = [];
 
     exam.save( (err, doc) =>{
@@ -55,7 +56,8 @@ module.exports.updateInfo = (req, res, next) => {
         startTime: req.body.startTime,
         duration: req.body.duration,
         examDate: req.body.examDate,
-        teacherID: req.body.teacherID
+        teacherID: req.body.teacherID,
+        teacherName: req.body.teacherName
     };
 
     Exam.findByIdAndUpdate(req.params.id, { $set:exam }, { new:true } , (err, doc) => {
