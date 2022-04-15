@@ -11,8 +11,9 @@ import { Exam } from '../shared/exam.model';
 })
 export class TeacherExamCardComponent implements OnInit {
 
-  constructor(public examService: ExamService, private userService: UserService) { }
+  constructor(private examService: ExamService, private userService: UserService) { }
   userDetails = new User();
+  exams: Exam[] = [];
   tempID : string = "";
   recipientEmail : string = "";
   selectedExam = new Exam();
@@ -54,6 +55,7 @@ export class TeacherExamCardComponent implements OnInit {
       this.examService.getExamList(this.tempID).subscribe( (res:any) =>{
         console.log('get: ' + this.tempID);
         this.examService.exams = res as Exam[];
+        this.exams = this.examService.exams;
         console.log(this.examService.exams);
       });
     },500);
@@ -70,6 +72,7 @@ export class TeacherExamCardComponent implements OnInit {
       (res:any) =>{
         console.log('successful');
         this.refreshExamList();
+        this.resetForm();
       },
       err => {
         console.log('Error in updating exam: '+ JSON.stringify(err, undefined, 2));
@@ -81,6 +84,7 @@ export class TeacherExamCardComponent implements OnInit {
     this.examService.getExamList(this.tempID).subscribe( (res:any) =>{
       //console.log('get: ' + this.tempID);
       this.examService.exams = res as Exam[];
+      this.exams = this.examService.exams;
       //console.log(this.examService.exams);
     });
   }
@@ -88,11 +92,12 @@ export class TeacherExamCardComponent implements OnInit {
   delete(){
     this.examService.deleteExam(this.selectedExam).subscribe( (res:any) =>{
       console.log('deleted');
+      this.refreshExamList();
     },
     (err)=>{
       console.log('error in deleting: ' + JSON.stringify(err, undefined, 2));
     } )
-    this.refreshExamList();
+    
   }
 
 

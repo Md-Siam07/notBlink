@@ -40,7 +40,7 @@ export class StudentExamCardComponent implements OnInit {
     examCode: '',
     userID: ''
   }
-  constructor(public examService: StudentExamService, private userService: UserService) { }
+  constructor(private examService: StudentExamService, private userService: UserService) { }
   
   ngOnInit(): void {
     this.userService.getUserProfile().subscribe(
