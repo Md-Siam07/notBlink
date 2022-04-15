@@ -8,6 +8,7 @@
       <i class="fas fa-bars"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <button type="button" class="btn btn-dark ms-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="fa fa-user" ></i><b></b></button>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
           <a class="nav-link" href="#!"><b>About</b></a>
@@ -22,8 +23,19 @@
           <a class="nav-link" href="#!"><b>Contact</b></a>
         </li>
         <button type="button" class="btn btn-dark ms-3" routerLink="/login" routerLinkActive="active" *ngIf="!getStatus()" ><b>Sign In</b></button>
-        <button type="button" class="btn btn-dark ms-3" *ngIf="getStatus()"><i class="fa fa-user" ></i><b></b></button>
+        <button type="button" class="btn btn-light ms-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" *ngIf="getStatus()"><i class="fa fa-user" ></i><b></b></button>
+        <button type="button" class="btn btn-light ms-3" (click)="onLogout()" *ngIf="getStatus()"><i class="fas fa-sign-out-alt"></i></button>
       </ul>
     </div>
   </div>
 </nav>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+      <h3 id="offcanvasRightLabel">Profile</h3>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <app-user-profile></app-user-profile>
+  </div>
+</div>

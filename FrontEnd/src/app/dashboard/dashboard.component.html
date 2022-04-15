@@ -2,7 +2,7 @@
 
 <app-teacher-exam-card *ngIf="userDetails.isTeacher"></app-teacher-exam-card>
 <app-student-exam-card *ngIf="!userDetails.isTeacher"></app-student-exam-card>
-<app-user-profile></app-user-profile>
+<!-- <app-user-profile></app-user-profile> -->
 <!-- <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModalCreate" *ngIf="userDetails.isTeacher">Create Exam </button>
 
 <div class="modal fade" id="exampleModalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -16,7 +16,7 @@
           <form>
 
             <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="this.selectedExam._id">
-                
+
             <div class="mb-3">
                 <label for="message-text" class="col-form-label" ><h6>Exam Name:</h6></label>
                 <input class="form-control" id="message-text" placeholder="Exam Name" #examName="ngModel" ngDefaultControl [(ngModel)]="selectedExam.examName" [ngModelOptions]="{standalone: true}">

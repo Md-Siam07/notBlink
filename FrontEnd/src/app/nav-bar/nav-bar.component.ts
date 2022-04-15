@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/user.service';
 import { Router } from '@angular/router';
+import { reduce } from 'rxjs';
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,7 +11,12 @@ import { Router } from '@angular/router';
 export class NavBarComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) { }
+
   status: boolean = false;
+
+  // background: string = 'red';
+  // fontSize: number = 10;
+
   ngOnInit(): void {
     //this.status = this.userService.loginStatus;
   }
@@ -25,5 +31,17 @@ export class NavBarComponent implements OnInit {
   //   else
   //     this.router.navigateByUrl('login');
   // }
+
+  // change() : string {
+  //   return this.background;
+  //   console.log('red');
+  //   document.documentElement.style.cssText = "background-color: red";
+  // }
+
+  onLogout() {
+    this.userService.deleteToken();
+    this.userService.loginStatus = false;
+    this.router.navigateByUrl('/login');
+  }
 
 }
