@@ -1,0 +1,30 @@
+<div class=" main-bg">
+    <div class="login-container text-c animated flipInX">
+      <div>
+          <h1 class="logo-badge text-whitesmoke"><span class="fa fa-user-circle"></span></h1>
+      </div>
+          <h3 class="text-darkyellow">!Blink</h3>
+          <p class="text-whitesmoke">Sign In</p>
+      <div class="container-content">
+          <form class="margin-t">
+              <div class="form-group mb-3">
+                <label class="text-darkyellow">EMAIL ADDRESS</label>
+                <input type="email" name="email" class="form-control" placeholder="Email Address" required="" #email="ngModel" [(ngModel)]="this.model.email" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="form-group mb-4">
+                <label class="text-darkyellow left">PASSWORD</label>
+                <input type="password" name="password" class="form-control" placeholder="***********" required="" #password="ngModel" [(ngModel)]="this.model.password" [ngModelOptions]="{standalone: true}">
+              </div>
+              <button type="submit" class="form-button button-l margin-b" (click)="signIn()">Sign In</button>
+
+              <a class="text-darkyellow"><small>Forgot password?</small></a>
+              <p class="text-whitesmoke text-center"><small>Do not have an account? </small>
+              <a href="" class="text-darkyellow" routerLink="signup" (click)="noAccount()"><small >Register</small></a></p>
+          </form>
+          <div class="alert" *ngIf="serverErrorMessages" style="color: red;">
+            {{serverErrorMessages}}
+          </div>
+          <p class="margin-t text-darkyellow"><small> <b> Copyright &copy; 2022 !Blink </b> </small> </p>
+      </div>
+  </div>
+  </div>
