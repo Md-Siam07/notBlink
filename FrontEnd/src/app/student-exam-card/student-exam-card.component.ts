@@ -65,19 +65,21 @@ export class StudentExamCardComponent implements OnInit {
     this.examService.joinExam(this.model, this.model.examCode).subscribe( 
       (res:any) =>{
         console.log('successful');
+        this.refreshExamList();
       },
       (err:any) => {
         console.log('Error in updating exam: '+ JSON.stringify(err, undefined, 2));
       }
     );
-    this.refreshExamList();
+    
   }
 
   refreshExamList(){
     this.examService.retrieveExam(this.tempID).subscribe( (res:any) =>{
       //M.toast("refreshed");
-      console.log('get: ' + this.tempID);
+      console.log('refresh exam list: ' + this.tempID);
       this.examService.exams = res as Exam[];
+      this.listOfExams = this.examService.exams;
       console.log(this.examService.exams);
     });
   }
