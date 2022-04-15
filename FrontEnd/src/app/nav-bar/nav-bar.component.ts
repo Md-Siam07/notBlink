@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,7 +9,7 @@ import { UserService } from '../shared/user.service';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
   
   ngOnInit(): void {
   }
@@ -16,5 +17,12 @@ export class NavBarComponent implements OnInit {
   getStatus():boolean{
     return this.userService.loginStatus;
   }
+
+  // loginClicked(){
+  //   if(this.userService.loginStatus)
+  //     this.router.navigateByUrl('dashboard');
+  //   else
+  //     this.router.navigateByUrl('login');
+  // }
 
 }
