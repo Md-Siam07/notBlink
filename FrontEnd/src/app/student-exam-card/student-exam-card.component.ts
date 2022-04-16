@@ -68,7 +68,9 @@ export class StudentExamCardComponent implements OnInit {
   }
 
   calculateRemainingTimeAndInitiate(){
-   // this.listOfExams
+    this.listOfExams.forEach( (exam) => {
+
+    } )
   }
 
   onLeaveClick(examID: string){
@@ -114,11 +116,12 @@ export class StudentExamCardComponent implements OnInit {
   }
 
   getExamDate(input: string): string{
-    return input.substring(0,2);
+    return input.substring(8,10);
   }
 
   getExamMonth(input: string): any{
-    this.month = input.substring(3,5);
+    this.month = input.substring(5,7);
+    console.log('month: '+ this.month);
     return this.months.get(parseInt(this.month));
    // return this.month;
   }
