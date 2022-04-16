@@ -36,8 +36,8 @@
                     </div>
                     <br>
                     <div class="btn-button">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalStart" [disabled]="!exam.hasStarted" *ngIf="!exam.hasStarted">Start Exam </button>
-                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModalStart" *ngIf="exam.hasStarted"><b>Start Exam</b> </button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalStart" [disabled]="!exam.hasStarted" *ngIf="!examGoingOn(exam)">Start Exam </button>
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModalStart" *ngIf="examGoingOn(exam)"><b>Start Exam</b> </button>
                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModalLeave" (click)="onLeaveClick(exam)">Leave Exam </button>
                     </div>
                     <div class="widget-49-meeting-action">
@@ -57,7 +57,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title" id="exampleModalLabel">Confirmat Start</h4>
+          <h4 class="modal-title" id="exampleModalLabel">Confirm at Start</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

@@ -100,6 +100,13 @@ export class StudentExamCardComponent implements OnInit {
     this.model.examName = givenExam.examName;
   }
 
+  examGoingOn(givenExam: Exam){
+    this.tempExamDate = givenExam.examDate + 'T' + givenExam.startTime + ":00";
+    this.tempRemainingTime = new Date(this.tempExamDate).getTime() - new Date().getTime();
+    if(this.tempRemainingTime>0) return false;
+    return this.tempRemainingTime + givenExam.duration*60*1000 > 0;
+  }
+
   join(){
     console.log(this.model);
     this.examService.joinExam(this.model, this.model.examCode).subscribe(
