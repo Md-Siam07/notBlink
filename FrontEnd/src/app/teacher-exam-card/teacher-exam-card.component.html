@@ -27,7 +27,7 @@
                               <div class="widget-49-meeting-info">
                                   <h4><span class="widget-49-pro-title">{{userDetails.fullName}}</span></h4>
                                   <span class="widget-49-meeting-time">Start at {{exam.startTime}}</span>
-                                  <span class="widget-49-meeting-time"><span>Duration: {{exam.duration}} mins</span></span>
+                                  <span class="widget-49-meeting-time"><span>Duration: {{exam.duration}} minutes</span></span>
                               </div>
                           </div>
                           <br>
@@ -38,7 +38,7 @@
                             <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModalDel" (click)="onClick(exam)">Delete Exam </button>
                           </div>
                           <div class="widget-49-meeting-action">
-                              <a href="#" class="btn btn-sm btn-flash-border-success">View MORE</a>
+                              <a class="btn btn-sm btn-flash-border-success" (click)="viewMoreRouting()">View MORE</a>
                           </div>
                       </div>
                   </div>

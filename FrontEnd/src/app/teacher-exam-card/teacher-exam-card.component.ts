@@ -3,6 +3,7 @@ import { ExamService } from '../shared/exam.service';
 import { User } from '../shared/user.model';
 import { UserService } from '../shared/user.service';
 import { Exam } from '../shared/exam.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-teacher-exam-card',
@@ -11,7 +12,7 @@ import { Exam } from '../shared/exam.model';
 })
 export class TeacherExamCardComponent implements OnInit {
 
-  constructor(private examService: ExamService, private userService: UserService) { }
+  constructor(private examService: ExamService, private userService: UserService, private router: Router) { }
   userDetails = new User();
   exams: Exam[] = [];
   tempID : string = "";
@@ -151,6 +152,10 @@ export class TeacherExamCardComponent implements OnInit {
     this.month = input.substring(5,7);
     console.log('month: '+ this.month);
     return this.months.get(parseInt(this.month));
+  }
+
+  viewMoreRouting() {
+    this.router.navigateByUrl('teacher/examdetails');
   }
 
 

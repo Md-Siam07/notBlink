@@ -25,6 +25,7 @@ import { StudentExamCardComponent } from './student-exam-card/student-exam-card.
 import { StudentExamComponent } from './student-exam/student-exam.component';
 import { WindowMonitoringComponent } from './student-exam/window-monitoring/window-monitoring.component';
 import { ScreenRecordComponent } from './student-exam/screen-record/screen-record.component';
+import { DetailsTeacherExamCardComponent } from './details-teacher-exam-card/details-teacher-exam-card.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ScreenRecordComponent } from './student-exam/screen-record/screen-recor
     StudentExamComponent,
     WindowMonitoringComponent,
     ScreenRecordComponent,
+    DetailsTeacherExamCardComponent,
   ],
   imports: [
     BrowserModule,
