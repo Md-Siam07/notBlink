@@ -19,6 +19,8 @@ export class StudentExamCardComponent implements OnInit {
   selectedExam = new Exam();
   listOfExams: Exam[] = [];
   month: string = "";
+  tempExamDate: string = "";
+  tempRemainingTime: number = 0;
 
   months =  new Map([
     [1, "JAN"],
@@ -38,7 +40,12 @@ export class StudentExamCardComponent implements OnInit {
 
   model ={
     examCode: '',
-    userID: ''
+    userID: '',
+  }
+
+  examStartModel ={
+    examCode: '',
+    showModal: false
   }
   constructor(private examService: StudentExamService, private userService: UserService) { }
   
@@ -69,7 +76,18 @@ export class StudentExamCardComponent implements OnInit {
 
   calculateRemainingTimeAndInitiate(){
     this.listOfExams.forEach( (exam) => {
+      this.tempExamDate = exam.examDate + 'T' + exam.startTime + ":00";
+      this.tempRemainingTime = new Date(this.tempExamDate).getTime() - new Date().getTime(); 
+      //console.log( new Date('2022-04-21T01:30:00').getTime() - new Date().getTime() );
+      //console.log( new Date('2022-04-21T03:12:00').getTime() - new Date().getTime() );
+      if(this.tempRemainingTime>0){
+        setTimeout( () => {
+          exam.hasStarted = true;
+          this.examStartModel.examCode = exam._id;
+          this.examStartModel.showModal = true;
 
+        }, this.tempRemainingTime)
+      }
     } )
   }
 
@@ -98,6 +116,7 @@ export class StudentExamCardComponent implements OnInit {
       console.log('refresh exam list: ' + this.tempID);
       this.examService.exams = res as Exam[];
       this.listOfExams = this.examService.exams;
+      this.calculateRemainingTimeAndInitiate();
       console.log(this.examService.exams);
     });
   }
