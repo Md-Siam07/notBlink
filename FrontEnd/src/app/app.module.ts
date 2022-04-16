@@ -24,6 +24,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { StudentExamCardComponent } from './student-exam-card/student-exam-card.component';
 import { StudentExamComponent } from './student-exam/student-exam.component';
 import { WindowMonitoringComponent } from './student-exam/window-monitoring/window-monitoring.component';
+import { ScreenRecordComponent } from './student-exam/screen-record/screen-record.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { WindowMonitoringComponent } from './student-exam/window-monitoring/wind
     StudentExamCardComponent,
     StudentExamComponent,
     WindowMonitoringComponent,
+    ScreenRecordComponent,
   ],
   imports: [
     BrowserModule,

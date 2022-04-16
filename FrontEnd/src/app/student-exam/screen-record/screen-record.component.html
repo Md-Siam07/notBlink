@@ -1,0 +1,27 @@
+<br><br><br><br><br>
+<h1 align="center">Screen Recording</h1>
+
+<div style="text-align: center;">
+  
+    <button id="start" class="start" (click)="recordStart()" [disabled]="isRecording">
+      Start Recording
+    
+    </button>
+  
+  
+    <button id="stop" class="stop" (click)="recordStop()" [disabled]="!isRecording">
+      Stop Recording
+    
+    </button>
+  
+    <button id="stop" (click)="downloadBlob()" *ngIf="hasVideo">
+      Download Recording
+    
+    </button>
+  
+    <video *ngIf="hasVideo" #recordVideo width="600" controls></video>
+  
+  </div>
+  
+  <script src="screen-recording.js"></script>
+

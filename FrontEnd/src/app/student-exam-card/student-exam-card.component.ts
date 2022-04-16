@@ -158,7 +158,7 @@ export class StudentExamCardComponent implements OnInit {
   }
 
   examStart(){
-    this.router.navigateByUrl('student/exam/');
+    this.router.navigateByUrl('student/exam');
   }
 
 }
