@@ -153,7 +153,8 @@
         </div>
       </div>
 
-
+<!-- Modal -->
+      <!-- create -->
 <div class="modal fade" id="exampleModalCreate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -168,15 +169,15 @@
 
             <div class="mb-3">
                 <label for="message-text" class="col-form-label" ><h6>Exam Name:</h6></label>
-                <input class="form-control" id="message-text" placeholder="Exam Name" #examName="ngModel" ngDefaultControl [(ngModel)]="selectedExam.examName" [ngModelOptions]="{standalone: true}">
+                <input class="form-control" id="message-text" placeholder="Exam Name" #examName="ngModel" ngDefaultControl [(ngModel)]="selectedExam.examName" [ngModelOptions]="{standalone: true}" required>
               </div>
             <div class="mb-3">
               <label for="recipient-time" class="col-form-label" ><h6>Start Time:</h6></label>
-              <input type="time" class="form-control" id="recipient-time" placeholder="09:00AM" #startTime="ngModel" ngDefaultControl [(ngModel)]="selectedExam.startTime" [ngModelOptions]="{standalone: true}">
+              <input type="time" class="form-control" id="recipient-time" placeholder="09:00AM" #startTime="ngModel" ngDefaultControl [(ngModel)]="selectedExam.startTime" [ngModelOptions]="{standalone: true}" required>
             </div>
             <div class="mb-3">
                 <label for="recipient-date" class="col-form-label" ><h6>Exam Date:</h6></label>
-                <input type="date" class="form-control" id="recipient-date" placeholder="11/11/2011" #examDate="ngModel" ngDefaultControl [(ngModel)]="selectedExam.examDate" [ngModelOptions]="{standalone: true}">
+                <input type="date" class="form-control" id="recipient-date" placeholder="11/11/2011" #examDate="ngModel" ngDefaultControl [(ngModel)]="selectedExam.examDate" [ngModelOptions]="{standalone: true}" required>
             </div>
             <div class="mb-3">
               <label for="recipient-duration" class="col-form-label" ><h6>Exam Duration(In minute):</h6></label>

@@ -316,7 +316,7 @@ text-transform: uppercase;
 .main-bg {
   background: rgb(255, 255, 255);
   background: linear-gradient( #ffffff, #a3fbf7);
-  height:100vh;
+  min-height:100vh;
   padding-top: 88px;
 }
 /*
