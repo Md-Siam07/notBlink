@@ -22,6 +22,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { TeacherExamCardComponent } from './teacher-exam-card/teacher-exam-card.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { StudentExamCardComponent } from './student-exam-card/student-exam-card.component';
+import { StudentExamComponent } from './student-exam/student-exam.component';
+import { WindowMonitoringComponent } from './student-exam/window-monitoring/window-monitoring.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { StudentExamCardComponent } from './student-exam-card/student-exam-card.
     TeacherExamCardComponent,
     NavBarComponent,
     StudentExamCardComponent,
+    StudentExamComponent,
+    WindowMonitoringComponent,
   ],
   imports: [
     BrowserModule,

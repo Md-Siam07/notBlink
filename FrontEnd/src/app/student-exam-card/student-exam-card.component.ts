@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Exam } from '../shared/exam.model';
 import { ExamService } from '../shared/exam.service';
 import { StudentExamService } from '../shared/student-exam.service';
@@ -49,7 +50,7 @@ export class StudentExamCardComponent implements OnInit {
     examCode: '',
     showModal: false,
   }
-  constructor(private examService: StudentExamService, private userService: UserService) { }
+  constructor(private examService: StudentExamService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.userService.getUserProfile().subscribe(
@@ -154,6 +155,10 @@ export class StudentExamCardComponent implements OnInit {
     console.log('month: '+ this.month);
     return this.months.get(parseInt(this.month));
    // return this.month;
+  }
+
+  examStart(){
+    this.router.navigateByUrl('student/exam/');
   }
 
 }

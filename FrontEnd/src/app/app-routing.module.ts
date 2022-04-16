@@ -5,6 +5,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { StudentExamComponent } from './student-exam/student-exam.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
@@ -30,6 +31,10 @@ const routes: Routes = [
     path: 'userprofile',
     component: UserProfileComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'student/exam',
+    component: StudentExamComponent
   }
 ];
 
