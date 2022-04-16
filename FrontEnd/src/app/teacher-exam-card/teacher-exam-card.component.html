@@ -1,13 +1,13 @@
 
-  
-  
+
+
   <div class=" main-bg">
     <div class="container">
       <div>
         <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#exampleModalCreate" *ngIf="userDetails.isTeacher"><i class="fa fa-plus"></i> <b> Create New Exam</b></button>
     </div>
     <br><br>
-  
+
       <div class="row">
           <div class="col-lg-4"  *ngFor="let exam of exams">
               <div class="card card-margin">
@@ -31,7 +31,7 @@
                               </div>
                           </div>
                           <br>
-    
+
                           <div class="btn-button">
                             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onClick(exam)">Invite </button>
                             <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" (click)="onClick(exam)">Edit Exam </button>
@@ -47,7 +47,7 @@
       </div>
       </div>
     </div>
-    
+
     <!--Modal Class-->
     <!--Invitation-->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -58,6 +58,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <b>[Exam Name : {{selectedExam.examName}}]</b>
+            <br>
+            <b>[Exam Code : {{selectedExam._id}}]</b>
+            <br><br>
             <form>
               <div class="mb-3">
                 <label for="recipient-email" class="col-form-label"><h6>Student Email:</h6></label>
@@ -76,8 +80,8 @@
         </div>
       </div>
     </div>
-    
-    
+
+
     <!--Modal Class-->
     <!--Edit-->
     <div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -88,6 +92,8 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+              <b>[Exam Code : {{selectedExam._id}}]</b>
+              <br><br>
               <form>
                 <div class="mb-3">
                   <label for="recipient-name" class="col-form-label"><h6>Exam name:</h6></label>
@@ -119,8 +125,8 @@
           </div>
         </div>
       </div>
-    
-    
+
+
       <!-- Modal -->
       <!-- Delete -->
       <div class="modal fade" id="exampleModalDel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -131,7 +137,11 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              Are you confirm to delete exam({{selectedExam.examName}})?
+              Are you confirm to delete exam?
+              <br>
+              <b>[Exam Name : {{selectedExam.examName}}]</b>
+              <br>
+              <b>[Exam Code : {{selectedExam._id}}]</b>
             </div>
             <form>
                 <div class="modal-footer">
@@ -155,7 +165,7 @@
           <form>
 
             <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="this.selectedExam._id">
-                
+
             <div class="mb-3">
                 <label for="message-text" class="col-form-label" ><h6>Exam Name:</h6></label>
                 <input class="form-control" id="message-text" placeholder="Exam Name" #examName="ngModel" ngDefaultControl [(ngModel)]="selectedExam.examName" [ngModelOptions]="{standalone: true}">

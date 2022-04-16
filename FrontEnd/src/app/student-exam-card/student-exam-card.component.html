@@ -38,7 +38,7 @@
                     <div class="btn-button">
                     <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalStart" [disabled]="!exam.hasStarted" *ngIf="!exam.hasStarted">Start Exam </button>
                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModalStart" *ngIf="exam.hasStarted"><b>Start Exam</b> </button>
-                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModalLeave" (click)="onLeaveClick(exam._id)">Leave Exam </button>
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModalLeave" (click)="onLeaveClick(exam)">Leave Exam </button>
                     </div>
                     <div class="widget-49-meeting-action">
                         <a href="#" class="btn btn-sm btn-flash-border-primary">View More</a>
@@ -50,7 +50,7 @@
         </div>
     </div>
   </div>
-  
+
     <!--Modal Class-->
   <!--start-->
   <div class="modal fade" id="exampleModalStart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -61,7 +61,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Are you confirm to start exam(Exam Name : {{selectedExam.examName}})?
+          Are you confirm to start exam?
+          <br>
+          <b>[Exam Name : {{model.examName}}]</b>
+          <br>
+          <b>[Exam Code : {{model.examCode}}]</b>
         </div>
         <form>
             <div class="modal-footer">
@@ -83,7 +87,11 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            Are you confirm to leave exam(Exam ID : XXXX)?
+            Are you confirm to leave exam?
+            <br>
+            <b>[Exam Name : {{model.examName}}]</b>
+            <br>
+            <b>[Exam Code : {{model.examCode}}]</b>
           </div>
           <form>
               <div class="modal-footer">

@@ -50,7 +50,7 @@ export class TeacherExamCardComponent implements OnInit {
       },
       (err:any) => {}
     );
-    
+
     setTimeout(()=>{
       this.examService.getExamList(this.tempID).subscribe( (res:any) =>{
         console.log('get: ' + this.tempID);
@@ -65,10 +65,8 @@ export class TeacherExamCardComponent implements OnInit {
     this.selectedExam = JSON.parse(JSON.stringify(exam));
   }
 
-  
-
   update(){
-    this.examService.update(this.selectedExam).subscribe( 
+    this.examService.update(this.selectedExam).subscribe(
       (res:any) =>{
         console.log('successful');
         this.refreshExamList();
@@ -97,7 +95,7 @@ export class TeacherExamCardComponent implements OnInit {
     (err)=>{
       console.log('error in deleting: ' + JSON.stringify(err, undefined, 2));
     } )
-    
+
   }
 
 
@@ -114,10 +112,10 @@ export class TeacherExamCardComponent implements OnInit {
         this.resetForm();
         this.refreshExamList();
         //this.router.navigateByUrl('dashboard');
-        
+
       },
       (err:any) => {
-      
+
       }
     )
   }
@@ -154,6 +152,6 @@ export class TeacherExamCardComponent implements OnInit {
     console.log('month: '+ this.month);
     return this.months.get(parseInt(this.month));
   }
-  
+
 
 }

@@ -21,6 +21,7 @@ export class StudentExamCardComponent implements OnInit {
   month: string = "";
   tempExamDate: string = "";
   tempRemainingTime: number = 0;
+  currentExamCode: string = '';
 
   months =  new Map([
     [1, "JAN"],
@@ -41,14 +42,15 @@ export class StudentExamCardComponent implements OnInit {
   model ={
     examCode: '',
     userID: '',
+    examName: ''
   }
 
   examStartModel ={
     examCode: '',
-    showModal: false
+    showModal: false,
   }
   constructor(private examService: StudentExamService, private userService: UserService) { }
-  
+
   ngOnInit(): void {
     this.userService.getUserProfile().subscribe(
       (res:any) => {
@@ -62,7 +64,7 @@ export class StudentExamCardComponent implements OnInit {
     );
 
     //this.refreshExamList();
-    
+
     setTimeout(()=>{
       this.examService.retrieveExam(this.tempID).subscribe( (res:any) =>{
         console.log('get: ' + this.tempID);
@@ -77,7 +79,7 @@ export class StudentExamCardComponent implements OnInit {
   calculateRemainingTimeAndInitiate(){
     this.listOfExams.forEach( (exam) => {
       this.tempExamDate = exam.examDate + 'T' + exam.startTime + ":00";
-      this.tempRemainingTime = new Date(this.tempExamDate).getTime() - new Date().getTime(); 
+      this.tempRemainingTime = new Date(this.tempExamDate).getTime() - new Date().getTime();
       //console.log( new Date('2022-04-21T01:30:00').getTime() - new Date().getTime() );
       //console.log( new Date('2022-04-21T03:12:00').getTime() - new Date().getTime() );
       if(this.tempRemainingTime>0){
@@ -91,14 +93,16 @@ export class StudentExamCardComponent implements OnInit {
     } )
   }
 
-  onLeaveClick(examID: string){
-    console.log(examID);
-    this.model.examCode = examID;
+  onLeaveClick(givenExam: Exam){
+    console.log(givenExam._id);
+    this.currentExamCode = givenExam._id;
+    this.model.examCode = givenExam._id;
+    this.model.examName = givenExam.examName;
   }
 
   join(){
     console.log(this.model);
-    this.examService.joinExam(this.model, this.model.examCode).subscribe( 
+    this.examService.joinExam(this.model, this.model.examCode).subscribe(
       (res:any) =>{
         console.log('successful');
         this.refreshExamList();
@@ -107,7 +111,7 @@ export class StudentExamCardComponent implements OnInit {
         console.log('Error in updating exam: '+ JSON.stringify(err, undefined, 2));
       }
     );
-    
+
   }
 
   refreshExamList(){
@@ -123,7 +127,7 @@ export class StudentExamCardComponent implements OnInit {
 
   leaveExam(){
     console.log(this.model);
-    this.examService.leaveExam(this.model, this.model.examCode).subscribe( 
+    this.examService.leaveExam(this.model, this.model.examCode).subscribe(
       (res:any) =>{
         console.log('successful');
       },
