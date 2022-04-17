@@ -20,27 +20,27 @@ export class ExamService {
 
   getExamList(userID: string){
     
-    console.log("my user id: "+ userID);
+    //console.log("my user id: "+ userID);
     this.tempLink = environment.apiBaseUrl+'/exams/' + userID;
     console.log(this.tempLink);
     return this.http.get( this.tempLink );
   }
 
   update(exam: Exam){
-    console.log(exam);
-    console.log(environment.apiBaseUrl + '/exam' + `/${exam._id}`);
+    //console.log(exam);
+    //console.log(environment.apiBaseUrl + '/exam' + `/${exam._id}`);
     return this.http.put(environment.apiBaseUrl + '/exam' + `/${exam._id}`, exam);
   } 
   
   deleteExam(exam:Exam){ 
-    console.log(exam._id);
-    console.log(environment.apiBaseUrl+ '/exams'+ `/${exam._id}`);
+    //console.log(exam._id);
+    //console.log(environment.apiBaseUrl+ '/exams'+ `/${exam._id}`);
     return this.http.delete(environment.apiBaseUrl+ '/exams'+ `/${exam._id}`);
 
   }
 
   invite(inviteCredentials:any){
-    console.log(inviteCredentials);
+    //console.log(inviteCredentials);
     return this.http.post(environment.apiBaseUrl + '/invite', inviteCredentials);
   }
 

@@ -8,4 +8,5 @@ export class Exam {
     message: string = "";
     teacherName: string = "";
     hasStarted: boolean = false;
+    participants: Array<string> = [];
 }

@@ -154,7 +154,8 @@ export class TeacherExamCardComponent implements OnInit {
     return this.months.get(parseInt(this.month));
   }
 
-  viewMoreRouting() {
+  viewMoreRouting(exam: Exam) {
+    this.examService.selectedExam = exam;
     this.router.navigateByUrl('teacher/examdetails');
   }
 

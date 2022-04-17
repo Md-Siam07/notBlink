@@ -6,10 +6,10 @@
         <hr class="cl-head">
         <br><br>
 
-        <h4>Kazi Muheymin-Us-Sakib</h4>
-        <i class="fa fa-calendar"></i> 17 APR <br>
-        <i class="fa fa-clock"></i> 10:30 <br>
-        <i class="fa fa-stopwatch"></i> 120 minutes <br>
+        <h4>{{examDetails.teacherName}}</h4>
+        <i class="fa fa-calendar"></i> {{getExamDate(examDetails.examDate)}} {{getExamMonth(examDetails.examDate)}} <br>
+        <i class="fa fa-clock"></i> {{examDetails.startTime}} <br>
+        <i class="fa fa-stopwatch"></i> {{examDetails.duration}} minutes <br>
         <br><br>
         <div class="btn-button">
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Invite </button>&nbsp;&nbsp;
