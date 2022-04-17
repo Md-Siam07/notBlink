@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Exam } from '../shared/exam.model';
 import { ExamService } from '../shared/exam.service';
+import { User } from '../shared/user.model';
 
 @Component({
   selector: 'app-details-teacher-exam-card',
@@ -28,8 +29,35 @@ export class DetailsTeacherExamCardComponent implements OnInit {
 
   constructor(private examService: ExamService) { }
   examDetails = new Exam();
+  participants: User[] = [];
+  tempUser = new User();
+  participantSet = new Set<string>();
+
   ngOnInit(): void {
     this.examDetails = this.examService.selectedExam;
+    this.examDetails.participants.forEach(participantID => {
+      this.participantSet.add(participantID);
+    });
+    this.participantSet.forEach(participantID => {
+      this.examService.getParticipant(participantID).subscribe(
+        (res:any) => {
+          console.log('res: ', res);
+          this.tempUser.fullName= res.fullName;
+          this.tempUser.email = res.email;
+          this.tempUser._id = res._id;
+          this.tempUser.batch = res.batch;
+          this.tempUser.designation = res.designation;
+          this.tempUser.institute = res.institute;
+          this.tempUser.isTeacher = res.isTeacher;
+          this.tempUser.phone_number = res.phone_number;
+          this.tempUser.roll = res.roll;
+          console.log(this.tempUser);
+          this.participants.push(JSON.parse(JSON.stringify(this.tempUser)));
+        },
+        (err:any) => {}
+      );
+    });
+    console.log(this.participants);
   }
 
   getExamDate(input: string): string{
@@ -43,7 +71,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   }
 
   getPartipantList(exam: Exam){
-    
+
   }
 
 }

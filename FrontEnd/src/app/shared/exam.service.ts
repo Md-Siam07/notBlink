@@ -44,5 +44,9 @@ export class ExamService {
     return this.http.post(environment.apiBaseUrl + '/invite', inviteCredentials);
   }
 
+  getParticipant(participantID: string){
+    return this.http.get(environment.apiBaseUrl + '/participantinfo/' + participantID);
+  }
+
 
 }

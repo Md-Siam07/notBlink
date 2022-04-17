@@ -53,3 +53,11 @@ module.exports.userProfile = (req, res, next) => {
 
 }
 
+module.exports.participantInfo = (req, res) => {
+    User.findById(req.params.id, (err, doc) => {
+        if(!err) res.send(doc);
+        else {
+            console.log(`Error in retriving user profile`);
+        }
+    } )
+}
