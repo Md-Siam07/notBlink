@@ -11,6 +11,8 @@ import { User } from '../shared/user.model';
 export class DetailsTeacherExamCardComponent implements OnInit {
 
   month: string = "";
+  selectedExam = new Exam();
+  recipientEmail: string = "";
 
   months =  new Map([
     [1, "JAN"],
@@ -26,6 +28,11 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     [11, "NOV"],
     [12, "DEC"]
   ]);
+
+  model = {
+    examCode: this.selectedExam._id,
+    recipiennt: ''
+  }
 
   constructor(private examService: ExamService) { }
   examDetails = new Exam();
@@ -72,6 +79,57 @@ export class DetailsTeacherExamCardComponent implements OnInit {
 
   getPartipantList(exam: Exam){
 
+  }
+
+  onClick(exam: Exam){
+    this.selectedExam = JSON.parse(JSON.stringify(exam));
+  }
+
+  update(){
+    this.examService.update(this.selectedExam).subscribe(
+      (res:any) =>{
+        console.log('successful');
+        //kichu ekta
+      },
+      err => {
+        console.log('Error in updating exam: '+ JSON.stringify(err, undefined, 2));
+      }
+    )
+  }
+
+
+  delete(){
+    this.examService.deleteExam(this.selectedExam).subscribe( (res:any) =>{
+      console.log('deleted');
+      //navigate
+    },
+    (err)=>{
+      console.log('error in deleting: ' + JSON.stringify(err, undefined, 2));
+    } )
+
+  }
+
+  resetForm(){
+    this.selectedExam.duration = 0;
+    this.selectedExam.examName = "";
+    this.selectedExam.examDate = "";
+    this.selectedExam.startTime = "";
+  }
+
+  invite(){
+    this.model.examCode = this.selectedExam._id;
+    this.model.recipiennt = this.recipientEmail;
+    console.log(this.model.recipiennt);
+    this.examService.invite(this.model).subscribe(
+      (res:any) =>{
+        console.log('sent');
+        //this.model.examCode='';
+        this.model.recipiennt = '';
+      },
+      (err) => {
+        console.log('error in inviting: '+ err);
+      }
+    )
   }
 
 }
