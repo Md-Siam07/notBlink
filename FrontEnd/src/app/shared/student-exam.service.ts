@@ -9,6 +9,8 @@ import { environment } from 'src/environments/environment';
 export class StudentExamService {
 
   exams: Exam[] = [];
+  selectedExam : Exam = new Exam();
+
   constructor(private http: HttpClient) { }
 
   joinExam(joinCredential: any, examCode: string){

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './auth/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DetailsStudentExamCardComponent } from './details-student-exam-card/details-student-exam-card.component';
 import { DetailsTeacherExamCardComponent } from './details-teacher-exam-card/details-teacher-exam-card.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'teacher/examdetails',
     component: DetailsTeacherExamCardComponent
+  },
+  {
+    path: 'student/examdetails',
+    component: DetailsStudentExamCardComponent
   }
 ];
 
