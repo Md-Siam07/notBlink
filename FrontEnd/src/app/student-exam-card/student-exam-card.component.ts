@@ -162,7 +162,9 @@ export class StudentExamCardComponent implements OnInit {
   }
 
   viewMoreRouting(exam: Exam) {
+    console.log(exam);
     this.examService.selectedExam = exam;
+    console.log(this.examService.selectedExam);
     this.router.navigateByUrl('student/examdetails');
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Exam } from '../shared/exam.model';
-import { ExamService } from '../shared/exam.service';
+import { StudentExamService } from '../shared/student-exam.service';
 
 @Component({
   selector: 'app-details-student-exam-card',
@@ -26,10 +26,11 @@ export class DetailsStudentExamCardComponent implements OnInit {
     [12, "DEC"]
   ]);
 
-  constructor(private examService: ExamService) { }
+  constructor(private studentExamService: StudentExamService) { }
   examDetails = new Exam();
   ngOnInit(): void {
-    this.examDetails = this.examService.selectedExam;
+    this.examDetails = this.studentExamService.selectedExam;
+    console.log(this.examDetails);
   }
 
   getExamDate(input: string): string{
