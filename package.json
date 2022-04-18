@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "materialize-css": "^1.0.0"
+    "materialize-css": "^1.0.0",
+    "webgazer": "^3.0.0"
   }
 }
