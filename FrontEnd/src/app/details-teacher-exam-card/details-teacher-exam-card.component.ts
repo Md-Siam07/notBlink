@@ -13,6 +13,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   month: string = "";
   selectedExam = new Exam();
   recipientEmail: string = "";
+  kickParticipant = new User();
 
   months =  new Map([
     [1, "JAN"],
@@ -34,6 +35,12 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     recipiennt: ''
   }
 
+  kickModel = {
+    examCode: '',
+    userID: '',
+    examName: ''
+  }
+
   constructor(private examService: ExamService) { }
   examDetails = new Exam();
   participants: User[] = [];
@@ -41,6 +48,26 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   participantSet = new Set<string>();
 
   ngOnInit(): void {
+    this.refreshParticipantList();
+  }
+
+  getExamDate(input: string): string{
+    return input.substring(8,10);
+  }
+
+  getExamMonth(input: string): any{
+    this.month = input.substring(5,7);
+    console.log('month: '+ this.month);
+    return this.months.get(parseInt(this.month));
+  }
+
+  getPartipantList(exam: Exam){
+
+  }
+
+  refreshParticipantList(){
+    this.participantSet = new Set<string>();
+    this.participants = [];
     this.examDetails = this.examService.selectedExam;
     this.examDetails.participants.forEach(participantID => {
       this.participantSet.add(participantID);
@@ -65,20 +92,6 @@ export class DetailsTeacherExamCardComponent implements OnInit {
       );
     });
     console.log(this.participants);
-  }
-
-  getExamDate(input: string): string{
-    return input.substring(8,10);
-  }
-
-  getExamMonth(input: string): any{
-    this.month = input.substring(5,7);
-    console.log('month: '+ this.month);
-    return this.months.get(parseInt(this.month));
-  }
-
-  getPartipantList(exam: Exam){
-
   }
 
   onClick(exam: Exam){
@@ -130,6 +143,26 @@ export class DetailsTeacherExamCardComponent implements OnInit {
         console.log('error in inviting: '+ err);
       }
     )
+  }
+
+  onKick(participant: User){
+    this.kickParticipant = participant;
+  }
+
+  kick(){
+    console.log(this.examDetails, this.kickParticipant)
+    this.kickModel.examCode = this.examDetails._id;
+    this.kickModel.userID = this.kickParticipant._id;
+    this.examService.kickFromExam(this.kickModel, this.kickModel.examCode).subscribe(
+      (res:any) =>{
+        console.log('successful');
+        this.refreshParticipantList();
+      },
+      (err:any) => {
+        console.log('Error in updating exam: '+ JSON.stringify(err, undefined, 2));
+      }
+    );
+    
   }
 
 }

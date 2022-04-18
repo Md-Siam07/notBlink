@@ -25,7 +25,7 @@
           &nbsp;&nbsp;&nbsp;
           <span class="fa fa-user-circle"></span>
           &nbsp;{{participant.fullName}}
-          <button type="button" class="btn-close" aria-label="Close"></button>
+          <button type="button" class="btn-close" aria-label="Close" data-bs-toggle="modal" data-bs-target="#kickModal" (click)="onKick(participant)"></button>
           <hr>
         </div>
       </div>
@@ -217,3 +217,29 @@
     </div>
   </div>
 
+
+  <!-- modal
+  kick -->
+  <div class="modal fade" id="kickModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Kick Confirmation</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure to kick examinee?
+          <br>
+          <b>[Examinee Name : {{selectedExam.examName}}]</b>
+          <br>
+          <b>[Examinee Name : {{selectedExam._id}}]</b>
+        </div>
+        <form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                <button type="submit" class="btn btn-success" data-bs-dismiss="modal" (click)="kick()">Yes</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>

@@ -26,6 +26,10 @@ export class ExamService {
     return this.http.get( this.tempLink );
   }
 
+  getSingleExamDetails(examID: string){
+    return this.http.get(environment.apiBaseUrl + '/exam/' + examID);
+  }
+
   update(exam: Exam){
     //console.log(exam);
     //console.log(environment.apiBaseUrl + '/exam' + `/${exam._id}`);
@@ -46,6 +50,10 @@ export class ExamService {
 
   getParticipant(participantID: string){
     return this.http.get(environment.apiBaseUrl + '/participantinfo/' + participantID);
+  }
+
+  kickFromExam(leaveCredential: any, examCode: string){
+    return this.http.put(environment.apiBaseUrl + '/student/exams/' + examCode, leaveCredential);
   }
 
 
