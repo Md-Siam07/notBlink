@@ -1,6 +1,7 @@
 html {
   height: 100%;
 }
+
 body {
   height: 100%;
   margin: 0;
@@ -187,12 +188,14 @@ body {
   margin: 0 auto;
   padding-top: 100px;
 }
+
 .login.login-container {
   width: 300px;
 }
 .wrapper.login-container {
   margin-top: 140px;
 }
+
 .logo-badge {
   color: #e6e6e6;
   font-size: 80px;
