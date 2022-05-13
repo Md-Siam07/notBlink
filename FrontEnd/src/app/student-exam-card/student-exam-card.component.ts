@@ -23,6 +23,7 @@ export class StudentExamCardComponent implements OnInit {
   tempExamDate: string = "";
   tempRemainingTime: number = 0;
   currentExamCode: string = '';
+  currentExam = new Exam();
 
   months =  new Map([
     [1, "JAN"],
@@ -99,6 +100,7 @@ export class StudentExamCardComponent implements OnInit {
     this.currentExamCode = givenExam._id;
     this.model.examCode = givenExam._id;
     this.model.examName = givenExam.examName;
+    this.currentExam = givenExam;
   }
 
   examGoingOn(givenExam: Exam){
@@ -157,7 +159,8 @@ export class StudentExamCardComponent implements OnInit {
    // return this.month;
   }
 
-  examStart(){
+  examStart(currentExam: Exam){
+    this.examService.selectedExam = currentExam;
     this.router.navigateByUrl('student/exam');
   }
 

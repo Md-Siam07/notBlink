@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Exam } from '../shared/exam.model';
+import { StudentExamService } from '../shared/student-exam.service';
 
 @Component({
   selector: 'app-student-exam',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentExamComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private examService: StudentExamService) { }
+  examDetails = new Exam();
   ngOnInit(): void {
+    this.examDetails = this.examService.selectedExam;
   }
 
 }

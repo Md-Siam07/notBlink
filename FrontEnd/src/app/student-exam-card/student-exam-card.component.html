@@ -63,14 +63,14 @@
         <div class="modal-body">
           Are you confirm to start exam?
           <br>
-          <b>[Exam Name : {{model.examName}}]</b>
+          <b>[Exam Name : {{currentExam.examName}}]</b>
           <br>
           <b>[Exam Code : {{model.examCode}}]</b>
         </div>
         <form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
-                <button type="submit" class="btn btn-success" data-bs-dismiss="modal" (click)="examStart()">Yes</button>
+                <button type="submit" class="btn btn-success" data-bs-dismiss="modal" (click)="examStart(currentExam)">Yes</button>
             </div>
         </form>
       </div>
