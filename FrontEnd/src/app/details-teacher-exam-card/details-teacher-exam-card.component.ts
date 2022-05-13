@@ -49,6 +49,8 @@ export class DetailsTeacherExamCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshParticipantList();
+    console.log(this.examDetails);
+    console.log('here: ', this.examDetails.question);
   }
 
   getExamDate(input: string): string{

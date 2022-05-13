@@ -9,4 +9,5 @@ export class Exam {
     teacherName: string = "";
     hasStarted: boolean = false;
     participants: Array<string> = [];
+    question!: string;
 }

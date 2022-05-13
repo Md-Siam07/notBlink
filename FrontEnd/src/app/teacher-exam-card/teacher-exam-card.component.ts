@@ -4,6 +4,7 @@ import { User } from '../shared/user.model';
 import { UserService } from '../shared/user.service';
 import { Exam } from '../shared/exam.model';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-teacher-exam-card',
@@ -18,9 +19,9 @@ export class TeacherExamCardComponent implements OnInit {
   tempID : string = "";
   recipientEmail : string = "";
   selectedExam = new Exam();
-
+  form!: FormGroup;
   month: string = "";
-
+  file!: File;
   months =  new Map([
     [1, "JAN"],
     [2, "FEB"],
@@ -99,13 +100,16 @@ export class TeacherExamCardComponent implements OnInit {
 
   }
 
+  uploadFile(event:any) {
+    this.file = event.target.files[0]; 
+  }
 
   createExam(){
     this.selectedExam.teacherID = this.userDetails._id;
     this.selectedExam.teacherName = this.userDetails.fullName;
     console.log(this.selectedExam)
     //console.log(this.userDetails);
-    this.examService.postExam(this.selectedExam).subscribe(
+    this.examService.postExam(this.selectedExam, this.file).subscribe(
       (res:any) => {
         //console.log(this.selectedExam);
         console.log('successfull');

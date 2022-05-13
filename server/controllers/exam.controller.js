@@ -1,8 +1,15 @@
 const { response } = require('express');
 const mongoose = require('mongoose');
 const Exam = mongoose.model('Exam');
+const multer = require('multer');
+
+
+
 
 module.exports.create = (req, res, next) => {
+    const url = req.protocol + '://' + req.get('host')
+    console.log('called');
+    console.log('body: ' , req.body);
     var exam = new Exam();
     exam.examName = req.body.examName;
     exam.startTime = req.body.startTime;
@@ -11,7 +18,9 @@ module.exports.create = (req, res, next) => {
     exam.teacherID = req.body.teacherID;
     exam.teacherName = req.body.teacherName;
     exam.participants = [];
-
+    exam.question = url + '/public/' + req.file.filename;
+    //exam.question = req.file.filename;
+    console.log(exam);
     exam.save( (err, doc) =>{
         if(!err)
             res.send(doc);

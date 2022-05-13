@@ -16,6 +16,7 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(cors());
+app.use('/public', express.static('public'))
 app.use(passport.initialize());
 app.use('/api', routeIndex);
 

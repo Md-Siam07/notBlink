@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from 'src/environments/environment';
@@ -12,10 +12,18 @@ export class ExamService {
   selectedExam : Exam = new Exam();
   exams : Exam[] = [];
   tempLink : string = "";
+  headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private http: HttpClient) {}
   
-  postExam(exam: Exam){
-    return this.http.post( environment.apiBaseUrl+'/createExam', exam );
+  postExam(exam: Exam, examQuestion: File){
+    var formData: any = new FormData();
+    formData.append('examName', exam.examName);
+    formData.append('startTime', exam.startTime);
+    formData.append('examDate', exam.examDate);
+    formData.append('teacherID', exam.teacherID);
+    formData.append('teacherName', exam.teacherName);
+    formData.append('question', examQuestion);
+    return this.http.post( environment.apiBaseUrl+'/createExam', formData );
   }
 
   getExamList(userID: string){

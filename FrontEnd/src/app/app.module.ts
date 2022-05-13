@@ -28,6 +28,7 @@ import { ScreenRecordComponent } from './student-exam/screen-record/screen-recor
 import { DetailsTeacherExamCardComponent } from './details-teacher-exam-card/details-teacher-exam-card.component';
 import { DetailsStudentExamCardComponent } from './details-student-exam-card/details-student-exam-card.component';
 import { EyeTrackComponent } from './student-exam/eye-track/eye-track.component';
+import { SafePipe } from './safe.pipe';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { EyeTrackComponent } from './student-exam/eye-track/eye-track.component'
     DetailsTeacherExamCardComponent,
     DetailsStudentExamCardComponent,
     EyeTrackComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
