@@ -19,6 +19,9 @@ export class SignUpComponent implements OnInit {
   serverErrorMessages: string = "";
 
   ngOnInit(): void {
+    if(localStorage.getItem('loginStatus') == 'true'){
+      this.router.navigateByUrl('dashboard');
+    }
   }
   userType() : boolean {
     return this.isTeacher;

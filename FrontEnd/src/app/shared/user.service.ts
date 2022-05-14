@@ -17,6 +17,9 @@ export class UserService {
 
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
 
+  changeStatus(){
+    localStorage.setItem('loginStatus', 'true');
+  }
   postUser(user: User){
     return this.http.post( environment.apiBaseUrl+'/register' , user, this.noAuthHeader)
   }

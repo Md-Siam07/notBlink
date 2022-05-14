@@ -22,7 +22,7 @@ export class NavBarComponent implements OnInit {
   }
 
   getStatus():boolean{
-    return this.userService.loginStatus;
+    return localStorage.getItem('loginStatus') == 'true';
   }
 
   // loginClicked(){
@@ -41,6 +41,7 @@ export class NavBarComponent implements OnInit {
   onLogout() {
     this.userService.deleteToken();
     this.userService.loginStatus = false;
+    localStorage.setItem('loginStatus', 'false');
     this.router.navigateByUrl('/login');
   }
 

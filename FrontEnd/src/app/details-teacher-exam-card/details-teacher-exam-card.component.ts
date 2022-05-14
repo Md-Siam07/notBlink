@@ -44,13 +44,14 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   constructor(private examService: ExamService) { }
   examDetails = new Exam();
   participants: User[] = [];
-  tempUser = new User();
+  tempUser !:User;
   participantSet = new Set<string>();
 
   ngOnInit(): void {
     this.refreshParticipantList();
+    this.examDetails = this.examService.selectedExam;
     console.log(this.examDetails);
-    console.log('here: ', this.examDetails.question);
+    //console.log('here: ', this.examDetails.question);
   }
 
   getExamDate(input: string): string{
@@ -59,7 +60,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
 
   getExamMonth(input: string): any{
     this.month = input.substring(5,7);
-    console.log('month: '+ this.month);
+    //console.log('month: '+ this.month);
     return this.months.get(parseInt(this.month));
   }
 
@@ -77,17 +78,18 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     this.participantSet.forEach(participantID => {
       this.examService.getParticipant(participantID).subscribe(
         (res:any) => {
-          console.log('res: ', res);
-          this.tempUser.fullName= res.fullName;
-          this.tempUser.email = res.email;
-          this.tempUser._id = res._id;
-          this.tempUser.batch = res.batch;
-          this.tempUser.designation = res.designation;
-          this.tempUser.institute = res.institute;
-          this.tempUser.isTeacher = res.isTeacher;
-          this.tempUser.phone_number = res.phone_number;
-          this.tempUser.roll = res.roll;
-          console.log(this.tempUser);
+          //console.log('res: ', res);
+          this.tempUser = res as User;
+          // this.tempUser.fullName= res.fullName;
+          // this.tempUser.email = res.email;
+          // this.tempUser._id = res._id;
+          // this.tempUser.batch = res.batch;
+          // this.tempUser.designation = res.designation;
+          // this.tempUser.institute = res.institute;
+          // this.tempUser.isTeacher = res.isTeacher;
+          // this.tempUser.phone_number = res.phone_number;
+          // this.tempUser.roll = res.roll;
+          // console.log(this.tempUser);
           this.participants.push(JSON.parse(JSON.stringify(this.tempUser)));
         },
         (err:any) => {}
@@ -164,6 +166,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
         console.log('Error in updating exam: '+ JSON.stringify(err, undefined, 2));
       }
     );
+    this.refreshParticipantList();
     
   }
 

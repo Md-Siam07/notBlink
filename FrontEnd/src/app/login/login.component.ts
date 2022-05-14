@@ -19,8 +19,12 @@ export class LoginComponent implements OnInit {
 
   }
   serverErrorMessages: string = '';
-
+  loginStatus: boolean = false;
   ngOnInit(): void {
+    this.loginStatus = localStorage.getItem('loginStatus') == 'true';
+    if(this.loginStatus){
+      this.router.navigateByUrl('dashboard');
+    }
   }
 
   noAccount(){
@@ -33,7 +37,7 @@ export class LoginComponent implements OnInit {
         if(res['token']){
           console.log(res['token'])
           localStorage.setItem('token', res['token']);
-          this.userServce.loginStatus = true;
+          this.userServce.changeStatus();
           this.router.navigateByUrl('dashboard');
         }
         console.log(res);
