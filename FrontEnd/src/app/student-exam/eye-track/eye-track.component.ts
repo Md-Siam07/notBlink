@@ -14,7 +14,7 @@ export class EyeTrackComponent implements OnInit {
 
   ngOnInit(): void {
     startTrack();
-    hello();
+    //hello();
   }
 
 }

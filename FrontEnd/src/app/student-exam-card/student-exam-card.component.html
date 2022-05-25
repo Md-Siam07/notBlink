@@ -37,7 +37,7 @@
                     <br>
                     <div class="btn-button">
                     <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalStart" [disabled]="!exam.hasStarted" *ngIf="!examGoingOn(exam)" (click)="onLeaveClick(exam)">Start Exam </button>
-                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModalStart" *ngIf="examGoingOn(exam)" (click)="onLeaveClick(exam)"><b>Start Exam</b> </button>
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModalStart" *ngIf="examGoingOn(exam)" (click)="onLeaveClick(exam)"><b>Start Exam</b> </button>  &nbsp;
                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModalLeave" (click)="onLeaveClick(exam)">Leave Exam </button>
                     </div>
                     <div class="widget-49-meeting-action">
