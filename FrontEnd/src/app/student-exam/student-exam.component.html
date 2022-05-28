@@ -1,7 +1,17 @@
 <br><br><br><br><br>
-<br><br><br><br><br>
-<br><br><br><br><br>
-<object [data]="examDetails.question | safe" type="application/pdf" width="1000" height="800"> </object>
-<app-window-monitoring></app-window-monitoring>
-<app-screen-record></app-screen-record>
+<div class="row">
+  <div class="col-1"> </div>
+  <div class="col-4">
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <br><br><br><br><br>
+    <app-screen-record></app-screen-record>
+  </div>
+  <div class="col-6">
+    <object [data]="examDetails.question | safe" type="application/pdf" width="1000" height="800"> </object>
+  </div>
+  <div class="col-1"> </div>
+</div>
+
 <app-eye-track></app-eye-track>
+<app-window-monitoring></app-window-monitoring>
