@@ -10,4 +10,5 @@ export class Exam {
     hasStarted: boolean = false;
     participants: Array<string> = [];
     question!: string;
+    outSightTime!: number;
 }

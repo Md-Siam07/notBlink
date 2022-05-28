@@ -11,6 +11,9 @@ var ExamSchema = new mongoose.Schema({
     duration:{
         type:Number
     },
+    outSightTime:{
+        type:Number
+    },
     examDate:{
         type:String
     },

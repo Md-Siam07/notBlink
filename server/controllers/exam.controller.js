@@ -18,6 +18,7 @@ module.exports.create = (req, res, next) => {
     exam.examDate = req.body.examDate;
     exam.teacherID = req.body.teacherID;
     exam.teacherName = req.body.teacherName;
+    exam.outSightTime = req.body.outSightTime;
     exam.participants = [];
     if(!req.file)
         exam.question = '';
@@ -84,7 +85,8 @@ module.exports.updateInfo = (req, res, next) => {
         examDate: req.body.examDate,
         teacherID: req.body.teacherID,
         teacherName: req.body.teacherName,
-        question : tempQuestion
+        question : tempQuestion,
+        outSightTime: req.body.outSightTime
     };
     //exam.question = url + '/public/' + req.file.filename;
 

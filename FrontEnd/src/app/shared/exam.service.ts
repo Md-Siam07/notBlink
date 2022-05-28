@@ -21,6 +21,7 @@ export class ExamService {
     formData.append('startTime', exam.startTime);
     formData.append('examDate', exam.examDate);
     formData.append('teacherID', exam.teacherID);
+    formData.append('outSightTime', exam.outSightTime);
     formData.append('teacherName', exam.teacherName);
     formData.append('question', examQuestion);
     return this.http.post( environment.apiBaseUrl+'/createExam', formData );

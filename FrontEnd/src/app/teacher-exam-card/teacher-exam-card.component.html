@@ -112,6 +112,11 @@
                   <label for="recipient-duration" class="col-form-label"><h6>Exam Duration(In minute):</h6></label>
                   <input type="text" class="form-control" id="recipient-duration" ngDefaultControl [(ngModel)]="selectedExam.duration" [ngModelOptions]="{standalone: true}">
               </div>
+              <div class="mb-3">
+                <label for="recipient-duration" class="col-form-label" ><h6>Outsight limit(In second):</h6></label>
+                <input type="text" class="form-control" id="recipient-outsight-limit" placeholder="120" #duration="ngModel" ngDefaultControl [(ngModel)]="selectedExam.outSightTime" [ngModelOptions]="{standalone: true}">
+            
+              </div>
                 <div class="mb-3">
                   <label for="message-text" class="col-form-label"><h6>Message:</h6></label>
                   <textarea class="form-control" id="message-text" placeholder="Invitation Message"></textarea>
@@ -186,6 +191,11 @@
             <div class="mb-3">
               <label for="recipient-duration" class="col-form-label" ><h6>Exam Duration(In minute):</h6></label>
               <input type="text" class="form-control" id="recipient-duration" placeholder="120" #duration="ngModel" ngDefaultControl [(ngModel)]="selectedExam.duration" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-duration" class="col-form-label" ><h6>Outsight limit(In second):</h6></label>
+            <input type="text" class="form-control" id="recipient-outsight-limit" placeholder="120" #duration="ngModel" ngDefaultControl [(ngModel)]="selectedExam.outSightTime" [ngModelOptions]="{standalone: true}">
+        
           </div>
             <div class="mb-3">
               <label for="message-text" class="col-form-label" ><h6>Message:</h6></label>
