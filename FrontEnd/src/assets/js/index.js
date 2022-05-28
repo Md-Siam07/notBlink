@@ -1,4 +1,4 @@
-
+let isSupected = 0;
 
 function startTrack(LOOK_DELAY = 5000){
   window.saveDataAcrossSession = true;
@@ -11,12 +11,12 @@ function startTrack(LOOK_DELAY = 5000){
   let startLookTime = Number.POSITIVE_INFINITY;
 
   webgazer.setGazeListener((data, timestamp) =>{
-    console.log(data);
     if (data == null) {
       // ----
     }
     if (!(data.x < LEFT_CUTOFF || data.x > RIGHT_CUTOFF || data.y < TOP_CUTOFF || data.y > BOTTOM_CUTOFF)){
       startLookTime = Number.POSITIVE_INFINITY;
+      console.log("IAMHERE");
     }
     else if (startLookTime == Number.POSITIVE_INFINITY) {
       startLookTime = timestamp;
@@ -24,9 +24,17 @@ function startTrack(LOOK_DELAY = 5000){
 
     if (startLookTime + LOOK_DELAY < timestamp) {
       console.log("Suspected");
+      isSupected = 1;
       startLookTime = Number.POSITIVE_INFINITY;
     }
 
   }).begin()
 }
 
+
+function suspectedStatus() {
+  console.log("Called");
+  var status = isSupected;
+  isSupected = 0;
+  return status;
+}
