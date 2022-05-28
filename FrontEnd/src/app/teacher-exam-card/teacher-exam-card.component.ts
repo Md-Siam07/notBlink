@@ -68,7 +68,7 @@ export class TeacherExamCardComponent implements OnInit {
   }
 
   update(){
-    this.examService.update(this.selectedExam).subscribe(
+    this.examService.update(this.selectedExam, this.file).subscribe(
       (res:any) =>{
         console.log('successful');
         this.refreshExamList();
@@ -154,7 +154,7 @@ export class TeacherExamCardComponent implements OnInit {
 
   getExamMonth(input: string): any{
     this.month = input.substring(5,7);
-    console.log('month: '+ this.month);
+    //console.log('month: '+ this.month);
     return this.months.get(parseInt(this.month));
   }
 

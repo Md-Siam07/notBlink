@@ -1,3 +1,4 @@
+const e = require('express');
 const { response } = require('express');
 const mongoose = require('mongoose');
 const Exam = mongoose.model('Exam');
@@ -8,8 +9,8 @@ const multer = require('multer');
 
 module.exports.create = (req, res, next) => {
     const url = req.protocol + '://' + req.get('host')
-    console.log('called');
-    console.log('body: ' , req.body);
+    //console.log('called');
+    //console.log('body: ' , req.body);
     var exam = new Exam();
     exam.examName = req.body.examName;
     exam.startTime = req.body.startTime;
@@ -18,7 +19,10 @@ module.exports.create = (req, res, next) => {
     exam.teacherID = req.body.teacherID;
     exam.teacherName = req.body.teacherName;
     exam.participants = [];
-    exam.question = url + '/public/' + req.file.filename;
+    if(!req.file)
+        exam.question = '';
+    else
+        exam.question = url + '/public/' + req.file.filename;
     //exam.question = req.file.filename;
     console.log(exam);
     exam.save( (err, doc) =>{
@@ -59,6 +63,19 @@ module.exports.singleExamInfo = (req, res, next) => {
 
 module.exports.updateInfo = (req, res, next) => {
     //console.log(req.body);
+    const url = req.protocol + '://' + req.get('host')
+    var tempQuestion;
+    Exam.findById(req.params.id, (err, doc) => {
+        if(!err) tempQuestion = doc.question;
+        else {
+            console.log(`Error in retriving exam`);
+        }
+    } )
+    console.log('called');
+    console.log('body: ' , req.body);
+    if(req.file){
+        tempQuestion = url + '/public/' + req.file.filename;
+    }
     var exam = {
         examName: req.body.examName,
         participants: req.body.participants,
@@ -66,8 +83,10 @@ module.exports.updateInfo = (req, res, next) => {
         duration: req.body.duration,
         examDate: req.body.examDate,
         teacherID: req.body.teacherID,
-        teacherName: req.body.teacherName
+        teacherName: req.body.teacherName,
+        question : tempQuestion
     };
+    //exam.question = url + '/public/' + req.file.filename;
 
     Exam.findByIdAndUpdate(req.params.id, { $set:exam }, { new:true } , (err, doc) => {
         if(!err) {res.send(doc);}

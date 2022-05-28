@@ -38,10 +38,18 @@ export class ExamService {
     return this.http.get(environment.apiBaseUrl + '/exam/' + examID);
   }
 
-  update(exam: Exam){
+  update(exam: Exam, examQuestion: File){
+    var formData: any = new FormData();
+    formData.append('examName', exam.examName);
+    formData.append('startTime', exam.startTime);
+    formData.append('examDate', exam.examDate);
+    formData.append('teacherID', exam.teacherID);
+    formData.append('teacherName', exam.teacherName);
+    formData.append('question', examQuestion);
+    ///console.log(exam, examQuestion);
     //console.log(exam);
     //console.log(environment.apiBaseUrl + '/exam' + `/${exam._id}`);
-    return this.http.put(environment.apiBaseUrl + '/exam' + `/${exam._id}`, exam);
+    return this.http.put(environment.apiBaseUrl + '/exam' + `/${exam._id}`, formData);
   } 
   
   deleteExam(exam:Exam){ 

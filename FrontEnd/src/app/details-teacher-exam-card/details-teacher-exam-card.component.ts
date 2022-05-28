@@ -14,7 +14,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   selectedExam = new Exam();
   recipientEmail: string = "";
   kickParticipant = new User();
-
+  file!: File;
   months =  new Map([
     [1, "JAN"],
     [2, "FEB"],
@@ -52,6 +52,10 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     this.examDetails = this.examService.selectedExam;
     console.log(this.examDetails);
     //console.log('here: ', this.examDetails.question);
+  }
+
+  uploadFile(event:any) {
+    this.file = event.target.files[0]; 
   }
 
   getExamDate(input: string): string{
@@ -103,7 +107,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   }
 
   update(){
-    this.examService.update(this.selectedExam).subscribe(
+    this.examService.update(this.selectedExam, this.file).subscribe(
       (res:any) =>{
         console.log('successful');
         //kichu ekta
