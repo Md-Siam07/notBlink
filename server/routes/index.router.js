@@ -41,7 +41,7 @@ router.get('/userProfile', jwtHelper.verifyJwtToken ,userController.userProfile)
 router.post('/createExam', upload.single('question'), examController.create);
 router.get('/exams/:id', examController.retrieve);
 router.get('/exam/:id', examController.singleExamInfo);
-router.put('/exam/:id', examController.updateInfo);
+router.put('/exam/:id',upload.single('question'), examController.updateInfo);
 router.delete('/exams/:id', examController.deleteExam);
 router.put('/joinExam/:id', examController.joinExam);
 router.get('/student/exams/:id', examController.getStudentExams);

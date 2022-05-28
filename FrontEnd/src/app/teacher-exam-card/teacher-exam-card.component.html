@@ -116,6 +116,10 @@
                   <label for="message-text" class="col-form-label"><h6>Message:</h6></label>
                   <textarea class="form-control" id="message-text" placeholder="Invitation Message"></textarea>
                 </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label" ><h6>Question:</h6></label>
+                  <input type="file" class="form-control" id="recipient-duration" placeholder="120" (change)="uploadFile($event)" >
+              </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Discard</button>
                   <button type="submit" class="btn btn-success" data-bs-dismiss="modal" (click)="update()">Save Change</button>
