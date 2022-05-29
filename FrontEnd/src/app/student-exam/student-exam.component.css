@@ -1,0 +1,51 @@
+#pt1 {
+  top: 70px;
+  left: 340px;
+}
+
+#pt2 {
+  top: 70px;
+  left: 50vw;
+}
+
+#pt3 {
+  top: 70px;
+  right: 2vw;
+}
+
+#pt4 {
+  top: 50vh;
+  left: 2vw;
+}
+
+#pt5 {
+  top: 50vh;
+  left: 50vw;
+}
+
+#pt6 {
+  top: 50vh;
+  right: 2vw;
+}
+
+#pt7 {
+  bottom: 2vh;
+  left: 2vw;
+}
+
+#pt8 {
+  bottom: 2vh;
+  left: 50vw;
+}
+
+#pt9 {
+  bottom: 2vh;
+  right: 2vw;
+}
+
+.calibration {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 25px;
+}

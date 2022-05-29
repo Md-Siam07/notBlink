@@ -1,17 +1,36 @@
+
 <br><br><br><br><br>
-<div class="row">
-  <div class="col-1"> </div>
-  <div class="col-4">
-    <br><br><br><br><br>
-    <br><br><br><br><br>
-    <br><br><br><br><br>
-    <app-screen-record></app-screen-record>
-  </div>
-  <div class="col-6">
-    <object [data]="examDetails.question | safe" type="application/pdf" width="1000" height="800"> </object>
-  </div>
-  <div class="col-1"> </div>
+<div class="calibrationDiv" *ngIf="!calibrationDone">
+  <input type="button" (click)="calibrationClick(0)" class="calibration" id="pt1" style="background-color: red; opacity: 0.2">
+  <input type="button" (click)="calibrationClick(1)" class="calibration" id="pt2" style="background-color: red; opacity: 0.2">
+  <input type="button" (click)="calibrationClick(2)" class="calibration" id="pt3" style="background-color: red; opacity: 0.2">
+  <input type="button" (click)="calibrationClick(3)" class="calibration" id="pt4" style="background-color: red; opacity: 0.2">
+  <input type="button" (click)="calibrationClick(4)" class="calibration" id="pt5" style="background-color: red; opacity: 0.2">
+  <input type="button" (click)="calibrationClick(5)" class="calibration" id="pt6" style="background-color: red; opacity: 0.2">
+  <input type="button" (click)="calibrationClick(6)" class="calibration" id="pt7" style="background-color: red; opacity: 0.2">
+  <input type="button" (click)="calibrationClick(7)" class="calibration" id="pt8" style="background-color: red; opacity: 0.2">
+  <input type="button" (click)="calibrationClick(8)" class="calibration" id="pt9" style="background-color: red; opacity: 0.2">
 </div>
 
+<div class="afterCalibration" *ngIf="calibrationDone">
+  <div class="row">
+    <div class="col-1"> </div>
+    <div class="col-4">
+      <br><br><br><br><br>
+      <br><br><br><br><br>
+      <br><br><br><br><br>
+      <app-screen-record></app-screen-record>
+    </div>
+    <div class="col-6">
+      <object [data]="examDetails.question | safe" type="application/pdf" width="1000" height="800"> </object>
+    </div>
+    <div class="col-1"> </div>
+  </div>
+  <!-- <app-window-monitoring></app-window-monitoring> -->
+</div>
+
+
 <app-eye-track></app-eye-track>
-<app-window-monitoring></app-window-monitoring>
+
+
+
