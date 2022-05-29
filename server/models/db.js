@@ -11,5 +11,6 @@ mongoose.connect(process.env.MONGODB_URI, (err) =>{
 
 require('./user.model');
 require('./exam.model');
+//require('./notification')
 //module.exports = mongoose;
 

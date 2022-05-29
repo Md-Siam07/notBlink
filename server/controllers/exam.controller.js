@@ -20,6 +20,7 @@ module.exports.create = (req, res, next) => {
     exam.teacherName = req.body.teacherName;
     exam.outSightTime = req.body.outSightTime;
     exam.participants = [];
+    exam.notification = [];
     if(!req.file)
         exam.question = '';
     else
@@ -109,7 +110,7 @@ module.exports.joinExam = (req, res, next) => {
     var userID = req.body.userID;
     console.log(req.body);
     console.log(userID);
-    Exam.findByIdAndUpdate(req.params.id, {$push: {participants: userID}}, {new:true}, (err, doc) =>{
+    Exam.findByIdAndUpdate(req.params.id, {$addToSet: {participants: userID}}, {new:true}, (err, doc) =>{
         if(!err) {res.send(doc);}
         else{
             console.log(`Error in exam join: `+ JSON.stringify(err, undefined, 2));
@@ -124,5 +125,15 @@ module.exports.removeParcipant = (req, res, next) => {
             console.log(`Error in exam leave: `+ JSON.stringify(err, undefined, 2));
         }
     } )
+}
+
+module.exports.addEvidence = (req, res, next) => {
+    console.log(req.body);
+    Exam.findByIdAndUpdate(req.params.id, {$push: {notification: req.body.notification}}, {new:true}, (err, doc) => {
+        if(!err) {res.send(doc);}
+        else{
+            console.log(`Error in add evidence: `+ JSON.stringify(err, undefined, 2));
+        }
+    })
 }
 
