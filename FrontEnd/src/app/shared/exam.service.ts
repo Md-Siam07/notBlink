@@ -20,6 +20,7 @@ export class ExamService {
     formData.append('examName', exam.examName);
     formData.append('startTime', exam.startTime);
     formData.append('examDate', exam.examDate);
+    formData.append('duration', exam.duration);
     formData.append('teacherID', exam.teacherID);
     formData.append('outSightTime', exam.outSightTime);
     formData.append('teacherName', exam.teacherName);

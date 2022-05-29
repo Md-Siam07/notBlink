@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Exam } from '../shared/exam.model';
 import { ExamService } from '../shared/exam.service';
 import { User } from '../shared/user.model';
@@ -41,16 +42,25 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     examName: ''
   }
 
-  constructor(private examService: ExamService) { }
+  constructor(private examService: ExamService, private route: ActivatedRoute, private router: Router) { }
   examDetails = new Exam();
   participants: User[] = [];
   tempUser !:User;
   participantSet = new Set<string>();
-
+  id: string = '';
   ngOnInit(): void {
-    this.refreshParticipantList();
-    this.examDetails = this.examService.selectedExam;
-    console.log(this.examDetails);
+    this.id = this.route.snapshot.params['id'];
+    //console.log(this.id);
+    this.examService.getSingleExamDetails(this.id).subscribe(
+      (res:any) => {
+        this.examDetails = res as Exam;
+        this.refreshParticipantList();
+      },
+      err => {}
+    );
+    
+    //this.examDetails = this.examService.selectedExam;
+    
     //console.log('here: ', this.examDetails.question);
   }
 
@@ -75,31 +85,20 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   refreshParticipantList(){
     this.participantSet = new Set<string>();
     this.participants = [];
-    this.examDetails = this.examService.selectedExam;
+    //this.examDetails = this.examService.selectedExam;
     this.examDetails.participants.forEach(participantID => {
       this.participantSet.add(participantID);
     });
+    console.log('participant set: ', this.examDetails.participants);
     this.participantSet.forEach(participantID => {
       this.examService.getParticipant(participantID).subscribe(
         (res:any) => {
-          //console.log('res: ', res);
           this.tempUser = res as User;
-          // this.tempUser.fullName= res.fullName;
-          // this.tempUser.email = res.email;
-          // this.tempUser._id = res._id;
-          // this.tempUser.batch = res.batch;
-          // this.tempUser.designation = res.designation;
-          // this.tempUser.institute = res.institute;
-          // this.tempUser.isTeacher = res.isTeacher;
-          // this.tempUser.phone_number = res.phone_number;
-          // this.tempUser.roll = res.roll;
-          // console.log(this.tempUser);
           this.participants.push(JSON.parse(JSON.stringify(this.tempUser)));
         },
         (err:any) => {}
       );
     });
-    console.log(this.participants);
   }
 
   onClick(exam: Exam){
@@ -109,8 +108,8 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   update(){
     this.examService.update(this.selectedExam, this.file).subscribe(
       (res:any) =>{
-        console.log('successful');
-        //kichu ekta
+        this.reloadComponent();
+        //console.log('successful');
       },
       err => {
         console.log('Error in updating exam: '+ JSON.stringify(err, undefined, 2));
@@ -121,8 +120,8 @@ export class DetailsTeacherExamCardComponent implements OnInit {
 
   delete(){
     this.examService.deleteExam(this.selectedExam).subscribe( (res:any) =>{
-      console.log('deleted');
-      //navigate
+      //console.log('deleted');
+      this.router.navigateByUrl('/dashboard');
     },
     (err)=>{
       console.log('error in deleting: ' + JSON.stringify(err, undefined, 2));
@@ -164,14 +163,20 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     this.examService.kickFromExam(this.kickModel, this.kickModel.examCode).subscribe(
       (res:any) =>{
         console.log('successful');
-        this.refreshParticipantList();
+        this.reloadComponent();
       },
       (err:any) => {
         console.log('Error in updating exam: '+ JSON.stringify(err, undefined, 2));
       }
     );
-    this.refreshParticipantList();
     
   }
+
+  reloadComponent() {
+    let currentUrl = this.router.url;
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate([currentUrl]);
+    }
 
 }

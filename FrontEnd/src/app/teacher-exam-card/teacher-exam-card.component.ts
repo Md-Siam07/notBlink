@@ -46,8 +46,8 @@ export class TeacherExamCardComponent implements OnInit {
     this.userService.getUserProfile().subscribe(
       (res:any) => {
         this.userDetails = res['user'];
-        console.log(this.userDetails);
-        console.log(this.userDetails._id);
+        //console.log(this.userDetails);
+        //console.log(this.userDetails._id);
         this.tempID = this.userDetails._id;
       },
       (err:any) => {}
@@ -55,7 +55,7 @@ export class TeacherExamCardComponent implements OnInit {
 
     setTimeout(()=>{
       this.examService.getExamList(this.tempID).subscribe( (res:any) =>{
-        console.log('get: ' + this.tempID);
+        //console.log('get: ' + this.tempID);
         this.examService.exams = res as Exam[];
         this.exams = this.examService.exams;
         console.log(this.examService.exams);
@@ -70,7 +70,7 @@ export class TeacherExamCardComponent implements OnInit {
   update(){
     this.examService.update(this.selectedExam, this.file).subscribe(
       (res:any) =>{
-        console.log('successful');
+        //console.log('successful');
         this.refreshExamList();
         this.resetForm();
       },
@@ -91,7 +91,7 @@ export class TeacherExamCardComponent implements OnInit {
 
   delete(){
     this.examService.deleteExam(this.selectedExam).subscribe( (res:any) =>{
-      console.log('deleted');
+      //console.log('deleted');
       this.refreshExamList();
     },
     (err)=>{
@@ -112,7 +112,7 @@ export class TeacherExamCardComponent implements OnInit {
     this.examService.postExam(this.selectedExam, this.file).subscribe(
       (res:any) => {
         //console.log(this.selectedExam);
-        console.log('successfull');
+        //console.log('successfull');
         //this.successToast();
         this.resetForm();
         this.refreshExamList();
@@ -159,8 +159,8 @@ export class TeacherExamCardComponent implements OnInit {
   }
 
   viewMoreRouting(exam: Exam) {
-    this.examService.selectedExam = exam;
-    this.router.navigateByUrl('teacher/examdetails');
+    var tempUrl = 'teacher/examdetails/' + exam._id;
+    this.router.navigateByUrl(tempUrl);
   }
 
 

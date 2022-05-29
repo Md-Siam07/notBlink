@@ -17,7 +17,7 @@ char test() {
       //comment
       int num = 5;
       if ( num ) {
-            num1 = num + num;
+            int num1 = num + num;
       }
 
       int test;

@@ -39,11 +39,11 @@ const routes: Routes = [
     component: StudentExamComponent
   },
   {
-    path: 'teacher/examdetails',
+    path: 'teacher/examdetails/:id',
     component: DetailsTeacherExamCardComponent
   },
   {
-    path: 'student/examdetails',
+    path: 'student/examdetails/:id',
     component: DetailsStudentExamCardComponent
   }
 ];

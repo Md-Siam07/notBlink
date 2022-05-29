@@ -24,7 +24,7 @@ export class StudentExamCardComponent implements OnInit {
   tempRemainingTime: number = 0;
   currentExamCode: string = '';
   currentExam = new Exam();
-
+  url: string = '';
   months =  new Map([
     [1, "JAN"],
     [2, "FEB"],
@@ -165,10 +165,9 @@ export class StudentExamCardComponent implements OnInit {
   }
 
   viewMoreRouting(exam: Exam) {
-    console.log(exam);
-    this.examService.selectedExam = exam;
-    console.log(this.examService.selectedExam);
-    this.router.navigateByUrl('student/examdetails');
+    this.url = 'student/examdetails/' + exam._id;
+    console.log(this.url);
+    this.router.navigateByUrl(this.url);
   }
 
 }

@@ -128,12 +128,30 @@ module.exports.removeParcipant = (req, res, next) => {
 }
 
 module.exports.addEvidence = (req, res, next) => {
+    var myNotification = {
+        examinee:{
+            fullName: req.body.fullName,
+            email: req.body.email, 
+            institute: req.body.institute,
+            batch: req.body.batch,
+            roll: req.body.roll,
+            phone_number: req.body.phone_number,
+        },
+        cameraRecord:req.body.cameraRecord,
+        screenRecord:req.body.screenRecord,
+        message:req.body.message
+    }
     console.log(req.body);
-    Exam.findByIdAndUpdate(req.params.id, {$push: {notification: req.body.notification}}, {new:true}, (err, doc) => {
+    console.log(myNotification);
+    Exam.findByIdAndUpdate(req.params.id, {$push: {notification: myNotification}}, {new:true}, (err, doc) => {
         if(!err) {res.send(doc);}
         else{
             console.log(`Error in add evidence: `+ JSON.stringify(err, undefined, 2));
         }
     })
+}
+
+module.exports.getNotification = (req, res, next) => {
+
 }
 

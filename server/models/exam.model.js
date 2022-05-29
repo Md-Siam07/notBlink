@@ -36,7 +36,6 @@ var ExamSchema = new mongoose.Schema({
         examinee:{
             fullName: String,
             email: String, 
-            password: String,
             institute: String,
             batch: Number,
             roll: Number,

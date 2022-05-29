@@ -1,4 +1,8 @@
 import { HostListener, Component, OnInit } from '@angular/core';
+import { MyNotification } from 'src/app/shared/notification.model';
+import { StudentExamService } from 'src/app/shared/student-exam.service';
+import { User } from 'src/app/shared/user.model';
+import { UserService } from 'src/app/shared/user.service';
 
 @Component({
   selector: 'app-window-monitoring',
@@ -7,9 +11,16 @@ import { HostListener, Component, OnInit } from '@angular/core';
 })
 export class WindowMonitoringComponent implements OnInit {
 
+  notification= new MyNotification();
+
+  userDetails = new User();
+
+  constructor(private userService: UserService, private examService: StudentExamService) { }
+  
   @HostListener('window:focus', ['$event'])
     onFocus(event:any) {
     console.log("****user attempted leaving but changed its mind, do actions here");
+    //alert("****user trying to leave, user tumi valo hoye jao");
     
   } 
   
@@ -17,6 +28,7 @@ export class WindowMonitoringComponent implements OnInit {
     onBlur(event:any) {
     this.playAudio();
     alert("****user left, user tumi valo hoye jao");
+    this.notify();
     //alert("user leave korso ken?")
   } 
   
@@ -28,6 +40,7 @@ export class WindowMonitoringComponent implements OnInit {
       this.scrHeight = window.innerHeight;
       this.scrWidth = window.innerWidth;
       console.log(this.scrHeight, this.scrWidth);
+      this.notify();
   }
   playAudio(){
     let audio = new Audio();
@@ -39,6 +52,33 @@ export class WindowMonitoringComponent implements OnInit {
   ngOnInit(): void {
     this.scrHeight = window.innerHeight;
     this.scrWidth = window.innerWidth;
+    this.userService.getUserProfile().subscribe(
+      (res:any) => {
+        this.userDetails = res['user'];
+       },
+      (err:any) => {}
+    );
+  }
+  
+  notify(){
+    console.log("notifying");
+    this.notification.cameraRecord = "";
+    this.notification.screenRecord = "";
+    this.notification.fullName = this.userDetails.fullName;
+    this.notification.email = this.userDetails.email;
+    this.notification.batch = this.userDetails.batch;
+    this.notification.institute = this.userDetails.institute;
+    this.notification.roll = this.userDetails.roll;
+    this.notification.phone_number = this.userDetails.phone_number;
+    this.notification.message = "User tried to change or resize the tab";
+    this.examService.notify(this.notification, "6293ca6e8aab0923a4cdcb5b").subscribe(
+      res =>{
+
+      },
+      err => {
+        console.log('erroor');
+      }
+    )
   }
 
 }

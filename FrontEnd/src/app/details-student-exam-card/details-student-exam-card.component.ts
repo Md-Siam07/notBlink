@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Exam } from '../shared/exam.model';
 import { StudentExamService } from '../shared/student-exam.service';
 
@@ -26,11 +27,21 @@ export class DetailsStudentExamCardComponent implements OnInit {
     [12, "DEC"]
   ]);
 
-  constructor(private studentExamService: StudentExamService) { }
+  id: string = '';
+
+  constructor(private studentExamService: StudentExamService, private route: ActivatedRoute, private router: Router) { }
   examDetails = new Exam();
   ngOnInit(): void {
-    this.examDetails = this.studentExamService.selectedExam;
-    console.log(this.examDetails);
+    this.id = this.route.snapshot.params['id'];
+    //console.log(this.id);
+    this.studentExamService.getSingleExamDetails(this.id).subscribe(
+      (res:any) => {
+        this.examDetails = res as Exam;
+      },
+      err => {}
+    );
+    //this.examDetails = this.studentExamService.selectedExam;
+    //console.log(this.examDetails);
   }
 
   getExamDate(input: string): string{
@@ -39,7 +50,7 @@ export class DetailsStudentExamCardComponent implements OnInit {
 
   getExamMonth(input: string): any{
     this.month = input.substring(5,7);
-    console.log('month: '+ this.month);
+    //console.log('month: '+ this.month);
     return this.months.get(parseInt(this.month));
   }
 
