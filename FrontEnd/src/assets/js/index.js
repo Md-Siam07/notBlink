@@ -33,7 +33,7 @@ function startTrack(LOOK_DELAY = 5000){
 
 
 function suspectedStatus() {
-  console.log("Called");
+  //console.log("Called");
   var status = isSupected;
   isSupected = 0;
   return status;
