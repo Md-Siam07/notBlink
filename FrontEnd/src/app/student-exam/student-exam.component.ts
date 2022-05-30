@@ -21,7 +21,19 @@ export class StudentExamComponent implements OnInit {
 
   calibrationClick(id:number) {
     this.clickCount[id]++;
-    if (this.clickCount[id] == 5)    this.clickDoneCount++;
+
+    const idDom = "pt" + (id + 1).toString();
+    let btn = document.getElementById(idDom);
+    if (btn) {
+      console.log(((this.clickCount[id] + 1) * 0.2).toString());
+      btn.style["opacity"] = ((this.clickCount[id] + 1) * 0.2).toString();
+    }
+
+    if (this.clickCount[id] == 5 && btn) {
+      this.clickDoneCount++;
+      //hide it
+      btn.style.backgroundColor = "green";
+    }
 
     if (this.clickDoneCount == 9) {
       //alert("Calibration Done");
