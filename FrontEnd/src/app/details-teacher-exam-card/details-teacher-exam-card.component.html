@@ -33,7 +33,7 @@
         <h2>Notification&nbsp;&nbsp;<i class="fas fa-bell"></i></h2>
         <hr class="cl-head">
         <br><br>
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush" *ngFor="let notification of notifications">
           <li class="list-group-item">
             Suspicious Activity
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -42,13 +42,13 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <b>Just Now </b><br>
             <hr>
-            Student Name: Md Siam <br>
-            Time: 10:20PM <br>
-            Evidence: <a href="">Screen Record</a> &nbsp;&nbsp;
-            <a href="">Camera Footage</a>
+            Student Name: {{notification.fullName}} <br>
+            Time: {{notification.time }} <br>
+            Evidence: <a href="{{notification.screenRecord}}" *ngIf="notification.screenRecord != ''">Screen Record</a> &nbsp;&nbsp;
+            <a href="{{notification.cameraRecord}}" *ngIf="notification.cameraRecord != ''">Camera Footage</a>
           </li>
           <br>
-          <li class="list-group-item">
+          <!-- <li class="list-group-item">
             Tab change
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -60,13 +60,13 @@
             <hr>
             Student Name: Md Siam <br>
             Time: 10:20PM
-          </li>
+          </li> -->
           <br>
         </ul>
       </div>
     </div>
     <object [data]="examDetails.question | safe" type="application/pdf" width="600" height="500"> </object>
-      
+
   </div>
 </div>
 
@@ -214,7 +214,7 @@
             <div class="mb-3">
               <label for="recipient-duration" class="col-form-label" ><h6>Outsight limit(In second):</h6></label>
               <input type="text" class="form-control" id="recipient-outsight-limit" placeholder="120" #duration="ngModel" ngDefaultControl [(ngModel)]="selectedExam.outSightTime" [ngModelOptions]="{standalone: true}">
-          
+
             </div>
             <div class="mb-3">
               <label for="message-text" class="col-form-label" ><h6>Message:</h6></label>

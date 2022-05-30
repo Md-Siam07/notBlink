@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Exam } from '../shared/exam.model';
 import { ExamService } from '../shared/exam.service';
+import { MyNotification } from '../shared/notification.model';
 import { User } from '../shared/user.model';
 
 @Component({
@@ -46,7 +47,10 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   examDetails = new Exam();
   participants: User[] = [];
   tempUser !:User;
+  notifications: MyNotification[] = [];
+  tempNotification = new MyNotification();
   participantSet = new Set<string>();
+  index: number = 0;
   id: string = '';
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -54,6 +58,23 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     this.examService.getSingleExamDetails(this.id).subscribe(
       (res:any) => {
         this.examDetails = res as Exam;
+        //this.notifications = res['notification'];
+        res['notification'].forEach( (notification: any) => {
+          this.tempNotification = new MyNotification();
+          this.tempNotification.fullName = notification.examinee.fullName;
+          this.tempNotification.batch = notification.examinee.batch;
+          this.tempNotification.institute = notification.examinee.institute;
+          this.tempNotification.roll = notification.examinee.roll;
+          this.tempNotification.phone_number = notification.examinee.phone_number;
+          this.tempNotification.cameraRecord = notification.cameraRecord;
+          this.tempNotification.screenRecord = notification.screenRecord;
+          this.tempNotification.time = notification.time;
+          this.tempNotification.message = notification.message;
+          console.log(notification.cameraRecord);
+          console.log(this.tempNotification.cameraRecord);
+          this.notifications.push(this.tempNotification);
+        });
+        console.log(this.notifications)
         this.refreshParticipantList();
       },
       err => {}
@@ -163,7 +184,13 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     this.examService.kickFromExam(this.kickModel, this.kickModel.examCode).subscribe(
       (res:any) =>{
         console.log('successful');
-        this.reloadComponent();
+        this.examService.getSingleExamDetails(this.id).subscribe(
+          (res:any) => {
+            this.examDetails = res as Exam;
+            this.refreshParticipantList();
+          },
+          err => {}
+        );
       },
       (err:any) => {
         console.log('Error in updating exam: '+ JSON.stringify(err, undefined, 2));
