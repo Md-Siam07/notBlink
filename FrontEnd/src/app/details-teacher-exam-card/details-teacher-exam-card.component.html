@@ -1,35 +1,41 @@
 <div class=" main-bg">
   <div class="container">
     <div class="row">
-      <div class="col">
-        <h2>{{examDetails.examName}}</h2>
-        <hr class="cl-head">
-        <br><br>
+      <div class="col-8">
+        <div class="row">
+          <div class="col-6">
+            <h2>{{examDetails.examName}}</h2>
+            <hr class="cl-head">
+            <br><br>
 
-        <h4>{{examDetails.teacherName}}</h4>
-        <i class="fa fa-calendar"></i> {{getExamDate(examDetails.examDate)}} {{getExamMonth(examDetails.examDate)}} <br>
-        <i class="fa fa-clock"></i> {{examDetails.startTime}} <br>
-        <i class="fa fa-stopwatch"></i> {{examDetails.duration}} minutes <br>
-        <br><br>
-        <div class="btn-button">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onClick(examDetails)">Invite </button>&nbsp;&nbsp;
-          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" (click)="onClick(examDetails)">Edit Exam </button>&nbsp;&nbsp;
-          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalDel" (click)="onClick(examDetails)">Delete Exam </button>
+            <h4>{{examDetails.teacherName}}</h4>
+            <i class="fa fa-calendar"></i> {{getExamDate(examDetails.examDate)}} {{getExamMonth(examDetails.examDate)}} <br>
+            <i class="fa fa-clock"></i> {{examDetails.startTime}} <br>
+            <i class="fa fa-stopwatch"></i> {{examDetails.duration}} minutes <br>
+            <br><br>
+            <div class="btn-button">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onClick(examDetails)">Invite </button>&nbsp;&nbsp;
+              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" (click)="onClick(examDetails)">Edit Exam </button>&nbsp;&nbsp;
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalDel" (click)="onClick(examDetails)">Delete Exam </button>
+            </div>
+          </div>
+          <div class="col-6">
+            <h2>Participante List&nbsp;&nbsp;<i class="fa fa-users"></i></h2>
+            <hr class="cl-head">
+            <br><br>
+            <div *ngFor="let participant of participants">
+              &nbsp;&nbsp;&nbsp;
+              <span class="fa fa-user-circle"></span>
+              &nbsp;{{participant.fullName}}
+              <button type="button" class="btn-close" aria-label="Close" data-bs-toggle="modal" data-bs-target="#kickModal" (click)="onKick(participant)"></button>
+              <hr>
+            </div>
+          </div>
         </div>
+        <br> <br>
+        <object [data]="examDetails.question | safe" type="application/pdf" width="800" height="600"> </object>
       </div>
-      <div class="col">
-        <h2>Participante List&nbsp;&nbsp;<i class="fa fa-users"></i></h2>
-        <hr class="cl-head">
-        <br><br>
-        <div *ngFor="let participant of participants">
-          &nbsp;&nbsp;&nbsp;
-          <span class="fa fa-user-circle"></span>
-          &nbsp;{{participant.fullName}}
-          <button type="button" class="btn-close" aria-label="Close" data-bs-toggle="modal" data-bs-target="#kickModal" (click)="onKick(participant)"></button>
-          <hr>
-        </div>
-      </div>
-      <div class="col">
+      <div class="col-4">
         <h2>Notification&nbsp;&nbsp;<i class="fas fa-bell"></i></h2>
         <hr class="cl-head">
         <br><br>
@@ -65,9 +71,6 @@
         </ul>
       </div>
     </div>
-    <br> <br>
-    <object [data]="examDetails.question | safe" type="application/pdf" width="800" height="600"> </object>
-
   </div>
 </div>
 
