@@ -51,6 +51,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   examDetails = new Exam();
   participants: User[] = [];
   tempUser !:User;
+  dummyData !: any;
   notifications: MyNotification[] = [];
   copyNotifications: MyNotification[] = [];
   tempNotification = new MyNotification();
@@ -82,7 +83,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
       err => {}
     );
     socket.on('notification', (data:any) =>{
-      console.log(data);
+      this.dummyData = data;
       //this.copyNotifications = [];
       // this.notifications.push(JSON.parse(JSON.stringify(data)));
       // // this.notifications.pop();
@@ -124,6 +125,11 @@ export class DetailsTeacherExamCardComponent implements OnInit {
 
   refreshNotifications(data:any){
     this.notifications = new Array();
+    
+    if(this.dummyData.screenRecord != '')
+      alert('Examinee: ' + this.dummyData.fullName + ' is suspected to change the tab! \nPlease reload the page to refresh the stream and view the evidence');
+    else
+      alert('Examinee: ' + this.dummyData.fullName + ' is suspected to view outside the screen!\nPlease reload the page to refresh the stream and view the evidence');
     
     this.examService.getSingleExamDetails(this.id).subscribe(
       (res:any) => {
