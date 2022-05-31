@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MyNotification } from 'src/app/shared/notification.model';
+import { StudentExamService } from 'src/app/shared/student-exam.service';
+import { User } from 'src/app/shared/user.model';
+import { UserService } from 'src/app/shared/user.service';
+import io from 'socket.io-client';
+import { Exam } from 'src/app/shared/exam.model';
 
 declare function startTrack(): any;
 declare function suspectedStatus(): any;
+const socket = io('http://localhost:3000');
 
 @Component({
   selector: 'app-eye-track',
@@ -10,17 +18,58 @@ declare function suspectedStatus(): any;
 })
 export class EyeTrackComponent implements OnInit {
 
-  constructor() { }
+  id: string = '';
+  constructor(private route: ActivatedRoute, private userService: UserService, private examService: StudentExamService) { }
+  notification= new MyNotification();
+  userDetails = new User();
+  exam = new Exam();
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.params['id'];
+    this.examService.getSingleExamDetails(this.id).subscribe(
+      (res: any) => {
+        this.exam = res as Exam;
+      },
+      (err)=>{
+        console.log(err);
+      }
+    )
     startTrack();
+    this.userService.getUserProfile().subscribe(
+      (res:any) => {
+        this.userDetails = res['user'];
+       },
+      (err:any) => {}
+    );
   }
 
   intervalID: any = setInterval(() => {
     if (suspectedStatus() != 0 ) {
-      console.log("YEEEEEE");
+      this.notify();
     }
-  }, 3000);
+  }, this.exam.outSightTime*1000);
+
+  notify(){
+    //console.log("notifying");
+    this.notification.cameraRecord = "";
+    this.notification.screenRecord = "";
+    this.notification.fullName = this.userDetails.fullName;
+    this.notification.email = this.userDetails.email;
+    this.notification.batch = this.userDetails.batch;
+    this.notification.institute = this.userDetails.institute;
+    this.notification.roll = this.userDetails.roll;
+    this.notification.phone_number = this.userDetails.phone_number;
+    this.notification.message = "User has outsighted the screen longer than the limit";
+    this.examService.notify(this.notification, this.id).subscribe(
+      res =>{
+        socket.emit('notification', this.notification);
+        //this.notifications.push(this.notification);
+      },
+      err => {
+        console.log('erroor');
+      }
+    )
+  }
 
 }
 

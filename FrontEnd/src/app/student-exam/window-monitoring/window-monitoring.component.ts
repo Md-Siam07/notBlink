@@ -71,7 +71,7 @@ export class WindowMonitoringComponent implements OnInit {
   }
   
   notify(){
-    console.log("notifying");
+    //console.log("notifying");
     this.notification.cameraRecord = "";
     this.notification.screenRecord = "";
     this.notification.fullName = this.userDetails.fullName;
