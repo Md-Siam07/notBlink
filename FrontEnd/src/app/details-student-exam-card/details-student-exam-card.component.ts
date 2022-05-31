@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Exam } from '../shared/exam.model';
+import { ExamService } from '../shared/exam.service';
 import { StudentExamService } from '../shared/student-exam.service';
+import { User } from '../shared/user.model';
 
 @Component({
   selector: 'app-details-student-exam-card',
@@ -11,7 +13,9 @@ import { StudentExamService } from '../shared/student-exam.service';
 export class DetailsStudentExamCardComponent implements OnInit {
 
   month: string = "";
-
+  participants: User[] = [];
+  tempUser = new User();
+  participantSet = new Set<string>();
   months =  new Map([
     [1, "JAN"],
     [2, "FEB"],
@@ -29,7 +33,7 @@ export class DetailsStudentExamCardComponent implements OnInit {
 
   id: string = '';
 
-  constructor(private studentExamService: StudentExamService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private studentExamService: StudentExamService, private route: ActivatedRoute, private router: Router, private examService: ExamService) { }
   examDetails = new Exam();
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -37,6 +41,7 @@ export class DetailsStudentExamCardComponent implements OnInit {
     this.studentExamService.getSingleExamDetails(this.id).subscribe(
       (res:any) => {
         this.examDetails = res as Exam;
+        this.refreshParticipantList();
       },
       err => {}
     );
@@ -54,8 +59,23 @@ export class DetailsStudentExamCardComponent implements OnInit {
     return this.months.get(parseInt(this.month));
   }
 
-  getPartipantList(exam: Exam){
-
+  refreshParticipantList(){
+    this.participantSet = new Set<string>();
+    this.participants = [];
+    //this.examDetails = this.examService.selectedExam;
+    this.examDetails.participants.forEach(participantID => {
+      this.participantSet.add(participantID);
+    });
+    console.log('participant set: ', this.examDetails.participants);
+    this.participantSet.forEach(participantID => {
+      this.examService.getParticipant(participantID).subscribe(
+        (res:any) => {
+          this.tempUser = res as User;
+          this.participants.push(JSON.parse(JSON.stringify(this.tempUser)));
+        },
+        (err:any) => {}
+      );
+    });
   }
 
 }
