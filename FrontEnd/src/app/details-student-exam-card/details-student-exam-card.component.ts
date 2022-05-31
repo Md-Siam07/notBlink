@@ -92,13 +92,6 @@ export class DetailsStudentExamCardComponent implements OnInit {
     this.currentExam = givenExam;
   }
 
-  examStart(currentExam: Exam){
-    this.examService.selectedExam = currentExam;
-    this.router.navigateByUrl('student/exam');
-  }
-
-
-
   leaveExam(){
     console.log(this.model);
     this.studentExamService.leaveExam(this.model, this.model.examCode).subscribe(
@@ -141,6 +134,11 @@ export class DetailsStudentExamCardComponent implements OnInit {
         (err:any) => {}
       );
     });
+  }
+
+  examStart(currentExam: Exam){
+    this.examService.selectedExam = currentExam;
+    this.router.navigateByUrl('student/exam/'+currentExam._id);
   }
 
 }
