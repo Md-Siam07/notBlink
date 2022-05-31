@@ -62,9 +62,9 @@ export class StudentExamCardComponent implements OnInit {
         this.tempID = this.userDetails._id;
         this.model.userID = this.userDetails._id;
         this.examService.retrieveExam(this.tempID).subscribe( (res:any) =>{
-          console.log('get: ' + this.tempID);
+         // console.log('get: ' + this.tempID);
           this.examService.exams = res as Exam[];
-          console.log(this.examService.exams);
+         // console.log(this.examService.exams);
           this.listOfExams = this.examService.exams;
           this.calculateRemainingTimeAndInitiate();
         });
@@ -95,7 +95,7 @@ export class StudentExamCardComponent implements OnInit {
   }
 
   onLeaveClick(givenExam: Exam){
-    console.log(givenExam._id);
+    //console.log(givenExam._id);
     this.currentExamCode = givenExam._id;
     this.model.examCode = givenExam._id;
     this.model.examName = givenExam.examName;
@@ -110,7 +110,7 @@ export class StudentExamCardComponent implements OnInit {
   }
 
   join(){
-    console.log(this.model);
+    //console.log(this.model);
     this.examService.joinExam(this.model, this.model.examCode).subscribe(
       (res:any) =>{
         console.log('successful');
@@ -126,19 +126,19 @@ export class StudentExamCardComponent implements OnInit {
   refreshExamList(){
     this.examService.retrieveExam(this.tempID).subscribe( (res:any) =>{
       //M.toast("refreshed");
-      console.log('refresh exam list: ' + this.tempID);
+      //console.log('refresh exam list: ' + this.tempID);
       this.examService.exams = res as Exam[];
       this.listOfExams = this.examService.exams;
       this.calculateRemainingTimeAndInitiate();
-      console.log(this.examService.exams);
+      //console.log(this.examService.exams);
     });
   }
 
   leaveExam(){
-    console.log(this.model);
+    //console.log(this.model);
     this.examService.leaveExam(this.model, this.model.examCode).subscribe(
       (res:any) =>{
-        console.log('successful');
+        //console.log('successful');
       },
       (err:any) => {
         console.log('Error in updating exam: '+ JSON.stringify(err, undefined, 2));
@@ -153,7 +153,7 @@ export class StudentExamCardComponent implements OnInit {
 
   getExamMonth(input: string): any{
     this.month = input.substring(5,7);
-    console.log('month: '+ this.month);
+    //console.log('month: '+ this.month);
     return this.months.get(parseInt(this.month));
    // return this.month;
   }
@@ -165,7 +165,7 @@ export class StudentExamCardComponent implements OnInit {
 
   viewMoreRouting(exam: Exam) {
     this.url = 'student/examdetails/' + exam._id;
-    console.log(this.url);
+   // console.log(this.url);
     this.router.navigateByUrl(this.url);
   }
 
