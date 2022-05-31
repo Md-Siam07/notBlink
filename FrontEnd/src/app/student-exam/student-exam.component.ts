@@ -9,13 +9,13 @@ import { StudentExamService } from '../shared/student-exam.service';
   styleUrls: ['./student-exam.component.css']
 })
 export class StudentExamComponent implements OnInit {
-  calibrationDone:Boolean = true;
+  calibrationDone:Boolean = false;
 
   constructor(private examService: StudentExamService, private route: ActivatedRoute ) { }
   examDetails = new Exam();
   id: string = '';
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id']; 
+    this.id = this.route.snapshot.params['id'];
     this.examDetails = this.examService.selectedExam;
   }
 
