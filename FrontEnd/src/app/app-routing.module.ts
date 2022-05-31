@@ -36,15 +36,18 @@ const routes: Routes = [
   },
   {
     path: 'student/exam',
-    component: StudentExamComponent
+    component: StudentExamComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'teacher/examdetails/:id',
-    component: DetailsTeacherExamCardComponent
+    component: DetailsTeacherExamCardComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'student/examdetails/:id',
-    component: DetailsStudentExamCardComponent
+    component: DetailsStudentExamCardComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
