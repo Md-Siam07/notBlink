@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Exam } from '../shared/exam.model';
 import { StudentExamService } from '../shared/student-exam.service';
 
@@ -10,9 +11,11 @@ import { StudentExamService } from '../shared/student-exam.service';
 export class StudentExamComponent implements OnInit {
   calibrationDone:Boolean = true;
 
-  constructor(private examService: StudentExamService) { }
+  constructor(private examService: StudentExamService, private route: ActivatedRoute ) { }
   examDetails = new Exam();
+  id: string = '';
   ngOnInit(): void {
+    this.id = this.route.snapshot.params['id']; 
     this.examDetails = this.examService.selectedExam;
   }
 
