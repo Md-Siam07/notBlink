@@ -15,7 +15,7 @@ const socket = io('http://localhost:3000');
   styleUrls: ['./details-teacher-exam-card.component.css']
 })
 export class DetailsTeacherExamCardComponent implements OnInit {
-  notificationGroups: any[] = [];
+  
   month: string = "";
   selectedExam = new Exam();
   recipientEmail: string = "";
@@ -52,6 +52,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   participants: User[] = [];
   tempUser !:User;
   notifications: MyNotification[] = [];
+  copyNotifications: MyNotification[] = [];
   tempNotification = new MyNotification();
   participantSet = new Set<string>();
   index: number = 0;
@@ -81,10 +82,21 @@ export class DetailsTeacherExamCardComponent implements OnInit {
       err => {}
     );
     socket.on('notification', (data:any) =>{
-      this.notifications.push(JSON.parse(JSON.stringify(data)));
-      this.notifications = this.notifications.slice();
-      console.log('data: ',data);
-      console.log('notifications: ',this.notifications)
+      console.log(data);
+      //this.copyNotifications = [];
+      // this.notifications.push(JSON.parse(JSON.stringify(data)));
+      // // this.notifications.pop();
+      // // console.log('data: ',data);
+      // // console.log('notifications: ',this.notifications)
+      // this.notifications.forEach(element => {
+      //   this.copyNotifications.push(JSON.parse(JSON.stringify(element)));
+      // });
+      // this.notifications = [];
+      // this.copyNotifications.forEach(element => {
+      //   this.notifications.push(JSON.parse(JSON.stringify(element)));
+      // })
+      this.refreshNotifications(data);
+
     })
     
     //this.examDetails = this.examService.selectedExam;
@@ -110,47 +122,71 @@ export class DetailsTeacherExamCardComponent implements OnInit {
 
   }
 
-  // refreshNotifications(){
-  //   this.notifications = [];
-  //   this.examService.getSingleExamDetails(this.id).subscribe(
-  //     (res:any) => {
-  //       //this.examDetails = res as Exam;
-  //       //this.notifications = res['notification'];
-  //       res['notification'].forEach( (notification: any) => {
-  //         this.tempNotification = new MyNotification();
-  //         this.tempNotification.fullName = notification.examinee.fullName;
-  //         this.tempNotification.batch = notification.examinee.batch;
-  //         this.tempNotification.institute = notification.examinee.institute;
-  //         this.tempNotification.roll = notification.examinee.roll;
-  //         this.tempNotification.phone_number = notification.examinee.phone_number;
-  //         this.tempNotification.cameraRecord = notification.cameraRecord;
-  //         this.tempNotification.screenRecord = notification.screenRecord;
-  //         this.tempNotification.time = notification.time;
-  //         this.tempNotification.message = notification.message;
-  //         this.notifications.push(this.tempNotification);
-  //       }); 
-  //     },
-  //     err => {}
-  //   );
-  // }
+  refreshNotifications(data:any){
+    this.notifications = new Array();
+    
+    this.examService.getSingleExamDetails(this.id).subscribe(
+      (res:any) => {
+        this.examDetails = res as Exam;
+        this.refreshParticipantList();
+        //this.notifications = res['notification'];
+        res['notification'].forEach( (notification: any) => {
+          this.tempNotification = new MyNotification();
+          this.tempNotification.fullName = notification.examinee.fullName;
+          this.tempNotification.batch = notification.examinee.batch;
+          this.tempNotification.institute = notification.examinee.institute;
+          this.tempNotification.roll = notification.examinee.roll;
+          this.tempNotification.phone_number = notification.examinee.phone_number;
+          this.tempNotification.cameraRecord = notification.cameraRecord;
+          this.tempNotification.screenRecord = notification.screenRecord;
+          this.tempNotification.time = notification.time;
+          this.tempNotification.message = notification.message;
+          this.notifications =  [...this.notifications.concat(this.tempNotification)]
+        }); 
+        
+      },
+      err => {}
+    );
+  }
 
   refreshParticipantList(){
+    console.log('called')
     this.participantSet = new Set<string>();
     this.participants = [];
     //this.examDetails = this.examService.selectedExam;
-    this.examDetails.participants.forEach(participantID => {
-      this.participantSet.add(participantID);
-    });
-    console.log('participant set: ', this.examDetails.participants);
-    this.participantSet.forEach(participantID => {
-      this.examService.getParticipant(participantID).subscribe(
-        (res:any) => {
-          this.tempUser = res as User;
-          this.participants.push(JSON.parse(JSON.stringify(this.tempUser)));
-        },
-        (err:any) => {}
-      );
-    });
+
+    this.examService.getSingleExamDetails(this.id).subscribe(
+      (res:any) => {
+        this.examDetails = res as Exam;
+        this.examDetails.participants.forEach(participantID => {
+          this.participantSet.add(participantID);
+        });
+        console.log('participant set: ', this.examDetails.participants);
+        this.participantSet.forEach(participantID => {
+          this.examService.getParticipant(participantID).subscribe(
+            (res:any) => {
+              this.tempUser = res as User;
+              this.participants.push(JSON.parse(JSON.stringify(this.tempUser)));
+            },
+            (err:any) => {}
+          );
+        });
+      }
+    );
+
+    // this.examDetails.participants.forEach(participantID => {
+    //   this.participantSet.add(participantID);
+    // });
+    // console.log('participant set: ', this.examDetails.participants);
+    // this.participantSet.forEach(participantID => {
+    //   this.examService.getParticipant(participantID).subscribe(
+    //     (res:any) => {
+    //       this.tempUser = res as User;
+    //       this.participants.push(JSON.parse(JSON.stringify(this.tempUser)));
+    //     },
+    //     (err:any) => {}
+    //   );
+    // });
   }
 
   onClick(exam: Exam){
