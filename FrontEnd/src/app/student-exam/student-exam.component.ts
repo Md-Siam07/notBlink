@@ -8,7 +8,7 @@ import { StudentExamService } from '../shared/student-exam.service';
   styleUrls: ['./student-exam.component.css']
 })
 export class StudentExamComponent implements OnInit {
-  calibrationDone:Boolean = false;
+  calibrationDone:Boolean = true;
 
   constructor(private examService: StudentExamService) { }
   examDetails = new Exam();

@@ -1,6 +1,7 @@
 require('./config/config')
 require('./models/db');
 require('./config/passportConfig');
+require('./models/notification');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -12,7 +13,9 @@ const routeIndex = require('./routes/index.router');
 
 var app = express();
 const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+    cors: '*'
+});
 
 //middleware
 //app.use(require('connect').bodyParser());
@@ -39,10 +42,8 @@ server.listen(process.env.PORT, () => console.log(`Server started at port: ${pro
 io.on('connection', (socket) => {
   console.log('a user connected');
   socket.on('notification', notification =>{
-      const notificationSchema = new Notification({notification});
-      notificationSchema.save().then(() => {
-          io.emit('notification', notification);
-      })
+    console.log('ashche');
+    io.emit('notification', notification);
   })
 })
 

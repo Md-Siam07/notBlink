@@ -3,6 +3,9 @@ import { MyNotification } from 'src/app/shared/notification.model';
 import { StudentExamService } from 'src/app/shared/student-exam.service';
 import { User } from 'src/app/shared/user.model';
 import { UserService } from 'src/app/shared/user.service';
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:3000');
 
 @Component({
   selector: 'app-window-monitoring',
@@ -12,7 +15,7 @@ import { UserService } from 'src/app/shared/user.service';
 export class WindowMonitoringComponent implements OnInit {
 
   notification= new MyNotification();
-
+  //notifications!: MyNotification[];
   userDetails = new User();
 
   constructor(private userService: UserService, private examService: StudentExamService) { }
@@ -58,6 +61,10 @@ export class WindowMonitoringComponent implements OnInit {
        },
       (err:any) => {}
     );
+
+    // socket.on('notification', (res:any) =>{
+
+    // })
   }
   
   notify(){
@@ -73,7 +80,8 @@ export class WindowMonitoringComponent implements OnInit {
     this.notification.message = "User tried to change or resize the tab";
     this.examService.notify(this.notification, "6293ca6e8aab0923a4cdcb5b").subscribe(
       res =>{
-
+        socket.emit('notification', this.notification);
+        //this.notifications.push(this.notification);
       },
       err => {
         console.log('erroor');

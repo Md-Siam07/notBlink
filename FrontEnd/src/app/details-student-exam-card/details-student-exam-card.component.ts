@@ -7,6 +7,8 @@ import { User } from '../shared/user.model';
 import { UserService } from '../shared/user.service';
 import { MyNotification } from '../shared/notification.model';
 
+
+
 @Component({
   selector: 'app-details-student-exam-card',
   templateUrl: './details-student-exam-card.component.html',
@@ -68,6 +70,8 @@ export class DetailsStudentExamCardComponent implements OnInit {
         this.tempID = this.userDetails._id;
         this.model.userID = this.userDetails._id;
         });
+      
+    
 
     //this.examDetails = this.studentExamService.selectedExam;
     //console.log(this.examDetails);

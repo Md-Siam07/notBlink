@@ -67,9 +67,11 @@ export class TeacherExamCardComponent implements OnInit {
   }
 
   update(){
+    console.log(this.selectedExam.duration);
     this.examService.update(this.selectedExam, this.file).subscribe(
       (res:any) =>{
         //console.log('successful');
+        console.log(res)
         this.refreshExamList();
         this.resetForm();
       },
