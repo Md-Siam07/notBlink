@@ -66,9 +66,12 @@ module.exports.singleExamInfo = (req, res, next) => {
 module.exports.updateInfo = (req, res, next) => {
     //console.log(req.body);
     const url = req.protocol + '://' + req.get('host')
-    var tempQuestion;
+    var tempQuestion, tempOutSightTime;
     Exam.findById(req.params.id, (err, doc) => {
-        if(!err) tempQuestion = doc.question;
+        if(!err) {
+            tempQuestion = doc.question;
+            tempOutSightTime = doc.outSightTime;
+        }
         else {
             console.log(`Error in retriving exam`);
         }
@@ -77,6 +80,9 @@ module.exports.updateInfo = (req, res, next) => {
     console.log('body: ' , req.body);
     if(req.file){
         tempQuestion = url + '/public/' + req.file.filename;
+    }
+    if(req.body.outSightTime == 'undefined'){
+        req.body.outSightTime = tempOutSightTime;
     }
     var exam = {
         examName: req.body.examName,
