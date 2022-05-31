@@ -4,6 +4,7 @@ import { Exam } from '../shared/exam.model';
 import { ExamService } from '../shared/exam.service';
 import { StudentExamService } from '../shared/student-exam.service';
 import { User } from '../shared/user.model';
+import { UserService } from '../shared/user.service';
 
 @Component({
   selector: 'app-details-student-exam-card',
@@ -16,6 +17,11 @@ export class DetailsStudentExamCardComponent implements OnInit {
   participants: User[] = [];
   tempUser = new User();
   participantSet = new Set<string>();
+  currentExamCode: string = '';
+  currentExam = new Exam();
+  tempExamDate: string = "";
+  tempRemainingTime: number = 0;
+
   months =  new Map([
     [1, "JAN"],
     [2, "FEB"],
@@ -32,21 +38,75 @@ export class DetailsStudentExamCardComponent implements OnInit {
   ]);
 
   id: string = '';
+  tempID: string = '';
+  model ={
+    examCode: '',
+    userID: '',
+    examName: ''
+  }
 
-  constructor(private studentExamService: StudentExamService, private route: ActivatedRoute, private router: Router, private examService: ExamService) { }
+  constructor(private userService: UserService,  private studentExamService: StudentExamService, private route: ActivatedRoute, private router: Router, private examService: ExamService) { }
   examDetails = new Exam();
+  userDetails = new User();
+
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     //console.log(this.id);
     this.studentExamService.getSingleExamDetails(this.id).subscribe(
       (res:any) => {
         this.examDetails = res as Exam;
-        this.refreshParticipantList();
+
       },
       err => {}
     );
+    this.userService.getUserProfile().subscribe(
+      (res:any) => {
+        this.userDetails = res['user'];
+        //console.log(this.userDetails);
+        //console.log(this.userDetails._id);
+        this.tempID = this.userDetails._id;
+        this.model.userID = this.userDetails._id;
+        });
+
     //this.examDetails = this.studentExamService.selectedExam;
     //console.log(this.examDetails);
+  }
+
+  examGoingOn(givenExam: Exam){
+    this.tempExamDate = givenExam.examDate + 'T' + givenExam.startTime + ":00";
+    this.tempRemainingTime = new Date(this.tempExamDate).getTime() - new Date().getTime();
+    if(this.tempRemainingTime>0) return false;
+    return this.tempRemainingTime + givenExam.duration*60*1000 > 0;
+  }
+
+  onLeaveClick(givenExam: Exam){
+    console.log(givenExam._id);
+    this.currentExamCode = givenExam._id;
+    this.model.examCode = givenExam._id;
+    this.model.examName = givenExam.examName;
+    this.currentExam = givenExam;
+  }
+
+  examStart(currentExam: Exam){
+    this.examService.selectedExam = currentExam;
+    this.router.navigateByUrl('student/exam');
+  }
+
+
+
+  leaveExam(){
+    console.log(this.model);
+    this.studentExamService.leaveExam(this.model, this.model.examCode).subscribe(
+      (res:any) =>{
+        console.log('successful');
+        this.router.navigateByUrl('dashboard');
+      },
+      (err:any) => {
+        console.log('Error in updating exam: '+ JSON.stringify(err, undefined, 2));
+      }
+    );
+
+    //this.refreshExamList();
   }
 
   getExamDate(input: string): string{

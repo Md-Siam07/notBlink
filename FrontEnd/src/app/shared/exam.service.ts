@@ -14,7 +14,7 @@ export class ExamService {
   tempLink : string = "";
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private http: HttpClient) {}
-  
+
   postExam(exam: Exam, examQuestion: File){
     var formData: any = new FormData();
     formData.append('examName', exam.examName);
@@ -29,7 +29,7 @@ export class ExamService {
   }
 
   getExamList(userID: string){
-    
+
     //console.log("my user id: "+ userID);
     this.tempLink = environment.apiBaseUrl+'/exams/' + userID;
     console.log(this.tempLink);
@@ -52,9 +52,9 @@ export class ExamService {
     //console.log(exam);
     //console.log(environment.apiBaseUrl + '/exam' + `/${exam._id}`);
     return this.http.put(environment.apiBaseUrl + '/exam' + `/${exam._id}`, formData);
-  } 
-  
-  deleteExam(exam:Exam){ 
+  }
+
+  deleteExam(exam:Exam){
     //console.log(exam._id);
     //console.log(environment.apiBaseUrl+ '/exams'+ `/${exam._id}`);
     return this.http.delete(environment.apiBaseUrl+ '/exams'+ `/${exam._id}`);
@@ -65,6 +65,7 @@ export class ExamService {
     //console.log(inviteCredentials);
     return this.http.post(environment.apiBaseUrl + '/invite', inviteCredentials);
   }
+
 
   getParticipant(participantID: string){
     return this.http.get(environment.apiBaseUrl + '/participantinfo/' + participantID);

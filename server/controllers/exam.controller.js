@@ -119,6 +119,7 @@ module.exports.joinExam = (req, res, next) => {
 }
 
 module.exports.removeParcipant = (req, res, next) => {
+    console.log(req);
     Exam.findByIdAndUpdate(req.params.id, {$pull: {participants: {$in: [req.body.userID]}}}, {new:true}, (err, doc) =>{
         if(!err) {res.send(doc);}
         else{

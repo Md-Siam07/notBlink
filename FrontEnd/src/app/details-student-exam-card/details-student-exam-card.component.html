@@ -18,23 +18,76 @@
           </div>
       </div> -->
       <div class="btn-button">
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalStart" disabled>Start Exam </button>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModalStart" ><b>Start Exam</b> </button>&nbsp;&nbsp;
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalLeave">Leave Exam </button>
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalStart" [disabled]="!examDetails.hasStarted" *ngIf="!examGoingOn(examDetails)" (click)="onLeaveClick(examDetails)">Start Exam </button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModalStart" *ngIf="examGoingOn(examDetails)" (click)="onLeaveClick(examDetails)"><b>Start Exam</b> </button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalLeave" (click)="onLeaveClick(examDetails)">Leave Exam </button>
         </div>
     </div>
       <div class="col">
         <h2>Participant List&nbsp;&nbsp;<i class="fa fa-users"></i></h2>
         <hr class="cl-head">
         <br><br>
-        &nbsp;&nbsp;&nbsp;
         <div *ngFor="let participant of participants">
+          &nbsp;&nbsp;&nbsp;
           <span class="fa fa-user-circle"></span>
           &nbsp;{{participant.fullName}}
-        </div>
         <hr>
+        </div>
       </div>
     </div>
     <object [data]="examDetails.question | safe" type="application/pdf" width="800" height="600"> </object>
   </div>
 </div>
+
+
+<!--Modal Class-->
+  <!--start-->
+  <div class="modal fade" id="exampleModalStart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel">Confirm at Start</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you confirm to start exam?
+          <br>
+          <b>[Exam Name : {{currentExam.examName}}]</b>
+          <br>
+          <b>[Exam Code : {{model.examCode}}]</b>
+        </div>
+        <form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                <button type="submit" class="btn btn-success" data-bs-dismiss="modal" (click)="examStart(currentExam)">Yes</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--Modal Class-->
+  <!--Leave-->
+  <div class="modal fade" id="exampleModalLeave" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirm Leave</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Are you confirm to leave exam?
+            <br>
+            <b>[Exam Name : {{model.examName}}]</b>
+            <br>
+            <b>[Exam Code : {{model.examCode}}]</b>
+          </div>
+          <form>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                  <button type="submit" class="btn btn-success" data-bs-dismiss="modal" (click)="leaveExam()">Yes</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
