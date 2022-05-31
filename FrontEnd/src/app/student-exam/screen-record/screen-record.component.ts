@@ -53,6 +53,7 @@ export class ScreenRecordComponent implements OnInit {
     this.isRecording = false;
     this.recorder.stop();
     this.stream.getVideoTracks()[0].stop();
+    console.log(this.stream);
   }
 
 
