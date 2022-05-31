@@ -3,8 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Exam } from '../shared/exam.model';
 import { ExamService } from '../shared/exam.service';
 import { StudentExamService } from '../shared/student-exam.service';
+<<<<<<< Updated upstream
 import { User } from '../shared/user.model';
 import { UserService } from '../shared/user.service';
+=======
+import { MyNotification } from '../shared/notification.model';
+import { User } from '../shared/user.model';
+>>>>>>> Stashed changes
 
 @Component({
   selector: 'app-details-student-exam-card',

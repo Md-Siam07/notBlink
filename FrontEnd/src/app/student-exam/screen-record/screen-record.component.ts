@@ -19,9 +19,6 @@ export class ScreenRecordComponent implements OnInit {
   @ViewChild('recordVideo')
   recordVideo!: ElementRef;
 
-
-
-
   async startRecording() {
     this.stream = await mediaDevices.getDisplayMedia({
       video: { mediaSource: "screen" }
