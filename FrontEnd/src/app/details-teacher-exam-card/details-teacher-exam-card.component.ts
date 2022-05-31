@@ -70,11 +70,8 @@ export class DetailsTeacherExamCardComponent implements OnInit {
           this.tempNotification.screenRecord = notification.screenRecord;
           this.tempNotification.time = notification.time;
           this.tempNotification.message = notification.message;
-          console.log(notification.cameraRecord);
-          console.log(this.tempNotification.cameraRecord);
           this.notifications.push(this.tempNotification);
-        });
-        console.log(this.notifications)
+        }); 
         this.refreshParticipantList();
       },
       err => {}

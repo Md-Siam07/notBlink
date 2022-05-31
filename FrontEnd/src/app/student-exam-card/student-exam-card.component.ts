@@ -61,21 +61,20 @@ export class StudentExamCardComponent implements OnInit {
         //console.log(this.userDetails._id);
         this.tempID = this.userDetails._id;
         this.model.userID = this.userDetails._id;
+        this.examService.retrieveExam(this.tempID).subscribe( (res:any) =>{
+          console.log('get: ' + this.tempID);
+          this.examService.exams = res as Exam[];
+          console.log(this.examService.exams);
+          this.listOfExams = this.examService.exams;
+          this.calculateRemainingTimeAndInitiate();
+        });
       },
       (err:any) => {}
     );
 
     //this.refreshExamList();
 
-    setTimeout(()=>{
-      this.examService.retrieveExam(this.tempID).subscribe( (res:any) =>{
-        console.log('get: ' + this.tempID);
-        this.examService.exams = res as Exam[];
-        console.log(this.examService.exams);
-        this.listOfExams = this.examService.exams;
-        this.calculateRemainingTimeAndInitiate();
-      });
-    },500);
+    
   }
 
   calculateRemainingTimeAndInitiate(){

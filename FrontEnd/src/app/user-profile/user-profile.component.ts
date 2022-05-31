@@ -18,6 +18,7 @@ export class UserProfileComponent implements OnInit {
       (res:any) => {
         this.userDetails = res['user'];
         this.userid = res._id;
+        console.log('siam')
         console.log(this.userDetails);
         //console.log(res._id);
       },

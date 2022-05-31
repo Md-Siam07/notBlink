@@ -22,6 +22,7 @@ export class TeacherExamCardComponent implements OnInit {
   form!: FormGroup;
   month: string = "";
   file!: File;
+  notificationCount!: number;
   months =  new Map([
     [1, "JAN"],
     [2, "FEB"],
@@ -49,18 +50,16 @@ export class TeacherExamCardComponent implements OnInit {
         //console.log(this.userDetails);
         //console.log(this.userDetails._id);
         this.tempID = this.userDetails._id;
+        this.examService.getExamList(this.tempID).subscribe( (res:any) =>{
+          //console.log('get: ' + this.tempID);
+          this.examService.exams = res as Exam[];
+          this.exams = this.examService.exams;
+          console.log(this.examService.exams);
+        });
       },
       (err:any) => {}
     );
 
-    setTimeout(()=>{
-      this.examService.getExamList(this.tempID).subscribe( (res:any) =>{
-        //console.log('get: ' + this.tempID);
-        this.examService.exams = res as Exam[];
-        this.exams = this.examService.exams;
-        console.log(this.examService.exams);
-      });
-    },500);
   }
 
   onClick(exam: Exam){
@@ -163,5 +162,6 @@ export class TeacherExamCardComponent implements OnInit {
     this.router.navigateByUrl(tempUrl);
   }
 
+  
 
 }

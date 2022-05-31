@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/user.service';
 import { Router } from '@angular/router';
 import { reduce } from 'rxjs';
+import { User } from '../shared/user.model';
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,6 +11,8 @@ import { reduce } from 'rxjs';
 })
 export class NavBarComponent implements OnInit {
 
+  userDetails = new User();
+  userid: string = "";
   constructor(private userService: UserService, private router: Router) { }
 
   status: boolean = false;
@@ -25,6 +28,18 @@ export class NavBarComponent implements OnInit {
     return localStorage.getItem('loginStatus') == 'true';
   }
 
+  getProfile(){
+    this.userService.getUserProfile().subscribe(
+      (res:any) => {
+        this.userDetails = res['user'];
+        this.userid = res._id;
+        console.log('siam')
+        console.log(this.userDetails);
+        //console.log(res._id);
+      },
+      (err:any) => {}
+    );
+  }
   // loginClicked(){
   //   if(this.userService.loginStatus)
   //     this.router.navigateByUrl('dashboard');
