@@ -4,6 +4,7 @@ import { StudentExamService } from 'src/app/shared/student-exam.service';
 import { User } from 'src/app/shared/user.model';
 import { UserService } from 'src/app/shared/user.service';
 import io from 'socket.io-client';
+import { ActivatedRoute } from '@angular/router';
 
 const socket = io('http://localhost:3000');
 
@@ -17,8 +18,8 @@ export class WindowMonitoringComponent implements OnInit {
   notification= new MyNotification();
   //notifications!: MyNotification[];
   userDetails = new User();
-
-  constructor(private userService: UserService, private examService: StudentExamService) { }
+  id: string = '';
+  constructor(private userService: UserService, private examService: StudentExamService, private route: ActivatedRoute) { }
   
   @HostListener('window:focus', ['$event'])
     onFocus(event:any) {
@@ -53,6 +54,8 @@ export class WindowMonitoringComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.params['id'];
+    console.log('id id: ',this.id);
     this.scrHeight = window.innerHeight;
     this.scrWidth = window.innerWidth;
     this.userService.getUserProfile().subscribe(
@@ -78,7 +81,7 @@ export class WindowMonitoringComponent implements OnInit {
     this.notification.roll = this.userDetails.roll;
     this.notification.phone_number = this.userDetails.phone_number;
     this.notification.message = "User tried to change or resize the tab";
-    this.examService.notify(this.notification, "6293ca6e8aab0923a4cdcb5b").subscribe(
+    this.examService.notify(this.notification, this.id).subscribe(
       res =>{
         socket.emit('notification', this.notification);
         //this.notifications.push(this.notification);
