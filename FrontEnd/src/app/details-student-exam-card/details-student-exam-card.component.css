@@ -1,6 +1,5 @@
 .main-bg {
-  background: rgb(255, 255, 255);
-  background: linear-gradient( #ffffff, #a3fbf7);
+  background: #EFEAD8;
   min-height:100vh;
   padding-top: 88px;
 }

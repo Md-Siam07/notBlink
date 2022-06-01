@@ -1,14 +1,19 @@
 /* Color of the links BEFORE scroll */
 .navbar-scroll .nav-link,
 .navbar-scroll .navbar-toggler-icon,
-.navbar-scroll .navbar-brand {
+.navbar-scroll  {
   color: #262626;
 }
 
 /* Color of the navbar BEFORE scroll */
 .navbar-scroll {
-  background-color: #0c8882;
+  background-color: #6D8B74;
   /*background-color: #FFC017;*/
+}
+
+.logo{
+  color: #EFEAD8;
+
 }
 
 /* Color of the links AFTER scroll */
@@ -20,7 +25,7 @@
 
 /* Color of the navbar AFTER scroll */
 .navbar-scrolled {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.918);
 }
 
 /* An optional height of the navbar AFTER scroll */
@@ -38,7 +43,7 @@ h3 {
 }
 
 .offcanvas-header {
-  background-color: #0c8882;
+  background-color: #966767;
 }
 
 
@@ -46,7 +51,7 @@ h3 {
   padding-left: 10px;
   padding-right: 10px;
   background: rgb(255, 255, 255);
-  background: linear-gradient( #ffffff, #a3fbf7);
+  background: linear-gradient( #ffffff, #EBD4D4);
   height:100vh;
 }
 
@@ -77,7 +82,7 @@ body {
 }
 
 .normal-text {
-  color: #0c8882;
+  color: black;
 }
 
 /* Text Color */
@@ -86,7 +91,10 @@ body {
 }
 
 .text-name {
-  color: #0c8882;
+  color: #463333;
   text-align: center;
 }
 
+.list-group-item {
+  background: #FFF0F0;
+}
