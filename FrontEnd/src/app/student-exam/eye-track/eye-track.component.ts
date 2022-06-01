@@ -45,6 +45,7 @@ export class EyeTrackComponent implements OnInit {
 
   intervalID: any = setInterval(() => {
     if (suspectedStatus() != 0 ) {
+      this.playAudio('suspected.m4a');
       this.notify();
     }
   }, this.exam.outSightTime*1000);
@@ -69,6 +70,13 @@ export class EyeTrackComponent implements OnInit {
         console.log('erroor');
       }
     )
+  }
+
+  playAudio(filename: string){
+    let audio = new Audio();
+    audio.src = "../../../assets/audio/" + filename;
+    audio.load();
+    audio.play();
   }
 
 }

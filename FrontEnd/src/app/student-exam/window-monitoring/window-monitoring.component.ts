@@ -23,15 +23,15 @@ export class WindowMonitoringComponent implements OnInit {
   
   @HostListener('window:focus', ['$event'])
     onFocus(event:any) {
-    console.log("****user attempted leaving but changed its mind, do actions here");
+    //console.log("****user attempted leaving but changed its mind, do actions here");
     //alert("****user trying to leave, user tumi valo hoye jao");
     
   } 
   
   @HostListener('window:blur', ['$event'])
     onBlur(event:any) {
-    this.playAudio();
-    alert("****user left, user tumi valo hoye jao");
+    this.playAudio('changeScreen.m4a');
+    alert("You can not chnage the screen during the exam!\nOnly the tab of !Blink is accepted!");
     this.notify();
     //alert("user leave korso ken?")
   } 
@@ -46,9 +46,9 @@ export class WindowMonitoringComponent implements OnInit {
       console.log(this.scrHeight, this.scrWidth);
       this.notify();
   }
-  playAudio(){
+  playAudio(filename: string){
     let audio = new Audio();
-    audio.src = "../../../assets/audio/FM9B3TC-alarm.mp3";
+    audio.src = "../../../assets/audio/" + filename;
     audio.load();
     audio.play();
   }

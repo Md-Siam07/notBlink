@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Exam } from '../shared/exam.model';
 import { StudentExamService } from '../shared/student-exam.service';
 
@@ -11,12 +11,29 @@ import { StudentExamService } from '../shared/student-exam.service';
 export class StudentExamComponent implements OnInit {
   calibrationDone:Boolean = false;
 
-  constructor(private examService: StudentExamService, private route: ActivatedRoute ) { }
+  constructor(private examService: StudentExamService, private route: ActivatedRoute, private router: Router ) { }
   examDetails = new Exam();
+  tempRemainingTime : number = 0;
   id: string = '';
+  tempExamDate: string = '';
   ngOnInit(): void {
+    
     this.id = this.route.snapshot.params['id'];
-    this.examDetails = this.examService.selectedExam;
+    this.examService.getSingleExamDetails(this.id).subscribe(
+      (res:any) =>{
+        this.examDetails = res as Exam;
+      }
+    );
+    this.tempExamDate = this.examDetails.examDate + 'T' + this.examDetails.startTime + ":00";
+    this.tempRemainingTime = new Date(this.tempExamDate).getTime() - new Date().getTime();
+    console.log(this.tempRemainingTime)
+    //if(this.tempRemainingTime>0) this.router.navigateByUrl('dashboard');
+    // else if(this.tempRemainingTime + this.examDetails.duration*60*1000 > 0) this.router.navigateByUrl('dashboard');
+    // else{
+    //   setTimeout(()=>{
+    //     this.router.navigateByUrl('dashboard');
+    //   }, this.tempRemainingTime + this.examDetails.duration*60*1000)
+    // }
   }
 
   clickCount:number[] = [0,0,0,0,0,0,0,0,0];
@@ -43,5 +60,6 @@ export class StudentExamComponent implements OnInit {
       this.calibrationDone = true;
     }
   }
+  
 
 }
