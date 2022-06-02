@@ -29,6 +29,8 @@ import { DetailsTeacherExamCardComponent } from './details-teacher-exam-card/det
 import { DetailsStudentExamCardComponent } from './details-student-exam-card/details-student-exam-card.component';
 import { EyeTrackComponent } from './student-exam/eye-track/eye-track.component';
 import { SafePipe } from './safe.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,13 @@ import { SafePipe } from './safe.pipe';
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 1000,
+      progressBar: true,
+      positionClass: 'toast-bottom-center',
+      preventDuplicates: true,
+    })
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
