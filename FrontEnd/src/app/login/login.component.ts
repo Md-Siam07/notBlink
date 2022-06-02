@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../shared/user.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private userServce: UserService, private http: HttpClient) { }
+  constructor(private toastr: ToastrService, private router: Router, private userServce: UserService, private http: HttpClient) { }
 
   model ={
     email: '',
@@ -31,6 +32,16 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['signup']);
   }
 
+  showSuccessToast() {
+    console.log('ct');
+    this.toastr.success(this.serverErrorMessages);
+  }
+
+  showFailToast() {
+    console.log('ct');
+    this.toastr.error(this.serverErrorMessages);
+  }
+
   signIn(){
     this.userServce.login(this.model).subscribe(
       (res:any) => {
@@ -40,13 +51,15 @@ export class LoginComponent implements OnInit {
           this.userServce.changeStatus();
           this.router.navigateByUrl('dashboard');
         }
-        console.log(res);
+        this.serverErrorMessages = "Login Successful";
+        this.showSuccessToast();
+        //console.log(res);
         //this.userServce.setToken(res['token']);
         //localStorage.setItem('token', res.token);
       },
       err => {
         this.serverErrorMessages = err.error.message;
-
+        this.showFailToast();
       }
     );
   }
@@ -64,6 +77,6 @@ export class LoginComponent implements OnInit {
   //       (err) => {
   //         console.log(err);
   //       }
-  //     );    
+  //     );
   // }
 }
