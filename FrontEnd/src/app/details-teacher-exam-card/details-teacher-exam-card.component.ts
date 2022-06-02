@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Exam } from '../shared/exam.model';
 import { ExamService } from '../shared/exam.service';
@@ -6,6 +6,7 @@ import { MyNotification } from '../shared/notification.model';
 import { User } from '../shared/user.model';
 
 import io from 'socket.io-client';
+import { BehaviorSubject, observable, Observable, tap, timer } from 'rxjs';
 
 const socket = io('http://localhost:3000');
 
@@ -47,62 +48,78 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     examName: ''
   }
 
-  constructor(private examService: ExamService, private route: ActivatedRoute, private router: Router) { }
+  
+
   examDetails = new Exam();
   participants: User[] = [];
   tempUser !:User;
   dummyData !: any;
   notifications: MyNotification[] = [];
+  //notifications: Observable<MyNotification[]>
   copyNotifications: MyNotification[] = [];
   tempNotification = new MyNotification();
   participantSet = new Set<string>();
+  observer: any;
   index: number = 0;
   id: string = '';
+  notificationList = new BehaviorSubject<MyNotification[]>([]);
+
+  constructor(private examService: ExamService, private route: ActivatedRoute, private router: Router) {
+    timer(0,1000).pipe(tap(()=> this.loadNotification())).subscribe();
+  }
+
+  
+
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    //console.log(this.id);
+    console.log(this.id);
     this.examService.getSingleExamDetails(this.id).subscribe(
-      (res:any) => {
-        this.examDetails = res as Exam;
-        //this.notifications = res['notification'];
-        res['notification'].forEach( (notification: any) => {
-          this.tempNotification = new MyNotification();
-          this.tempNotification.fullName = notification.examinee.fullName;
-          this.tempNotification.batch = notification.examinee.batch;
-          this.tempNotification.institute = notification.examinee.institute;
-          this.tempNotification.roll = notification.examinee.roll;
-          this.tempNotification.phone_number = notification.examinee.phone_number;
-          this.tempNotification.cameraRecord = notification.cameraRecord;
-          this.tempNotification.screenRecord = notification.screenRecord;
-          this.tempNotification.time = notification.time;
-          this.tempNotification.message = notification.message;
-          this.notifications.push(this.tempNotification);
-        }); 
-        this.refreshParticipantList();
-      },
-      err => {}
+      (res: any) => {this.examDetails = res as Exam},
+      err => console.log(err)
     );
-    socket.on('notification', (data:any) =>{
-      this.dummyData = data;
-      //this.copyNotifications = [];
-      // this.notifications.push(JSON.parse(JSON.stringify(data)));
-      // // this.notifications.pop();
-      // // console.log('data: ',data);
-      // // console.log('notifications: ',this.notifications)
-      // this.notifications.forEach(element => {
-      //   this.copyNotifications.push(JSON.parse(JSON.stringify(element)));
-      // });
-      // this.notifications = [];
-      // this.copyNotifications.forEach(element => {
-      //   this.notifications.push(JSON.parse(JSON.stringify(element)));
-      // })
-      this.refreshNotifications(data);
-
-    })
+    // this.examService.getNotifications(this.id).subscribe(
+    //   (res:any) => {
+    //     this.notifications = res;
+    //     const that = this;
+    //     this.observer = Observable.create(function subscribe(subscriber:any) {
+    //       subscriber.next(that.notifications);
+    //     })
+    //     //console.log(res);
+    //     this.refreshParticipantList();
+    //   },
+    //   err => {}
+    // );
+    // socket.on('notification', (data:any) =>{
+    //   console.log(data);
+    //   //this.refreshNotifications(data);
+    //   const that = this;
+    //   this.observer = Observable.create(function subscribe(subscriber:any) {
+    //     subscriber.next(that.refreshNotifications(data));
+    //  })
+    // })
     
+     // this.observer = this.examService.getNotifications(this.id);
+      
     //this.examDetails = this.examService.selectedExam;
     
     //console.log('here: ', this.examDetails.question);
+  }
+
+  loadNotification(){
+    console.log('refresh called')
+    this.examService.getNotifications(this.id).subscribe(
+      (res:any) => {
+        //this.notifications = res;
+        this.notificationList.next(res);
+        //console.log(res);
+        //this.refreshParticipantList();
+      },
+      err => {}
+    );
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes)
   }
 
   uploadFile(event:any) {
@@ -124,35 +141,38 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   }
 
   refreshNotifications(data:any){
-    this.notifications = new Array();
+    //this.notifications = [...this.notifications, data];
+    return [...this.notifications, data];
+    // this.notifications = new Array();
     
-    if(this.dummyData.screenRecord != '')
-      alert('Examinee: ' + this.dummyData.fullName + ' is suspected to change the tab! \nPlease reload the page to refresh the stream and view the evidence');
-    else
-      alert('Examinee: ' + this.dummyData.fullName + ' is suspected to view outside the screen!\nPlease reload the page to refresh the stream and view the evidence');
+    // if(this.dummyData.screenRecord != '')
+    //   alert('Examinee: ' + this.dummyData.fullName + ' is suspected to change the tab! \nPlease reload the page to refresh the stream and view the evidence');
+    // else
+    //   alert('Examinee: ' + this.dummyData.fullName + ' is suspected to view outside the screen!\nPlease reload the page to refresh the stream and view the evidence');
     
-    this.examService.getSingleExamDetails(this.id).subscribe(
-      (res:any) => {
-        this.examDetails = res as Exam;
-        this.refreshParticipantList();
-        //this.notifications = res['notification'];
-        res['notification'].forEach( (notification: any) => {
-          this.tempNotification = new MyNotification();
-          this.tempNotification.fullName = notification.examinee.fullName;
-          this.tempNotification.batch = notification.examinee.batch;
-          this.tempNotification.institute = notification.examinee.institute;
-          this.tempNotification.roll = notification.examinee.roll;
-          this.tempNotification.phone_number = notification.examinee.phone_number;
-          this.tempNotification.cameraRecord = notification.cameraRecord;
-          this.tempNotification.screenRecord = notification.screenRecord;
-          this.tempNotification.time = notification.time;
-          this.tempNotification.message = notification.message;
-          this.notifications =  [...this.notifications.concat(this.tempNotification)]
-        }); 
+    // this.examService.getSingleExamDetails(this.id).subscribe(
+    //   (res:any) => {
+    //     this.examDetails = res as Exam;
+    //     this.refreshParticipantList();
+    //     //this.notifications = res['notification'];
+    //     res['notification'].forEach( (notification: any) => {
+    //       this.tempNotification = new MyNotification();
+    //       this.tempNotification.fullName = notification.examinee.fullName;
+    //       this.tempNotification.batch = notification.examinee.batch;
+    //       this.tempNotification.institute = notification.examinee.institute;
+    //       this.tempNotification.roll = notification.examinee.roll;
+    //       this.tempNotification.phone_number = notification.examinee.phone_number;
+    //       this.tempNotification.cameraRecord = notification.cameraRecord;
+    //       this.tempNotification.screenRecord = notification.screenRecord;
+    //       this.tempNotification.time = notification.time;
+    //       this.tempNotification.message = notification.message;
+    //       this.notifications =  [...this.notifications.concat(this.tempNotification)]
+    //     }); 
         
-      },
-      err => {}
-    );
+    //   },
+    //   err => {}
+    // );
+   
   }
 
   refreshParticipantList(){

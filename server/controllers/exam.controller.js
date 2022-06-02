@@ -55,10 +55,11 @@ module.exports.getStudentExams = (req, res, next) => {
 
 
 module.exports.singleExamInfo = (req, res, next) => {
+    console.log(req.params.id)
     Exam.findById(req.params.id, (err, doc) => {
         if(!err) res.send(doc);
         else {
-            console.log(`Error in retriving exam`);
+            console.log(`Error in retriving exam` + + JSON.stringify(err, undefined, 2));
         }
     } )
 }
@@ -73,7 +74,7 @@ module.exports.updateInfo = (req, res, next) => {
             tempOutSightTime = doc.outSightTime;
         }
         else {
-            console.log(`Error in retriving exam`);
+            console.log(`Error in updating exam`);
         }
     } )
     console.log('called');
@@ -135,22 +136,9 @@ module.exports.removeParcipant = (req, res, next) => {
 }
 
 module.exports.addEvidence = (req, res, next) => {
-    var myNotification = {
-        examinee:{
-            fullName: req.body.fullName,
-            email: req.body.email, 
-            institute: req.body.institute,
-            batch: req.body.batch,
-            roll: req.body.roll,
-            phone_number: req.body.phone_number,
-        },
-        cameraRecord:req.body.cameraRecord,
-        screenRecord:req.body.screenRecord,
-        message:req.body.message
-    }
+    
     console.log(req.body);
-    console.log(myNotification);
-    Exam.findByIdAndUpdate(req.params.id, {$push: {notification: myNotification}}, {new:true}, (err, doc) => {
+    Exam.findByIdAndUpdate(req.params.id, {$push: {notification: req.body}}, {new:true}, (err, doc) => {
         if(!err) {res.send(doc);}
         else{
             console.log(`Error in add evidence: `+ JSON.stringify(err, undefined, 2));
@@ -159,6 +147,11 @@ module.exports.addEvidence = (req, res, next) => {
 }
 
 module.exports.getNotification = (req, res, next) => {
-
+    Exam.findById(req.params.id, (err, doc) => {
+        if(!err) res.send(doc.notification);
+        else {
+            console.log(`Error in retriving notification`);
+        }
+    } )
 }
 

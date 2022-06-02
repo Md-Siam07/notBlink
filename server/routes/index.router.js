@@ -49,6 +49,7 @@ router.put('/student/exams/:id', examController.removeParcipant);
 router.post('/invite', emailController.sendMail);
 router.get('/participantinfo/:id', userController.participantInfo);
 router.put('/addEvidence/:id', examController.addEvidence);
+router.get('/exam/notifications/:id', examController.getNotification)
 
 module.exports = router;
 

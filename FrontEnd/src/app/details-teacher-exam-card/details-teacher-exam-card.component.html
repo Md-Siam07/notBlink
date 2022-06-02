@@ -39,7 +39,7 @@
         <h2>Notification&nbsp;&nbsp;<i class="fas fa-bell"></i></h2>
         <hr class="cl-head">
         <br><br>
-        <ul class="list-group list-group-flush" *ngFor="let notification of notifications">
+        <ul class="list-group list-group-flush" *ngFor="let notification of notificationList | async">
           <li class="list-group-item">
             Suspicious Activity
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

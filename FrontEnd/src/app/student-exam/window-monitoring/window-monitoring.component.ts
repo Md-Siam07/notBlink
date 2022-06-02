@@ -31,7 +31,7 @@ export class WindowMonitoringComponent implements OnInit {
   @HostListener('window:blur', ['$event'])
     onBlur(event:any) {
     this.playAudio('changeScreen.m4a');
-    alert("You can not chnage the screen during the exam!\nOnly the tab of !Blink is accepted!");
+    //alert("You can not chnage the screen during the exam!\nOnly the tab of !Blink is accepted!");
     this.notify();
     //alert("user leave korso ken?")
   } 

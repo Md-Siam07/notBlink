@@ -40,6 +40,10 @@ export class ExamService {
     return this.http.get(environment.apiBaseUrl + '/exam/' + examID);
   }
 
+  getNotifications(examID: string){
+    return this.http.get(environment.apiBaseUrl+ '/exam/notifications/' + examID)
+  }
+
   update(exam: Exam, examQuestion: File){
     var formData: any = new FormData();
     formData.append('examName', exam.examName);

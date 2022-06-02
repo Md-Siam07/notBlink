@@ -69,7 +69,7 @@ export class DetailsStudentExamCardComponent implements OnInit {
         //console.log(this.userDetails._id);
         this.tempID = this.userDetails._id;
         this.model.userID = this.userDetails._id;
-        });
+    });
       
     
 
