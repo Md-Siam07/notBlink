@@ -11,13 +11,15 @@ import { StudentExamService } from '../shared/student-exam.service';
 export class StudentExamComponent implements OnInit {
   calibrationDone:Boolean = true;
 
+
+
   constructor(private examService: StudentExamService, private route: ActivatedRoute, private router: Router ) { }
   examDetails = new Exam();
   tempRemainingTime : number = 0;
   id: string = '';
   tempExamDate: string = '';
   ngOnInit(): void {
-    
+
     this.id = this.route.snapshot.params['id'];
     this.examService.getSingleExamDetails(this.id).subscribe(
       (res:any) =>{
@@ -60,6 +62,11 @@ export class StudentExamComponent implements OnInit {
       this.calibrationDone = true;
     }
   }
-  
+
+  checkCameraPermission() {
+
+    //let
+  }
+
 
 }
