@@ -4,7 +4,7 @@
   <div class=" main-bg">
     <div class="container">
       <div>
-        <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#exampleModalCreate" *ngIf="userDetails.isTeacher"><i class="fa fa-plus"></i> <b> Create New Exam</b></button>
+        <button type="button" class="btn btn-success float-end" data-bs-toggle="modal" data-bs-target="#exampleModalCreate" *ngIf="userDetails.isTeacher" style="background-color: #8fc0a9; color:black"><i class="fa fa-plus"></i> <b> Create New Exam</b></button>
     </div>
     <br><br>
 
@@ -14,10 +14,15 @@
                   <div class="card-header no-border id">
                       <h3 class="card-title">{{exam.examName}}</h3>
                   </div>
-                  <div class="card-header no-border code">
-                      <span class="badge bg-dark">Exam Code: {{exam._id}}</span>
-                      
-                  
+                  <div class="card-header no-border code justify-content-between">
+                      <span class="badge bg-light" style="color: black;">Exam Code: {{exam._id}}</span>
+                      <div class="">
+                        <button type="button" class="btn btn-light">
+                        <i class="fa fa-bell icon"> &nbsp; </i>
+                        <span class="badge bg-danger"> 4 </span>
+                        </button>
+                    </div>
+
                 </div>
                   <div class="card-body pt-0">
                       <div class="widget-49">
@@ -117,7 +122,7 @@
               <div class="mb-3">
                 <label for="recipient-duration" class="col-form-label" ><h6>Outsight limit(In second):</h6></label>
                 <input type="text" class="form-control" id="recipient-outsight-limit" placeholder="120" #duration="ngModel" ngDefaultControl [(ngModel)]="selectedExam.outSightTime" [ngModelOptions]="{standalone: true}">
-            
+
               </div>
                 <div class="mb-3">
                   <label for="message-text" class="col-form-label"><h6>Message:</h6></label>
@@ -197,7 +202,7 @@
           <div class="mb-3">
             <label for="recipient-duration" class="col-form-label" ><h6>Outsight limit(In second):</h6></label>
             <input type="text" class="form-control" id="recipient-outsight-limit" placeholder="120" #duration="ngModel" ngDefaultControl [(ngModel)]="selectedExam.outSightTime" [ngModelOptions]="{standalone: true}">
-        
+
           </div>
             <div class="mb-3">
               <label for="message-text" class="col-form-label" ><h6>Message:</h6></label>

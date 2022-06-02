@@ -30,7 +30,7 @@ body{
   border: 0;
 }
 .card .card-header {
-  background: #0a9790;
+  background: #005555;
   /*background: #FFC017;*/
   padding: 0 0.9375rem;
   font-weight: 500;
@@ -110,14 +110,14 @@ border-radius: 50%;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-success .widget-49-date-day {
-color: #17d1bd;
+color: #417D7A;
 font-weight: 500;
 font-size: 1.5rem;
 line-height: 1;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-success .widget-49-date-month {
-color: #17d1bd;
+color: #417D7A;
 line-height: 1;
 font-size: 1rem;
 text-transform: uppercase;
@@ -314,8 +314,7 @@ text-transform: uppercase;
 
 /* Backgrounds */
 .main-bg {
-  background: rgb(255, 255, 255);
-  background: linear-gradient( #ffffff, #a3fbf7);
+  background: #D4ECDD;
   min-height:100vh;
   padding-top: 88px;
 }
