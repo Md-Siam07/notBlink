@@ -1,13 +1,13 @@
 
 export class MyNotification {
-    fullName!: String;
-    email!: String;
-    institute!: String;
-    batch!: Number;
-    roll!: Number;
-    phone_number!: String;
-    time!: String;
-    cameraRecord!: String;
-    screenRecord!: String;
-    message!: String;
+    fullName!: string;
+    email!: string;
+    institute!: string;
+    batch!: number;
+    roll!: number;
+    phone_number!: string;
+    time!: string;
+    cameraRecord!: string;
+    screenRecord!: string;
+    message!: string;
 }

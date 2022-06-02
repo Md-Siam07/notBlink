@@ -61,7 +61,7 @@ export class EyeTrackComponent implements OnInit {
     this.notification.roll = this.userDetails.roll;
     this.notification.phone_number = this.userDetails.phone_number;
     this.notification.message = "User has outsighted the screen longer than the limit";
-    this.examService.notify(this.notification, this.id).subscribe(
+    this.examService.notify(this.notification, this.id, new Blob()).subscribe(
       res =>{
         socket.emit('notification', this.notification);
         //this.notifications.push(this.notification);

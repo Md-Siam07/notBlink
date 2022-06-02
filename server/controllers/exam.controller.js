@@ -3,14 +3,14 @@ const { response } = require('express');
 const mongoose = require('mongoose');
 const Exam = mongoose.model('Exam');
 const multer = require('multer');
-
+const Notification = mongoose.model('Notification');
 
 
 
 module.exports.create = (req, res, next) => {
     const url = req.protocol + '://' + req.get('host')
     //console.log('called');
-    //console.log('body: ' , req.body);
+    console.log('body: ' , req.body);
     var exam = new Exam();
     exam.examName = req.body.examName;
     exam.startTime = req.body.startTime;
@@ -18,13 +18,17 @@ module.exports.create = (req, res, next) => {
     exam.examDate = req.body.examDate;
     exam.teacherID = req.body.teacherID;
     exam.teacherName = req.body.teacherName;
-    exam.outSightTime = req.body.outSightTime;
+    //exam.outSightTime = req.body.outSightTime;
     exam.participants = [];
     exam.notification = [];
     if(!req.file)
         exam.question = '';
     else
         exam.question = url + '/public/' + req.file.filename;
+    if(req.body.outSightTime == 'undefined'){
+        req.body.outSightTime = tempOutSightTime;
+    }
+    exam.outSightTime = req.body.outSightTime;
     //exam.question = req.file.filename;
     console.log(exam);
     exam.save( (err, doc) =>{
@@ -135,11 +139,31 @@ module.exports.removeParcipant = (req, res, next) => {
     } )
 }
 
+
 module.exports.addEvidence = (req, res, next) => {
-    
-    console.log(req.body);
-    Exam.findByIdAndUpdate(req.params.id, {$push: {notification: req.body}}, {new:true}, (err, doc) => {
-        if(!err) {res.send(doc);}
+    const url = req.protocol + '://' + req.get('host');
+    console.log('body: ', req.body);
+    var notification = new Notification();
+    notification.fullName = req.body.fullName;
+    notification.email = req.body.email;
+    notification.institute = req.body.institute;
+    notification.roll = req.body.roll;
+    notification.phone_number = req.body.phone_number;
+    notification.time = Date.now;
+    if(req.body.screenRecord != ''){
+        //var file = new File([req.file], Date.now + '.mp4');
+        notification.screenRecord = url + '/public/' + req.file.filename;
+        notification.cameraRecord = '';
+    }
+    else {
+        notification.screenRecord = '';
+        notification.cameraRecord = url + '/public/' + req.file.filename;
+    }
+    console.log(notification)
+    Exam.findByIdAndUpdate(req.params.id, {$push: {notification: notification}}, {new:true}, (err, doc) => {
+        if(!err) {
+            console.log('added')
+            res.send(doc);}
         else{
             console.log(`Error in add evidence: `+ JSON.stringify(err, undefined, 2));
         }

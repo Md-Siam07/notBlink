@@ -40,9 +40,9 @@ app.use((err, req, res, next) => {
 server.listen(process.env.PORT, () => console.log(`Server started at port: ${process.env.PORT}`));
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  //console.log('a user connected');
   socket.on('notification', notification =>{
-    console.log('ashche');
+    //console.log('ashche');
     io.emit('notification', notification);
   })
 })

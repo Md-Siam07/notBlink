@@ -28,8 +28,21 @@ export class StudentExamService {
     return this.http.put(environment.apiBaseUrl + '/student/exams/' + examCode, leaveCredential);
   }
 
-  notify(notification: MyNotification, examCode: string){
-    return this.http.put(environment.apiBaseUrl + '/addEvidence/' + examCode, notification);
+  notify(notification: MyNotification, examCode: string, blob:Blob){
+    console.log('nn:',notification);
+    var formData: any = new FormData();
+    formData.append('batch' , notification.batch);
+    formData.append('cameraRecord' , notification.cameraRecord);
+    formData.append('email' , notification.email);
+    formData.append('fullName' , notification.fullName);
+    formData.append('institute' , notification.institute);
+    formData.append('message' , notification.message);
+    formData.append('phone_number' , notification.phone_number);
+    formData.append('screenRecord' , notification.screenRecord);
+    var file = new File([blob], Date.now()+ '.mp4')
+    formData.append('record', file);
+    console.log(formData);
+    return this.http.put(environment.apiBaseUrl + '/addEvidence/' + examCode, formData);
   }
 
   getSingleExamDetails(examID: string){

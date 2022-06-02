@@ -11,6 +11,7 @@ export class ExamService {
 
   selectedExam : Exam = new Exam();
   exams : Exam[] = [];
+  blob = new Blob();
   tempLink : string = "";
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(private http: HttpClient) {}
@@ -25,7 +26,12 @@ export class ExamService {
     formData.append('outSightTime', exam.outSightTime);
     formData.append('teacherName', exam.teacherName);
     formData.append('question', examQuestion);
+    console.log(formData);
     return this.http.post( environment.apiBaseUrl+'/createExam', formData );
+  }
+
+  setBlob(blob: Blob){
+    this.blob = blob;
   }
 
   getExamList(userID: string){

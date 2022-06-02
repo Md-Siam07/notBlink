@@ -32,7 +32,7 @@ export class WindowMonitoringComponent implements OnInit {
     onBlur(event:any) {
     this.playAudio('changeScreen.m4a');
     //alert("You can not chnage the screen during the exam!\nOnly the tab of !Blink is accepted!");
-    this.notify();
+    //this.notify();
     //alert("user leave korso ken?")
   } 
   
@@ -44,7 +44,7 @@ export class WindowMonitoringComponent implements OnInit {
       this.scrHeight = window.innerHeight;
       this.scrWidth = window.innerWidth;
       console.log(this.scrHeight, this.scrWidth);
-      this.notify();
+      //this.notify();
   }
   playAudio(filename: string){
     let audio = new Audio();
@@ -81,7 +81,7 @@ export class WindowMonitoringComponent implements OnInit {
     this.notification.roll = this.userDetails.roll;
     this.notification.phone_number = this.userDetails.phone_number;
     this.notification.message = "User tried to change or resize the tab";
-    this.examService.notify(this.notification, this.id).subscribe(
+    this.examService.notify(this.notification, this.id, new Blob()).subscribe(
       res =>{
         socket.emit('notification', this.notification);
         //this.notifications.push(this.notification);
