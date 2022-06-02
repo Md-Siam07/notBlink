@@ -53,6 +53,13 @@ export class ScreenRecordComponent implements OnInit {
     console.log(this.stream);
   }
 
+  sendBlob(){
+    if (
+      window.navigator &&
+      (window.navigator as any).msSaveOrOpenBlob
+    ) return (window.navigator as any).msSaveOrOpenBlob(completeBlob);
+    //send the blob from here
+  }
 
   downloadBlob(name = 'video.mp4'): any {
     if (
@@ -64,7 +71,7 @@ export class ScreenRecordComponent implements OnInit {
     // For other browsers:
     // Create a link pointing to the ObjectURL containing the blob.
     const data = window.URL.createObjectURL(completeBlob);
-
+    console.log(data)
 
     const link = document.createElement('a');
     link.href = data;
