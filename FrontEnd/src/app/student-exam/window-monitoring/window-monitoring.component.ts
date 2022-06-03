@@ -7,7 +7,8 @@ import io from 'socket.io-client';
 import { ActivatedRoute } from '@angular/router';
 
 const socket = io('http://localhost:3000');
-
+declare function screenWidthHeight():any;
+declare function maximiseBrowser(): any;
 @Component({
   selector: 'app-window-monitoring',
   templateUrl: './window-monitoring.component.html',
@@ -23,8 +24,8 @@ export class WindowMonitoringComponent implements OnInit {
   
   @HostListener('window:focus', ['$event'])
     onFocus(event:any) {
-    //console.log("****user attempted leaving but changed its mind, do actions here");
-    //alert("****user trying to leave, user tumi valo hoye jao");
+    
+    //todo (notify that the student is back)
     
   } 
   
@@ -55,6 +56,8 @@ export class WindowMonitoringComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
+    screenWidthHeight();
+    maximiseBrowser();
     console.log('id id: ',this.id);
     this.scrHeight = window.innerHeight;
     this.scrWidth = window.innerWidth;

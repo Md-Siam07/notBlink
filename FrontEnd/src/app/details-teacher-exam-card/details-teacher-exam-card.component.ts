@@ -7,6 +7,7 @@ import { User } from '../shared/user.model';
 
 import io from 'socket.io-client';
 import { BehaviorSubject, observable, Observable, tap, timer } from 'rxjs';
+import { UserService } from '../shared/user.service';
 
 const socket = io('http://localhost:3000');
 
@@ -51,6 +52,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   
 
   examDetails = new Exam();
+  userDetails = new User();
   participants: User[] = [];
   tempUser !:User;
   dummyData !: any;
@@ -64,7 +66,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   id: string = '';
   notificationList = new BehaviorSubject<MyNotification[]>([]);
 
-  constructor(private examService: ExamService, private route: ActivatedRoute, private router: Router) {
+  constructor(private examService: ExamService, private route: ActivatedRoute, private router: Router, private userService: UserService) {
     timer(0,1000).pipe(tap(()=> this.loadNotification())).subscribe();
   }
 
@@ -72,7 +74,17 @@ export class DetailsTeacherExamCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    console.log(this.id);
+    
+    this.userService.getUserProfile().subscribe(
+      (res:any) => {
+        this.userDetails = res['user'] as User;
+        console.log(this.userDetails.isTeacher)
+        if(!this.userDetails.isTeacher){
+          this.router.navigateByUrl('dashboard');
+        }
+      }
+    )
+
     this.examService.getSingleExamDetails(this.id).subscribe(
       (res: any) => {this.examDetails = res as Exam},
       err => console.log(err)

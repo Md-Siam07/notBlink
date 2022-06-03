@@ -38,3 +38,20 @@ function suspectedStatus() {
   isSupected = 0;
   return status;
 }
+
+function screenWidthHeight(){
+
+  //to do
+  var screenWidth = screen.width;
+  var screenHeight = screen.height;
+  var windowWidth = window.innerWidth;
+  var windowHeight = window.innerHeight;
+  console.log('sw: ', screenWidth);
+  console.log('sh: ', screenHeight);
+  console.log('ww: ', windowWidth);
+  console.log('wh: ', windowHeight);
+}
+
+function maximiseBrowser() {
+  browser.driver.manage().window().maximize();
+}

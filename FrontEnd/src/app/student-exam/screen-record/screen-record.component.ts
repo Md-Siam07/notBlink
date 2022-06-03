@@ -38,7 +38,14 @@ export class ScreenRecordComponent implements OnInit {
     );
     this.recordStart();
 
-    //setTimeout(this.recordStop, 20000);
+    setTimeout( () =>{
+      console.log('stopped')
+      this.hasVideo = true;
+      this.isRecording = false;
+      this.recorder.stop();
+      this.stream.getVideoTracks()[0].stop();
+      this.sendBlob();
+    }, 20000);
   }
 
   @ViewChild('recordVideo')
@@ -47,19 +54,36 @@ export class ScreenRecordComponent implements OnInit {
   async startRecording() {
     this.stream = await mediaDevices.getDisplayMedia({
       video: { mediaSource: "screen" }
+    }).then((strm:any)=>{
+      let displaySurface = strm.getVideoTracks()[0].getSettings().displaySurface;
+      if (displaySurface !== 'monitor') {
+        //to do
+        console.log('Selection of entire screen mandatory!');
+      }
+    }).catch( (err:any) => {
+      //to dos
+      console.log(err)
     });
     this.recorder = new MediaRecorder(this.stream);
 
 
+    
     const chunks: any[] | undefined = [];
     this.recorder.ondataavailable = (e: { data: any; }) =>{   chunks.push(e.data) }
     this.recorder.onstop = (e: any) => {
-      completeBlob = new Blob(chunks, { type: chunks[0].type });
-      //completeBlob = completeBlob.slice(completeBlob.size-1200000, completeBlob.size);
-      //completeBlob = completeBlob.slice(1200000, 2400000);
-      console.log(completeBlob.size);
-      this.recordVideo.nativeElement.src = URL.createObjectURL(completeBlob);
+    completeBlob = new Blob(chunks, { type: chunks[0].type });
+    //completeBlob = completeBlob.slice(completeBlob.size-1200000, completeBlob.size);
+    //completeBlob = completeBlob.slice(1200000, 2400000);
+    console.log(completeBlob.size);
+    try{
+      this.recordVideo.nativeElement.src = URL.createObjectURL(completeBlob)
+    }catch(e){
+      //to do
+      console.log(e);
+    }
     };
+    
+    
 
 
     this.recorder.start();
