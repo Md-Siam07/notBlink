@@ -8,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
 
 const socket = io('http://localhost:3000');
 declare function screenWidthHeight():any;
-declare function maximiseBrowser(): any;
 @Component({
   selector: 'app-window-monitoring',
   templateUrl: './window-monitoring.component.html',
@@ -57,7 +56,6 @@ export class WindowMonitoringComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     screenWidthHeight();
-    maximiseBrowser();
     console.log('id id: ',this.id);
     this.scrHeight = window.innerHeight;
     this.scrWidth = window.innerWidth;
