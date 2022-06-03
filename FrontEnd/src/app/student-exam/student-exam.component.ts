@@ -64,8 +64,18 @@ export class StudentExamComponent implements OnInit {
   }
 
   checkCameraPermission() {
-
-    //let
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({video: true})
+      .then(function(s){
+        console.log("yesss");
+      })
+      .catch(function(err){
+        console.log("PAINAI");
+      });
+    }
+    else {
+      console.log("...");
+    }
   }
 
 

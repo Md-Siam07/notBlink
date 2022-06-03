@@ -13,6 +13,8 @@ export class NavBarComponent implements OnInit {
 
   userDetails = new User();
   userid: string = "";
+  isCollapsed: boolean = true;
+
   constructor(private userService: UserService, private router: Router) { }
 
   status: boolean = false;

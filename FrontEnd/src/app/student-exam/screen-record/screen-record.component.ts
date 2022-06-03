@@ -126,7 +126,7 @@ export class ScreenRecordComponent implements OnInit {
       res => { console.log('done')},
       err => {}
     );
-   
+
   }
 
   downloadBlob(name = 'video.mp4'): any {
@@ -162,6 +162,6 @@ export class ScreenRecordComponent implements OnInit {
       link.remove();
     }, 100);
   }
- 
+
 
 }
