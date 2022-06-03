@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MyNotification } from 'src/app/shared/notification.model';
 import { StudentExamService } from 'src/app/shared/student-exam.service';
@@ -10,6 +10,9 @@ import { Exam } from 'src/app/shared/exam.model';
 declare function startTrack(): any;
 declare function suspectedStatus(): any;
 const socket = io('http://localhost:3000');
+
+const mediaDevices = navigator.mediaDevices as any;
+let completeBlob: Blob;
 
 @Component({
   selector: 'app-eye-track',
@@ -23,7 +26,10 @@ export class EyeTrackComponent implements OnInit {
   notification= new MyNotification();
   userDetails = new User();
   exam = new Exam();
-
+  hasVideo: boolean = false;
+  isRecording: boolean = false;
+  recorder: any;
+  stream: any;
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.examService.getSingleExamDetails(this.id).subscribe(
@@ -46,9 +52,75 @@ export class EyeTrackComponent implements OnInit {
   intervalID: any = setInterval(() => {
     if (suspectedStatus() != 0 ) {
       this.playAudio('suspected.m4a');
-      this.notify();
+      this.hasVideo = true;
+      this.isRecording = false;
+      this.recorder.stop();
+      this.stream.getVideoTracks()[0].stop();
+      this.sendBlob();
     }
   }, this.exam.outSightTime*1000);
+
+  @ViewChild('recordVideo')
+  recordVideo!: ElementRef;
+
+  async startRecording() {
+    await mediaDevices.getUserMedia({
+      audio: true, video: true
+    }).then((strm:any)=>{
+      this.stream = strm;
+      this.recorder = new MediaRecorder(strm);
+      let displaySurface = strm.getVideoTracks()[0].getSettings().displaySurface;
+      if (displaySurface !== 'monitor') {
+        //to do
+        console.log('Selection of entire screen mandatory!');
+      }
+      const chunks: any[] | undefined = [];
+    this.recorder.ondataavailable = (e: { data: any; }) =>{   chunks.push(e.data) }
+    this.recorder.onstop = (e: any) => {
+    completeBlob = new Blob(chunks, { type: chunks[0].type });
+    
+    console.log(completeBlob.size);
+    try{
+      this.recordVideo.nativeElement.src = URL.createObjectURL(completeBlob)
+    }catch(e){
+      //to do
+      console.log(e);
+    }
+    };
+    
+    
+
+
+    this.recorder.start();
+    }).catch( (err:any) => {
+      //to dos
+      console.log(err)
+    });
+    
+
+
+    
+    
+  }
+
+
+  recordStart() {
+    this.hasVideo = false;
+    this.isRecording = true;
+    this.startRecording();
+  }
+
+
+  recordStop() {
+    console.log('stopped')
+    this.hasVideo = true;
+    this.isRecording = false;
+    this.recorder.stop();
+    this.stream.getVideoTracks()[0].stop();
+    this.sendBlob();
+    //console.log(this.stream);
+  }
+
 
   notify(){
     //console.log("notifying");
@@ -77,6 +149,59 @@ export class EyeTrackComponent implements OnInit {
     audio.src = "../../../assets/audio/" + filename;
     audio.load();
     audio.play();
+  }
+  sendBlob(){
+    console.log('called')
+    //this.examService.setBlob(completeBlob);
+    this.notification.cameraRecord = "abcc";
+    this.notification.screenRecord = "";
+    this.notification.fullName = this.userDetails.fullName;
+    this.notification.email = this.userDetails.email;
+    this.notification.batch = this.userDetails.batch;
+    this.notification.institute = this.userDetails.institute;
+    this.notification.roll = this.userDetails.roll;
+    this.notification.phone_number = this.userDetails.phone_number;
+    this.notification.message = "User tried to change or resize the tab";
+    console.log(this.notification);
+    this.examService.notify(this.notification, this.id, completeBlob).subscribe(
+      res => { this.recorder.start()},
+      err => {}
+    );
+
+  }
+
+  downloadBlob(name = 'video.mp4'): any {
+    if (
+      window.navigator &&
+      (window.navigator as any).msSaveOrOpenBlob
+    ) return (window.navigator as any).msSaveOrOpenBlob(completeBlob);
+
+
+    // For other browsers:
+    // Create a link pointing to the ObjectURL containing the blob.
+    const data = window.URL.createObjectURL(completeBlob);
+    console.log(data)
+
+    const link = document.createElement('a');
+    link.href = data;
+    link.download = name;
+
+
+    // this is necessary as link.click() does not work on the latest firefox
+    link.dispatchEvent(
+      new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+        view: window
+      })
+    );
+
+
+    setTimeout(() => {
+      // For Firefox it is necessary to delay revoking the ObjectURL
+      window.URL.revokeObjectURL(data);
+      link.remove();
+    }, 100);
   }
 
 }
