@@ -50,8 +50,8 @@
             <hr>
             Student Name: {{notification.fullName}} <br>
             Time: {{notification.time }} <br>
-            Evidence: <a href="{{notification.screenRecord}}" *ngIf="notification.screenRecord != ''">Screen Record</a> &nbsp;&nbsp;
-            <a href="{{notification.cameraRecord}}" *ngIf="notification.cameraRecord != ''">Camera Footage</a>
+            Evidence: <a href="{{notification.screenRecord}}" *ngIf="notification.screenRecord != ''" target="_blank">Screen Record</a> &nbsp;&nbsp;
+            <a href="{{notification.cameraRecord}}" *ngIf="notification.cameraRecord != ''" target="_blank">Camera Footage</a>
           </li>
           <br>
         </ul>

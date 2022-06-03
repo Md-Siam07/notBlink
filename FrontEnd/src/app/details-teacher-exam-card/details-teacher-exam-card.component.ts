@@ -89,42 +89,13 @@ export class DetailsTeacherExamCardComponent implements OnInit {
       (res: any) => {this.examDetails = res as Exam},
       err => console.log(err)
     );
-    // this.examService.getNotifications(this.id).subscribe(
-    //   (res:any) => {
-    //     this.notifications = res;
-    //     const that = this;
-    //     this.observer = Observable.create(function subscribe(subscriber:any) {
-    //       subscriber.next(that.notifications);
-    //     })
-    //     //console.log(res);
-    //     this.refreshParticipantList();
-    //   },
-    //   err => {}
-    // );
-    // socket.on('notification', (data:any) =>{
-    //   console.log(data);
-    //   //this.refreshNotifications(data);
-    //   const that = this;
-    //   this.observer = Observable.create(function subscribe(subscriber:any) {
-    //     subscriber.next(that.refreshNotifications(data));
-    //  })
-    // })
-    
-     // this.observer = this.examService.getNotifications(this.id);
-      
-    //this.examDetails = this.examService.selectedExam;
-    
-    //console.log('here: ', this.examDetails.question);
+   
   }
 
   loadNotification(){
-    console.log('refresh called')
     this.examService.getNotifications(this.id).subscribe(
       (res:any) => {
-        //this.notifications = res;
         this.notificationList.next(res);
-        //console.log(res);
-        //this.refreshParticipantList();
       },
       err => {}
     );
@@ -144,7 +115,6 @@ export class DetailsTeacherExamCardComponent implements OnInit {
 
   getExamMonth(input: string): any{
     this.month = input.substring(5,7);
-    //console.log('month: '+ this.month);
     return this.months.get(parseInt(this.month));
   }
 
@@ -153,46 +123,14 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   }
 
   refreshNotifications(data:any){
-    //this.notifications = [...this.notifications, data];
     return [...this.notifications, data];
-    // this.notifications = new Array();
-    
-    // if(this.dummyData.screenRecord != '')
-    //   alert('Examinee: ' + this.dummyData.fullName + ' is suspected to change the tab! \nPlease reload the page to refresh the stream and view the evidence');
-    // else
-    //   alert('Examinee: ' + this.dummyData.fullName + ' is suspected to view outside the screen!\nPlease reload the page to refresh the stream and view the evidence');
-    
-    // this.examService.getSingleExamDetails(this.id).subscribe(
-    //   (res:any) => {
-    //     this.examDetails = res as Exam;
-    //     this.refreshParticipantList();
-    //     //this.notifications = res['notification'];
-    //     res['notification'].forEach( (notification: any) => {
-    //       this.tempNotification = new MyNotification();
-    //       this.tempNotification.fullName = notification.examinee.fullName;
-    //       this.tempNotification.batch = notification.examinee.batch;
-    //       this.tempNotification.institute = notification.examinee.institute;
-    //       this.tempNotification.roll = notification.examinee.roll;
-    //       this.tempNotification.phone_number = notification.examinee.phone_number;
-    //       this.tempNotification.cameraRecord = notification.cameraRecord;
-    //       this.tempNotification.screenRecord = notification.screenRecord;
-    //       this.tempNotification.time = notification.time;
-    //       this.tempNotification.message = notification.message;
-    //       this.notifications =  [...this.notifications.concat(this.tempNotification)]
-    //     }); 
-        
-    //   },
-    //   err => {}
-    // );
-   
   }
 
   refreshParticipantList(){
     console.log('called')
     this.participantSet = new Set<string>();
     this.participants = [];
-    //this.examDetails = this.examService.selectedExam;
-
+    
     this.examService.getSingleExamDetails(this.id).subscribe(
       (res:any) => {
         this.examDetails = res as Exam;
@@ -212,19 +150,6 @@ export class DetailsTeacherExamCardComponent implements OnInit {
       }
     );
 
-    // this.examDetails.participants.forEach(participantID => {
-    //   this.participantSet.add(participantID);
-    // });
-    // console.log('participant set: ', this.examDetails.participants);
-    // this.participantSet.forEach(participantID => {
-    //   this.examService.getParticipant(participantID).subscribe(
-    //     (res:any) => {
-    //       this.tempUser = res as User;
-    //       this.participants.push(JSON.parse(JSON.stringify(this.tempUser)));
-    //     },
-    //     (err:any) => {}
-    //   );
-    // });
   }
 
   onClick(exam: Exam){
@@ -270,7 +195,6 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     this.examService.invite(this.model).subscribe(
       (res:any) =>{
         console.log('sent');
-        //this.model.examCode='';
         this.model.recipiennt = '';
       },
       (err) => {
