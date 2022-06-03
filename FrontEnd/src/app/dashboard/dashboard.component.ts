@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private examService: ExamService, private router: Router, private userService: UserService) { }
   @ViewChild('element') element:any;
-  //public position = { X: 'Right', Y: 'Bottom' };
+  //test commit
   selectedExam: Exam = new Exam();
   userDetails = new User();
   exams: Exam[] = [];
