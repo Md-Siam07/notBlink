@@ -12,9 +12,10 @@ function startTrack(LOOK_DELAY = 5000){
 
   webgazer.setGazeListener((data, timestamp) =>{
     if (data == null) {
-      // ----
+      if(startLookTime == Number.POSITIVE_INFINITY)
+        startLookTime = timestamp;
     }
-    if (!(data.x < LEFT_CUTOFF || data.x > RIGHT_CUTOFF || data.y < TOP_CUTOFF || data.y > BOTTOM_CUTOFF)){
+    else if (!(data.x < LEFT_CUTOFF || data.x > RIGHT_CUTOFF || data.y < TOP_CUTOFF || data.y > BOTTOM_CUTOFF)){
       startLookTime = Number.POSITIVE_INFINITY;
       console.log("IAMHERE");
     }
@@ -52,6 +53,6 @@ function screenWidthHeight(){
   console.log('wh: ', windowHeight);
 }
 
-function maximiseBrowser() {
-  browser.driver.manage().window().maximize();
+function stopWebGazer(){
+  webgazer.end();
 }

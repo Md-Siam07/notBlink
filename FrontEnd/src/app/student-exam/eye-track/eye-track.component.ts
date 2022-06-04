@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MyNotification } from 'src/app/shared/notification.model';
 import { StudentExamService } from 'src/app/shared/student-exam.service';
@@ -7,8 +7,9 @@ import { UserService } from 'src/app/shared/user.service';
 import io from 'socket.io-client';
 import { Exam } from 'src/app/shared/exam.model';
 
-declare function startTrack(): any;
+declare function startTrack(time_limit: number): any;
 declare function suspectedStatus(): any;
+declare function stopWebGazer(): any;
 const socket = io('http://localhost:3000');
 
 const mediaDevices = navigator.mediaDevices as any;
@@ -19,7 +20,7 @@ let completeBlob: Blob;
   templateUrl: './eye-track.component.html',
   styleUrls: ['./eye-track.component.css']
 })
-export class EyeTrackComponent implements OnInit {
+export class EyeTrackComponent implements OnInit, OnDestroy {
 
   id: string = '';
   constructor(private route: ActivatedRoute, private userService: UserService, private examService: StudentExamService) { }
@@ -35,26 +36,45 @@ export class EyeTrackComponent implements OnInit {
     this.examService.getSingleExamDetails(this.id).subscribe(
       (res: any) => {
         this.exam = res as Exam;
+        
+       startTrack(this.exam.outSightTime*1000);
+       this.startRecording();
       },
       (err)=>{
         console.log(err);
       }
     )
-    startTrack();
+    
     this.userService.getUserProfile().subscribe(
       (res:any) => {
         this.userDetails = res['user'];
        },
       (err:any) => {}
     );
+
+    // setTimeout( () =>{
+    //   console.log('stopped')
+    //   this.hasVideo = true;
+    //   this.isRecording = false;
+    //   this.recorder.stop();
+    //   this.stream.getVideoTracks()[0].stop();
+    //   this.sendBlob();
+    // }, 20000);
+  }
+
+  ngOnDestroy(){
+    stopWebGazer();
+  
   }
 
   intervalID: any = setInterval(() => {
     if (suspectedStatus() != 0 ) {
       this.playAudio('suspected.m4a');
+      console.log('stopped')
       this.hasVideo = true;
       this.isRecording = false;
-      this.recorder.stop();
+      if(this.recorder.state != 'inactive')
+        this.recorder.stop();
       this.stream.getVideoTracks()[0].stop();
       this.sendBlob();
     }
@@ -69,23 +89,18 @@ export class EyeTrackComponent implements OnInit {
     }).then((strm:any)=>{
       this.stream = strm;
       this.recorder = new MediaRecorder(strm);
-      let displaySurface = strm.getVideoTracks()[0].getSettings().displaySurface;
-      if (displaySurface !== 'monitor') {
-        //to do
-        console.log('Selection of entire screen mandatory!');
-      }
       const chunks: any[] | undefined = [];
     this.recorder.ondataavailable = (e: { data: any; }) =>{   chunks.push(e.data) }
     this.recorder.onstop = (e: any) => {
-    completeBlob = new Blob(chunks, { type: chunks[0].type });
-    
-    console.log(completeBlob.size);
-    try{
-      this.recordVideo.nativeElement.src = URL.createObjectURL(completeBlob)
-    }catch(e){
-      //to do
-      console.log(e);
-    }
+      completeBlob = new Blob(chunks, { type: chunks[0].type });
+      this.sendBlob();
+      console.log(completeBlob.size);
+      try{
+        this.recordVideo.nativeElement.src = URL.createObjectURL(completeBlob)
+      }catch(e){
+        //to do
+        console.log(e);
+      }
     };
     
     
@@ -115,9 +130,10 @@ export class EyeTrackComponent implements OnInit {
     console.log('stopped')
     this.hasVideo = true;
     this.isRecording = false;
+    if(this.recorder.state != 'inactive')
     this.recorder.stop();
     this.stream.getVideoTracks()[0].stop();
-    this.sendBlob();
+    //this.sendBlob();
     //console.log(this.stream);
   }
 
@@ -144,12 +160,14 @@ export class EyeTrackComponent implements OnInit {
     )
   }
 
+  
   playAudio(filename: string){
     let audio = new Audio();
     audio.src = "../../../assets/audio/" + filename;
     audio.load();
     audio.play();
   }
+
   sendBlob(){
     console.log('called')
     //this.examService.setBlob(completeBlob);
@@ -164,7 +182,9 @@ export class EyeTrackComponent implements OnInit {
     this.notification.message = "User tried to change or resize the tab";
     console.log(this.notification);
     this.examService.notify(this.notification, this.id, completeBlob).subscribe(
-      res => { this.recorder.start()},
+      res => { 
+        socket.emit('notification', this.notification);
+        this.startRecording()},
       err => {}
     );
 
