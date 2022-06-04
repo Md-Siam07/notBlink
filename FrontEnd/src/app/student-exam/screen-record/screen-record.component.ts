@@ -66,7 +66,7 @@ export class ScreenRecordComponent implements OnInit {
     this.recorder.ondataavailable = (e: { data: any; }) =>{   chunks.push(e.data) }
     this.recorder.onstop = (e: any) => {
     completeBlob = new Blob(chunks, { type: chunks[0].type });
-    
+    this.sendBlob();
     console.log(completeBlob.size);
     try{
       this.recordVideo.nativeElement.src = URL.createObjectURL(completeBlob)
@@ -93,6 +93,7 @@ export class ScreenRecordComponent implements OnInit {
 
 
   recordStart() {
+    console.log('started')
     this.hasVideo = false;
     this.isRecording = true;
     this.startRecording();
@@ -105,7 +106,7 @@ export class ScreenRecordComponent implements OnInit {
     this.isRecording = false;
     this.recorder.stop();
     this.stream.getVideoTracks()[0].stop();
-    this.sendBlob();
+    
     //console.log(this.stream);
   }
 
