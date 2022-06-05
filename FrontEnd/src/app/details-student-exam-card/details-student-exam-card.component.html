@@ -11,6 +11,17 @@
         <i class="fa fa-clock"></i> {{examDetails.startTime}} <br>
         <i class="fa fa-stopwatch"></i> {{examDetails.duration}} minutes <br>
         <br><br>
+        <div *ngIf="!hide">
+          <button class="btn btn-dark">{{remHour}}</button> <b> : </b>
+          <button class="btn btn-dark"> {{remMinute}} </button> <b> : </b>
+          <button class="btn btn-dark">{{remSecond}}</button>
+        </div>
+        <div *ngIf="hide">
+          <button class="btn btn-light">{{remHour}}</button> <b> : </b>
+          <button class="btn btn-light"> {{remMinute}} </button> <b> : </b>
+          <button class="btn btn-light">{{remSecond}}</button>
+        </div>
+        <br><br>
         <!-- <div class="btn-button">
           <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalStart" [disabled]="!exam.hasStarted" *ngIf="!examGoingOn(exam)" (click)="onLeaveClick(exam)">Start Exam </button>
           <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModalStart" *ngIf="examGoingOn(exam)" (click)="onLeaveClick(exam)"><b>Start Exam</b> </button>

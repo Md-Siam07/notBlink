@@ -49,16 +49,31 @@ export class DetailsStudentExamCardComponent implements OnInit {
     examName: ''
   }
 
+  remDay: any;
+  remHour: any;
+  remMinute: any;
+  remSecond: any;
+  hide: Boolean = false;
+
   constructor(private toastr: ToastrService, private userService: UserService,  private studentExamService: StudentExamService, private route: ActivatedRoute, private router: Router, private examService: ExamService) { }
   examDetails = new Exam();
   userDetails = new User();
 
   ngOnInit(): void {
+
     this.id = this.route.snapshot.params['id'];
     //console.log(this.id);
     this.studentExamService.getSingleExamDetails(this.id).subscribe(
       (res:any) => {
         this.examDetails = res as Exam;
+        if(this.userDetails.isTeacher){
+          this.router.navigateByUrl('dashboard');
+        }
+        setInterval(()=>{
+          const date = new Date();
+          this.clockDown(date);
+
+        },500);
         this.refreshParticipantList();
       },
       err => {}
@@ -71,8 +86,8 @@ export class DetailsStudentExamCardComponent implements OnInit {
         this.tempID = this.userDetails._id;
         this.model.userID = this.userDetails._id;
     });
-      
-    
+
+
 
     //this.examDetails = this.studentExamService.selectedExam;
     //console.log(this.examDetails);
@@ -137,6 +152,42 @@ export class DetailsStudentExamCardComponent implements OnInit {
         (err:any) => {}
       );
     });
+  }
+
+  clockDown(date:Date) {
+    this.tempExamDate = this.examDetails.examDate + 'T' + this.examDetails.startTime + ":00";
+    this.tempRemainingTime = new Date(this.tempExamDate).getTime() - new Date().getTime();
+
+    if (this.tempRemainingTime < 2 * 60 * 1000 && this.tempRemainingTime >= 0) {
+      this.hide = !this.hide;
+    }
+
+    if (this.tempRemainingTime < 0) {
+      this.hide = false;
+      this.remDay = "00";
+      this.remHour = "00";
+      this.remMinute = "00";
+      this.remSecond = "00";
+    }
+    else {
+      this.remSecond = Math.floor(this.tempRemainingTime / 1000);
+      this.remMinute = Math.floor(this.remSecond / 60);
+      this.remHour = Math.floor(this.remMinute / 60);
+      //this.remDay = Math.floor(this.remHour / 24);
+
+      //this.remHour %= 24;
+      this.remMinute %= 60;
+      this.remSecond %= 60;
+      this.remHour = this.remHour < 10 ? '0' + this.remHour : this.remHour;
+      this.remMinute = this.remMinute < 10 ? '0' + this.remMinute : this.remMinute;
+      this.remSecond = this.remSecond < 10 ? '0' + this.remSecond : this.remSecond;
+    }
+
+
+
+    //console.log(this.rhour+":"+this.rmins+":"+this.rsec);
+
+
   }
 
   examStart(currentExam: Exam){

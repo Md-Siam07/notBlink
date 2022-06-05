@@ -91,6 +91,11 @@ export class StudentExamComponent implements OnInit {
   userID: string = '';
   tempExamDate: string = '';
 
+  remDay: any;
+  remHour: any;
+  remMinute: any;
+  remSecond: any;
+
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.examService.getSingleExamDetails(this.id).subscribe(
@@ -250,6 +255,27 @@ export class StudentExamComponent implements OnInit {
 
   }
 
+  /*clockDown(date:Date) {
+    this.tempExamDate = this.examDetails.examDate + 'T' + this.examDetails.startTime + ":00";
+    this.tempRemainingTime = new Date(this.tempExamDate).getTime() - new Date().getTime();
+
+    this.remSecond = Math.floor(this.tempRemainingTime / 1000);
+    this.remMinute = Math.floor(this.remSecond / 60);
+    this.remHour = Math.floor(this.remMinute / 60);
+    this.remDay = Math.floor(this.remHour / 24);
+
+    this.remHour %= 24;
+    this.remMinute %= 60;
+    this.remSecond %= 60;
+    this.remHour = this.remHour < 10 ? '0' + this.remHour : this.remHour;
+    this.remMinute = this.remMinute < 10 ? '0' + this.remMinute : this.remMinute;
+    this.remSecond = this.remSecond < 10 ? '0' + this.remSecond : this.remSecond;
+
+    //console.log(this.rhour+":"+this.rmins+":"+this.rsec);
+
+
+  }*/
+
   clickCount:number[] = [0,0,0,0,0,0,0,0,0];
   clickDoneCount:number = 0;
 
@@ -274,11 +300,17 @@ export class StudentExamComponent implements OnInit {
       this.calibrationDone = true;
       this.stepDone = 6;
       yesCanNotifity();
-      this.msg = 'Joined in exam';
+      this.msg = 'Exam started';
       this.toastr.success(this.msg);
       this.url = '';
       //this.recordStop();
-      this.sendNotification()
+      this.sendNotification();
+
+      /*setInterval(()=>{
+        const date = new Date();
+        this.clockDown(date);
+
+      },500);*/
       // notify teacher -> student joined
     }
   }

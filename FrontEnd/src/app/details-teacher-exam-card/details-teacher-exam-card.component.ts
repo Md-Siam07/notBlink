@@ -18,7 +18,7 @@ const socket = io('http://localhost:3000');
   styleUrls: ['./details-teacher-exam-card.component.css']
 })
 export class DetailsTeacherExamCardComponent implements OnInit {
-  
+
   month: string = "";
   selectedExam = new Exam();
   recipientEmail: string = "";
@@ -50,7 +50,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     examName: ''
   }
 
-  
+
 
   examDetails = new Exam();
   userDetails = new User();
@@ -66,16 +66,24 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   index: number = 0;
   id: string = '';
   notificationList = new BehaviorSubject<MyNotification[]>([]);
+  tempExamDate: string = "";
+  tempRemainingTime: number = 0;
+
+
+  remDay: any;
+  remHour: any;
+  remMinute: any;
+  remSecond: any;
+  hide: Boolean = false;
 
   constructor(private toastr: ToastrService, private examService: ExamService, private route: ActivatedRoute, private router: Router, private userService: UserService) {
     timer(0,1000).pipe(tap(()=> this.loadNotification())).subscribe();
   }
 
-  
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    
+
     this.userService.getUserProfile().subscribe(
       (res:any) => {
         this.userDetails = res['user'] as User;
@@ -83,15 +91,20 @@ export class DetailsTeacherExamCardComponent implements OnInit {
         if(!this.userDetails.isTeacher){
           this.router.navigateByUrl('dashboard');
         }
+        setInterval(()=>{
+          const date = new Date();
+          this.clockDown(date);
+
+        },500);
       }
     )
-    
+
     this.examService.getSingleExamDetails(this.id).subscribe(
       (res: any) => {this.examDetails = res as Exam
       this.refreshParticipantList()},
       err => console.log(err)
     );
-   
+
   }
 
   loadNotification(){
@@ -108,7 +121,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   }
 
   uploadFile(event:any) {
-    this.file = event.target.files[0]; 
+    this.file = event.target.files[0];
   }
 
   getExamDate(input: string): string{
@@ -132,7 +145,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     console.log('called')
     this.participantSet = new Set<string>();
     this.participants = [];
-    
+
     this.examService.getSingleExamDetails(this.id).subscribe(
       (res:any) => {
         this.examDetails = res as Exam;
@@ -232,14 +245,51 @@ export class DetailsTeacherExamCardComponent implements OnInit {
         console.log('Error in updating exam: '+ JSON.stringify(err, undefined, 2));
       }
     );
-    
+
   }
 
   reloadComponent() {
     let currentUrl = this.router.url;
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-        this.router.onSameUrlNavigation = 'reload';
-        this.router.navigate([currentUrl]);
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
+  }
+
+  clockDown(date:Date) {
+    this.tempExamDate = this.examDetails.examDate + 'T' + this.examDetails.startTime + ":00";
+    this.tempRemainingTime = new Date(this.tempExamDate).getTime() - new Date().getTime();
+
+    if (this.tempRemainingTime < 2 * 60 * 1000 && this.tempRemainingTime >= 0) {
+      this.hide = !this.hide;
     }
+
+    if (this.tempRemainingTime < 0) {
+      this.hide = false;
+      this.remDay = "00";
+      this.remHour = "00";
+      this.remMinute = "00";
+      this.remSecond = "00";
+    }
+    else {
+      this.remSecond = Math.floor(this.tempRemainingTime / 1000);
+      this.remMinute = Math.floor(this.remSecond / 60);
+      this.remHour = Math.floor(this.remMinute / 60);
+      //this.remDay = Math.floor(this.remHour / 24);
+
+      //this.remHour %= 24;
+      this.remMinute %= 60;
+      this.remSecond %= 60;
+      this.remHour = this.remHour < 10 ? '0' + this.remHour : this.remHour;
+      this.remMinute = this.remMinute < 10 ? '0' + this.remMinute : this.remMinute;
+      this.remSecond = this.remSecond < 10 ? '0' + this.remSecond : this.remSecond;
+    }
+
+
+
+    //console.log(this.rhour+":"+this.rmins+":"+this.rsec);
+
+
+  }
+
 
 }
