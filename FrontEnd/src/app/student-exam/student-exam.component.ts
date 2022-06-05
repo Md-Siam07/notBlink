@@ -95,6 +95,7 @@ export class StudentExamComponent implements OnInit {
   remHour: any;
   remMinute: any;
   remSecond: any;
+  hide: Boolean = false;
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -255,26 +256,40 @@ export class StudentExamComponent implements OnInit {
 
   }
 
-  /*clockDown(date:Date) {
+  clockDown(date:Date) {
     this.tempExamDate = this.examDetails.examDate + 'T' + this.examDetails.startTime + ":00";
     this.tempRemainingTime = new Date(this.tempExamDate).getTime() - new Date().getTime();
+    this.tempRemainingTime += this.examDetails.duration * 1000;
 
-    this.remSecond = Math.floor(this.tempRemainingTime / 1000);
-    this.remMinute = Math.floor(this.remSecond / 60);
-    this.remHour = Math.floor(this.remMinute / 60);
-    this.remDay = Math.floor(this.remHour / 24);
+    if (this.tempRemainingTime < 5 * 60 * 1000 && this.tempRemainingTime >= 0) {
+      this.hide = !this.hide;
+    }
 
-    this.remHour %= 24;
-    this.remMinute %= 60;
-    this.remSecond %= 60;
-    this.remHour = this.remHour < 10 ? '0' + this.remHour : this.remHour;
-    this.remMinute = this.remMinute < 10 ? '0' + this.remMinute : this.remMinute;
-    this.remSecond = this.remSecond < 10 ? '0' + this.remSecond : this.remSecond;
+    if (this.tempRemainingTime < 0) {
+      this.hide = false;
+      this.remDay = "00";
+      this.remHour = "00";
+      this.remMinute = "00";
+      this.remSecond = "00";
+    }
+    else {
+      this.remSecond = Math.floor(this.tempRemainingTime / 1000);
+      this.remMinute = Math.floor(this.remSecond / 60);
+      this.remHour = Math.floor(this.remMinute / 60);
+      //this.remDay = Math.floor(this.remHour / 24);
+
+      //this.remHour %= 24;
+      this.remMinute %= 60;
+      this.remSecond %= 60;
+      this.remHour = this.remHour < 10 ? '0' + this.remHour : this.remHour;
+      this.remMinute = this.remMinute < 10 ? '0' + this.remMinute : this.remMinute;
+      this.remSecond = this.remSecond < 10 ? '0' + this.remSecond : this.remSecond;
+    }
 
     //console.log(this.rhour+":"+this.rmins+":"+this.rsec);
 
 
-  }*/
+  }
 
   clickCount:number[] = [0,0,0,0,0,0,0,0,0];
   clickDoneCount:number = 0;
@@ -306,11 +321,11 @@ export class StudentExamComponent implements OnInit {
       //this.recordStop();
       this.sendNotification();
 
-      /*setInterval(()=>{
+      setInterval(()=>{
         const date = new Date();
         this.clockDown(date);
 
-      },500);*/
+      },500);
       // notify teacher -> student joined
     }
   }

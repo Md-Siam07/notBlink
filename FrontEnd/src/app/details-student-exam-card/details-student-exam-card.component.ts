@@ -158,7 +158,7 @@ export class DetailsStudentExamCardComponent implements OnInit {
     this.tempExamDate = this.examDetails.examDate + 'T' + this.examDetails.startTime + ":00";
     this.tempRemainingTime = new Date(this.tempExamDate).getTime() - new Date().getTime();
 
-    if (this.tempRemainingTime < 2 * 60 * 1000 && this.tempRemainingTime >= 0) {
+    if (this.tempRemainingTime < 5 * 60 * 1000 && this.tempRemainingTime >= 0) {
       this.hide = !this.hide;
     }
 
