@@ -115,11 +115,12 @@ export class StudentExamCardComponent implements OnInit {
     //console.log(this.model);
     this.examService.joinExam(this.model, this.model.examCode).subscribe(
       (res:any) =>{
-        console.log('successful');
+        console.log(res);
         this.toastr.success("Successfully joined in exam.")
         this.refreshExamList();
       },
       (err:any) => {
+        this.toastr.error("You are blocked by the teacher.")
         console.log('Error in updating exam: '+ JSON.stringify(err, undefined, 2));
       }
     );

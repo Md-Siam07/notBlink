@@ -29,6 +29,9 @@ var ExamSchema = new mongoose.Schema({
     participants:{
         type: Array
     },
+    blocked:{
+        type: Array
+    },
     teacherName:{
         type: String
     },

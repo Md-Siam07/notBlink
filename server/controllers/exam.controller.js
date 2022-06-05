@@ -121,18 +121,36 @@ module.exports.joinExam = (req, res, next) => {
     var userID = req.body.userID;
     //console.log(req.body);
    // console.log(userID);
-    Exam.findByIdAndUpdate(req.params.id, {$addToSet: {participants: userID}}, {new:true}, (err, doc) =>{
-        if(!err) {res.send(doc);}
-        else{
-            console.log(`Error in exam join: `+ JSON.stringify(err, undefined, 2));
+    Exam.findById(req.params.id, (err, document) =>{
+        if(!err){
+            console.log('document bloced: ', document.blocked)
+            if(document.blocked.indexOf(userID)>-1){
+                res.send('user blocked')
+            }else{
+                Exam.findByIdAndUpdate(req.params.id, {$addToSet: {participants: userID}}, {new:true}, (err, doc) =>{
+                if(!err) {res.send(doc);}
+                else{
+                    console.log(`Error in exam join: `+ JSON.stringify(err, undefined, 2));
+                    }
+                } )
+            }
         }
-    } )
+    })
+    
 }
 
 module.exports.removeParcipant = (req, res, next) => {
+    var userID = req.body.userID;
     //console.log(req);
     Exam.findByIdAndUpdate(req.params.id, {$pull: {participants: {$in: [req.body.userID]}}}, {new:true}, (err, doc) =>{
-        if(!err) {res.send(doc);}
+        if(!err) {
+            Exam.findByIdAndUpdate(req.params.id,  {$addToSet: {blocked: userID}}, {new:true}, (error, document) => {
+                if(error){
+                    console.log('participant added in blocked list');
+                    res.send(document);
+                }
+            })
+        }
         else{
             console.log(`Error in exam leave: `+ JSON.stringify(err, undefined, 2));
         }
