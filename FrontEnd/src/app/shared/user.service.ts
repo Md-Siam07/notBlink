@@ -10,13 +10,29 @@ import { User } from './user.model';
 export class UserService {
 
   //http methods
-  
+  response = {
+    userId: '',
+    email: ''
+  }
   selectedUser: User = new User();
   loginStatus: boolean = false;
   constructor(private http: HttpClient) { }
 
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
 
+  setResponse(userId: string, email: string){
+    this.response.userId = userId;
+    this.response.email = email;
+  }
+
+  getResponseUserID():string{
+    return this.response.userId
+  }
+
+  getResponseEmail(): string{
+    return this.response.email
+  }
+  
   changeStatus(){
     localStorage.setItem('loginStatus', 'true');
   }
@@ -63,5 +79,12 @@ export class UserService {
       }
       else
         return false;
+    }
+
+    verifyOTP(response:any){
+      return this.http.post(environment.apiBaseUrl+ '/verifyOTP', response);
+    }
+    resendOTP(response: any){
+      return this.http.post(environment.apiBaseUrl + '/resendOTP',response )
     }
 }

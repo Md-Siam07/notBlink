@@ -41,6 +41,10 @@ var usreSchema = new mongoose.Schema({
     designation:{
         type: String
     },
+    verified:{
+        type: Boolean,
+        default: false
+    },
     saltSecret: String
 });
 
@@ -73,5 +77,3 @@ usreSchema.methods.generateJwt = function() {
 }
 
 mongoose.model('User', usreSchema);
-
-

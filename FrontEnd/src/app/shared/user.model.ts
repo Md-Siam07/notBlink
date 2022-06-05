@@ -8,6 +8,7 @@ export class User {
     designation: string = "";
     batch!: number;
     roll!: number ;
+    verified: Boolean = false;
     isTeacher: boolean = false;
     
 }

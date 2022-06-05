@@ -10,6 +10,14 @@ const REFRESH_TOKEN = '1//04N9cQH1hY5PtCgYIARAAGAQSNwF-L9IrIXpOllpFupLqQSRgkUAy0
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
+let transporter = nodemailer.createTransport({
+  host: "smtp-mail.outlook.com",
+  auth: {
+      user: 'riad00311@hotmail.com',
+      pass: 'riad85189934'
+  }
+})
+
 module.exports.sendMail = (req, res, next) =>{
     to = req.body.recipiennt;
     examCode = req.body.examCode;
@@ -19,7 +27,7 @@ module.exports.sendMail = (req, res, next) =>{
     //         console.log(`Error sending email`);
     //     }
     // }) 
-    sendEmail(to, examCode).then( result => {
+    newMailer(to, examCode).then( result => {
         console.log('Email sent...', result);
         res.send(result);
     })
@@ -27,7 +35,16 @@ module.exports.sendMail = (req, res, next) =>{
 
 }
 
+async function newMailer(recipient, examCode){
+  const mailOptions = {
+    from: 'riad00311@hotmail.com',
+    to: recipient,
+    subject: 'You are Invited',
+    html: `Enter <b>${examCode}</b> as exam code to join an exam.`
+  };
 
+  await transporter.sendMail(mailOptions);
+}
 
 async function sendEmail(receipient, examCode){
 

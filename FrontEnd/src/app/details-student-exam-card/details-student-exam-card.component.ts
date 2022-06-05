@@ -6,6 +6,7 @@ import { StudentExamService } from '../shared/student-exam.service';
 import { User } from '../shared/user.model';
 import { UserService } from '../shared/user.service';
 import { MyNotification } from '../shared/notification.model';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -48,7 +49,7 @@ export class DetailsStudentExamCardComponent implements OnInit {
     examName: ''
   }
 
-  constructor(private userService: UserService,  private studentExamService: StudentExamService, private route: ActivatedRoute, private router: Router, private examService: ExamService) { }
+  constructor(private toastr: ToastrService, private userService: UserService,  private studentExamService: StudentExamService, private route: ActivatedRoute, private router: Router, private examService: ExamService) { }
   examDetails = new Exam();
   userDetails = new User();
 
@@ -96,6 +97,8 @@ export class DetailsStudentExamCardComponent implements OnInit {
     console.log(this.model);
     this.studentExamService.leaveExam(this.model, this.model.examCode).subscribe(
       (res:any) =>{
+
+        this.toastr.error("Successfully leave from exam.")
         console.log('successful');
         this.router.navigateByUrl('dashboard');
       },

@@ -46,11 +46,12 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <b>Just Now </b><br>
+            <!-- <b>Just Now </b><br> -->
             <hr>
             Student Name: {{notification.fullName}} <br>
             Time: {{notification.time }} <br>
-            Evidence: <a href="{{notification.screenRecord}}" *ngIf="notification.screenRecord != ''" target="_blank">Screen Record</a> &nbsp;&nbsp;
+            Detection: {{notification.message}}
+            <div *ngIf="notification.screenRecord != '' || notification.cameraRecord != ''"> Evidence:</div> <a href="{{notification.screenRecord}}" *ngIf="notification.screenRecord != ''" target="_blank">Screen Record</a> &nbsp;&nbsp;
             <a href="{{notification.cameraRecord}}" *ngIf="notification.cameraRecord != ''" target="_blank">Camera Footage</a>
           </li>
           <br>

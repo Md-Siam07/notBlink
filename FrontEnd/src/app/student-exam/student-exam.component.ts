@@ -9,6 +9,7 @@ import { User } from '../shared/user.model';
 import { UserService } from '../shared/user.service';
 
 declare function isScreenWidthHeightOK():any;
+declare function yesCanNotifity():any;
 
 const mediaDevices = navigator.mediaDevices as any;
 let completeBlob: Blob;
@@ -272,7 +273,9 @@ export class StudentExamComponent implements OnInit {
       //alert("Calibration Done");
       this.calibrationDone = true;
       this.stepDone = 6;
+      yesCanNotifity();
       this.msg = 'Joined in exam';
+      this.toastr.success(this.msg);
       this.url = '';
       //this.recordStop();
       this.sendNotification()

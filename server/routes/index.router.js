@@ -50,6 +50,8 @@ router.post('/invite', emailController.sendMail);
 router.get('/participantinfo/:id', userController.participantInfo);
 router.put('/addEvidence/:id', upload.single('record') ,examController.addEvidence);
 router.get('/exam/notifications/:id', examController.getNotification)
+router.post('/verifyOTP', userController.verifyOTP)
+router.post('/resendOTP', userController.resendOTP)
 
 module.exports = router;
 

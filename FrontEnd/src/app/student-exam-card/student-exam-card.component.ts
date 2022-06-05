@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Exam } from '../shared/exam.model';
 import { ExamService } from '../shared/exam.service';
 import { StudentExamService } from '../shared/student-exam.service';
@@ -51,7 +52,7 @@ export class StudentExamCardComponent implements OnInit {
     examCode: '',
     showModal: false,
   }
-  constructor(private examService: StudentExamService, private userService: UserService, private router: Router) { }
+  constructor(private examService: StudentExamService, private userService: UserService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.userService.getUserProfile().subscribe(
@@ -115,6 +116,7 @@ export class StudentExamCardComponent implements OnInit {
     this.examService.joinExam(this.model, this.model.examCode).subscribe(
       (res:any) =>{
         console.log('successful');
+        this.toastr.success("Successfully joined in exam.")
         this.refreshExamList();
       },
       (err:any) => {
@@ -139,6 +141,9 @@ export class StudentExamCardComponent implements OnInit {
     //console.log(this.model);
     this.examService.leaveExam(this.model, this.model.examCode).subscribe(
       (res:any) =>{
+        console.log('leave');
+        this.toastr.error("Successfully leave from exam.")
+        this.refreshExamList();
         //console.log('successful');
       },
       (err:any) => {

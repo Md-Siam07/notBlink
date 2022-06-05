@@ -5,6 +5,7 @@ import { UserService } from '../shared/user.service';
 import { Exam } from '../shared/exam.model';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-teacher-exam-card',
@@ -13,7 +14,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class TeacherExamCardComponent implements OnInit {
 
-  constructor(private examService: ExamService, private userService: UserService, private router: Router) { }
+  constructor(private examService: ExamService, private userService: UserService, private router: Router, private toastr: ToastrService) { }
   userDetails = new User();
   exams: Exam[] = [];
   tempID : string = "";
@@ -70,7 +71,7 @@ export class TeacherExamCardComponent implements OnInit {
     console.log(this.selectedExam.duration);
     this.examService.update(this.selectedExam, this.file).subscribe(
       (res:any) =>{
-        //console.log('successful');
+        this.toastr.success('Exam is updated');
         console.log(res)
         this.refreshExamList();
         this.resetForm();
@@ -93,6 +94,7 @@ export class TeacherExamCardComponent implements OnInit {
   delete(){
     this.examService.deleteExam(this.selectedExam).subscribe( (res:any) =>{
       //console.log('deleted');
+      this.toastr.warning('Exam is deleted')
       this.refreshExamList();
     },
     (err)=>{
@@ -115,6 +117,7 @@ export class TeacherExamCardComponent implements OnInit {
         //console.log(this.selectedExam);
         //console.log('successfull');
         //this.successToast();
+        this.toastr.success('Successfully exam is created')
         this.resetForm();
         this.refreshExamList();
         //this.router.navigateByUrl('dashboard');
@@ -132,12 +135,12 @@ export class TeacherExamCardComponent implements OnInit {
     console.log(this.model);
     this.examService.invite(this.model).subscribe(
       (res:any) =>{
-        console.log('sent');
+        this.toastr.success('Invitation sent');
         //this.model.examCode='';
         this.model.recipiennt = '';
       },
       (err) => {
-        console.log('error in inviting: '+ err);
+        this.toastr.error('error in inviting: '+ err);
       }
     )
   }

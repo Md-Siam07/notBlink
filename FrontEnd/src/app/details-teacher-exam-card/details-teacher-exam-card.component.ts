@@ -8,6 +8,7 @@ import { User } from '../shared/user.model';
 import io from 'socket.io-client';
 import { BehaviorSubject, observable, Observable, tap, timer } from 'rxjs';
 import { UserService } from '../shared/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 const socket = io('http://localhost:3000');
 
@@ -66,7 +67,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   id: string = '';
   notificationList = new BehaviorSubject<MyNotification[]>([]);
 
-  constructor(private examService: ExamService, private route: ActivatedRoute, private router: Router, private userService: UserService) {
+  constructor(private toastr: ToastrService, private examService: ExamService, private route: ActivatedRoute, private router: Router, private userService: UserService) {
     timer(0,1000).pipe(tap(()=> this.loadNotification())).subscribe();
   }
 
@@ -162,6 +163,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
       (res:any) =>{
         console.log(this.selectedExam);
         this.reloadComponent();
+        this.toastr.success('Exam is updated');
         //console.log('successful');
       },
       err => {
@@ -174,6 +176,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   delete(){
     this.examService.deleteExam(this.selectedExam).subscribe( (res:any) =>{
       //console.log('deleted');
+      this.toastr.warning('Exam is deleted');
       this.router.navigateByUrl('/dashboard');
     },
     (err)=>{
@@ -197,9 +200,10 @@ export class DetailsTeacherExamCardComponent implements OnInit {
       (res:any) =>{
         console.log('sent');
         this.model.recipiennt = '';
+        this.toastr.success('Invitation sent');
       },
       (err) => {
-        console.log('error in inviting: '+ err);
+        this.toastr.error('error in inviting: '+ err);
       }
     )
   }
@@ -214,6 +218,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     this.kickModel.userID = this.kickParticipant._id;
     this.examService.kickFromExam(this.kickModel, this.kickModel.examCode).subscribe(
       (res:any) =>{
+        this.toastr.success('Successfully kicked');
         console.log('successful');
         this.examService.getSingleExamDetails(this.id).subscribe(
           (res:any) => {

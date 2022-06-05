@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DetailsStudentExamCardComponent } from './details-student-exam-card/details-student-exam-card.component';
 import { DetailsTeacherExamCardComponent } from './details-teacher-exam-card/details-teacher-exam-card.component';
 import { LoginComponent } from './login/login.component';
+import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { StudentExamComponent } from './student-exam/student-exam.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -48,6 +49,10 @@ const routes: Routes = [
     path: 'student/examdetails/:id',
     component: DetailsStudentExamCardComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'verify',
+    component: OtpVerificationComponent
   }
 ];
 

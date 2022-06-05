@@ -13,4 +13,3 @@ require('./user.model');
 require('./exam.model');
 //require('./notification')
 //module.exports = mongoose;
-

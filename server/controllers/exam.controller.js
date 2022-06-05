@@ -10,7 +10,7 @@ const Notification = mongoose.model('Notification');
 module.exports.create = (req, res, next) => {
     const url = req.protocol + '://' + req.get('host')
     //console.log('called');
-    console.log('body: ' , req.body);
+    //console.log('body: ' , req.body);
     var exam = new Exam();
     exam.examName = req.body.examName;
     exam.startTime = req.body.startTime;
@@ -30,7 +30,7 @@ module.exports.create = (req, res, next) => {
     }
     exam.outSightTime = req.body.outSightTime;
     //exam.question = req.file.filename;
-    console.log(exam);
+    //console.log(exam);
     exam.save( (err, doc) =>{
         if(!err)
             res.send(doc);
@@ -59,7 +59,7 @@ module.exports.getStudentExams = (req, res, next) => {
 
 
 module.exports.singleExamInfo = (req, res, next) => {
-    console.log(req.params.id)
+    //console.log(req.params.id)
     Exam.findById(req.params.id, (err, doc) => {
         if(!err) res.send(doc);
         else {
@@ -81,8 +81,8 @@ module.exports.updateInfo = (req, res, next) => {
             console.log(`Error in updating exam`);
         }
     } )
-    console.log('called');
-    console.log('body: ' , req.body);
+   // console.log('called');
+   // console.log('body: ' , req.body);
     if(req.file){
         tempQuestion = url + '/public/' + req.file.filename;
     }
@@ -119,8 +119,8 @@ module.exports.deleteExam = (req, res, next) => {
 
 module.exports.joinExam = (req, res, next) => {
     var userID = req.body.userID;
-    console.log(req.body);
-    console.log(userID);
+    //console.log(req.body);
+   // console.log(userID);
     Exam.findByIdAndUpdate(req.params.id, {$addToSet: {participants: userID}}, {new:true}, (err, doc) =>{
         if(!err) {res.send(doc);}
         else{
@@ -130,7 +130,7 @@ module.exports.joinExam = (req, res, next) => {
 }
 
 module.exports.removeParcipant = (req, res, next) => {
-    console.log(req);
+    //console.log(req);
     Exam.findByIdAndUpdate(req.params.id, {$pull: {participants: {$in: [req.body.userID]}}}, {new:true}, (err, doc) =>{
         if(!err) {res.send(doc);}
         else{
@@ -142,7 +142,7 @@ module.exports.removeParcipant = (req, res, next) => {
 
 module.exports.addEvidence = (req, res, next) => {
     const url = req.protocol + '://' + req.get('host');
-    console.log('body: ', req.body);
+    //console.log('body: ', req.body);
     var notification = new Notification();
     notification.fullName = req.body.fullName;
     notification.email = req.body.email;
@@ -150,7 +150,8 @@ module.exports.addEvidence = (req, res, next) => {
     notification.roll = req.body.roll;
     notification.phone_number = req.body.phone_number;
     notification.time = Date.now;
-    if(req.body.screenRecord == '' && req.body.cameraRecord == '')   {
+    notification.message = req.body.message;
+    if(req.body.screenRecord == '' && req.body.cameraRecord == ''){
         notification.cameraRecord = '';
         notification.screenRecord = '';
     }
@@ -163,7 +164,7 @@ module.exports.addEvidence = (req, res, next) => {
         notification.screenRecord = '';
         notification.cameraRecord = url + '/public/' + req.file.filename;
     }
-    console.log(notification)
+    //console.log(notification)
     Exam.findByIdAndUpdate(req.params.id, {$push: {notification: notification}}, {new:true}, (err, doc) => {
         if(!err) {
             console.log('added')
@@ -182,4 +183,3 @@ module.exports.getNotification = (req, res, next) => {
         }
     } )
 }
-

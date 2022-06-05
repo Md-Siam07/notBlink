@@ -36,7 +36,7 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
     this.examService.getSingleExamDetails(this.id).subscribe(
       (res: any) => {
         this.exam = res as Exam;
-
+        socket.emit('examID', this.exam._id)
        startTrack(this.exam.outSightTime*1000);
        this.startRecording();
       },
@@ -48,6 +48,8 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
     this.userService.getUserProfile().subscribe(
       (res:any) => {
         this.userDetails = res['user'];
+        socket.emit('newUser', this.userDetails.fullName);
+        socket.emit('newUserEmail', this.userDetails.email);
        },
       (err:any) => {}
     );

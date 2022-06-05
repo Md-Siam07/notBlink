@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 var ExamSchema = new mongoose.Schema({
+    // _id:{
+    //     type: String
+    // },
     examName:{
         type: String,
         required: 'Exam name can\'t be emtpy',

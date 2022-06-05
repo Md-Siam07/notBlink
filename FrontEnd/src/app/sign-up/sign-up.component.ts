@@ -15,6 +15,12 @@ export class SignUpComponent implements OnInit {
   selectedUser = new User();
   passwordMismatch : boolean = false;
   cPassword: string = "";
+
+  response = {
+    userId: '',
+    email: ''
+  }
+
   constructor(private userService: UserService, private router: Router) { }
   serverErrorMessages: string = "";
 
@@ -33,7 +39,7 @@ export class SignUpComponent implements OnInit {
   }
 
   signUp(){
-    console.log('sign up clicked');
+    //console.log('sign up clicked');
     this.passwordMismatch = false;
     if(this.selectedUser.password!= this.cPassword){
         this.passwordMismatch = true;
@@ -41,12 +47,16 @@ export class SignUpComponent implements OnInit {
     }
     
     this.userService.postUser(this.selectedUser).subscribe(
-      res => {
-        this.router.navigateByUrl('dashboard');
+      (res:any) => {
+        console.log(res);
+        this.response = res['data'];
+        console.log(this.response);
+        this.userService.setResponse(this.response.userId, this.response.email);
+        this.router.navigateByUrl('verify');
       },
       err => {
         if(err.status == 422){
-          this.serverErrorMessages = err.error.join('<br/>');
+          this.serverErrorMessages = err.error.join('<br>');
 
         }
         else{

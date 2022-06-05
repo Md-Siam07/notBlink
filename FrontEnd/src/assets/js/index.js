@@ -18,14 +18,14 @@ function startTrack(LOOK_DELAY = 5000){
     }
     else if (!(data.x < LEFT_CUTOFF || data.x > RIGHT_CUTOFF || data.y < TOP_CUTOFF || data.y > BOTTOM_CUTOFF)){
       startLookTime = Number.POSITIVE_INFINITY;
-      console.log("IAMHERE");
+      //console.log("IAMHERE");
     }
     else if (startLookTime == Number.POSITIVE_INFINITY) {
       startLookTime = timestamp;
     }
 
     if (startLookTime + LOOK_DELAY < timestamp && canNotify) {
-      console.log("Suspected");
+      //console.log("Suspected");
       isSupected = 1;
       startLookTime = Number.POSITIVE_INFINITY;
     }
