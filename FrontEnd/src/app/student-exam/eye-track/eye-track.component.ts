@@ -36,7 +36,7 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
     this.examService.getSingleExamDetails(this.id).subscribe(
       (res: any) => {
         this.exam = res as Exam;
-        
+
        startTrack(this.exam.outSightTime*1000);
        this.startRecording();
       },
@@ -44,7 +44,7 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
         console.log(err);
       }
     )
-    
+
     this.userService.getUserProfile().subscribe(
       (res:any) => {
         this.userDetails = res['user'];
@@ -64,11 +64,10 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     stopWebGazer();
-  
   }
 
   intervalID: any = setInterval(() => {
-    if (suspectedStatus() != 0 ) {
+    if (suspectedStatus() != 0) {
       this.playAudio('suspected.m4a');
       console.log('stopped')
       this.hasVideo = true;
@@ -76,7 +75,7 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
       if(this.recorder.state != 'inactive')
         this.recorder.stop();
       this.stream.getVideoTracks()[0].stop();
-      this.sendBlob();
+      //this.sendBlob();
     }
   }, this.exam.outSightTime*1000);
 
@@ -102,8 +101,8 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
         console.log(e);
       }
     };
-    
-    
+
+
 
 
     this.recorder.start();
@@ -111,11 +110,11 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
       //to dos
       console.log(err)
     });
-    
 
 
-    
-    
+
+
+
   }
 
 
@@ -160,7 +159,7 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
     )
   }
 
-  
+
   playAudio(filename: string){
     let audio = new Audio();
     audio.src = "../../../assets/audio/" + filename;
@@ -179,10 +178,10 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
     this.notification.institute = this.userDetails.institute;
     this.notification.roll = this.userDetails.roll;
     this.notification.phone_number = this.userDetails.phone_number;
-    this.notification.message = "User tried to change or resize the tab";
+    this.notification.message = "User has outsighted the screen longer than the limit";
     console.log(this.notification);
     this.examService.notify(this.notification, this.id, completeBlob).subscribe(
-      res => { 
+      res => {
         socket.emit('notification', this.notification);
         this.startRecording()},
       err => {}

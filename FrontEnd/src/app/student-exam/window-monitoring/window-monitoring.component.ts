@@ -7,7 +7,7 @@ import io from 'socket.io-client';
 import { ActivatedRoute } from '@angular/router';
 
 const socket = io('http://localhost:3000');
-declare function screenWidthHeight():any;
+declare function isScreenWidthHeightOK():any;
 @Component({
   selector: 'app-window-monitoring',
   templateUrl: './window-monitoring.component.html',
@@ -20,27 +20,27 @@ export class WindowMonitoringComponent implements OnInit {
   userDetails = new User();
   id: string = '';
   constructor(private userService: UserService, private examService: StudentExamService, private route: ActivatedRoute) { }
-  
+
   @HostListener('window:focus', ['$event'])
     onFocus(event:any) {
-    
+
     //todo (notify that the student is back)
-    
-  } 
-  
+
+  }
+
   @HostListener('window:blur', ['$event'])
     onBlur(event:any) {
     this.playAudio('changeScreen.m4a');
     //alert("You can not chnage the screen during the exam!\nOnly the tab of !Blink is accepted!");
     //this.notify();
     //alert("user leave korso ken?")
-  } 
-  
+  }
+
   scrHeight:any;
   scrWidth:any;
 
   @HostListener('window:resize', ['$event'])
-    getScreenSize(event:any) { 
+    getScreenSize(event:any) {
       this.scrHeight = window.innerHeight;
       this.scrWidth = window.innerWidth;
       console.log(this.scrHeight, this.scrWidth);
@@ -55,7 +55,7 @@ export class WindowMonitoringComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    screenWidthHeight();
+    isScreenWidthHeightOK();
     console.log('id id: ',this.id);
     this.scrHeight = window.innerHeight;
     this.scrWidth = window.innerWidth;
@@ -70,7 +70,7 @@ export class WindowMonitoringComponent implements OnInit {
 
     // })
   }
-  
+
   notify(){
     //console.log("notifying");
     this.notification.cameraRecord = "";

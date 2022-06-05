@@ -1,4 +1,5 @@
 let isSupected = 0;
+let canNotify = false;
 
 function startTrack(LOOK_DELAY = 5000){
   window.saveDataAcrossSession = true;
@@ -23,7 +24,7 @@ function startTrack(LOOK_DELAY = 5000){
       startLookTime = timestamp;
     }
 
-    if (startLookTime + LOOK_DELAY < timestamp) {
+    if (startLookTime + LOOK_DELAY < timestamp && canNotify) {
       console.log("Suspected");
       isSupected = 1;
       startLookTime = Number.POSITIVE_INFINITY;
@@ -32,6 +33,9 @@ function startTrack(LOOK_DELAY = 5000){
   }).begin()
 }
 
+function yesCanNotifity() {
+  canNotify = true;
+}
 
 function suspectedStatus() {
   //console.log("Called");
@@ -40,19 +44,17 @@ function suspectedStatus() {
   return status;
 }
 
-function screenWidthHeight(){
-
+function isScreenWidthHeightOK(){
   //to do
   var screenWidth = screen.width;
   var screenHeight = screen.height;
   var windowWidth = window.innerWidth;
   var windowHeight = window.innerHeight;
-  console.log('sw: ', screenWidth);
-  console.log('sh: ', screenHeight);
-  console.log('ww: ', windowWidth);
-  console.log('wh: ', windowHeight);
+  //console.log('js: ',screenHeight, windowHeight);
+  return (screenWidth == windowWidth && screenHeight*0.8 <= windowHeight);
 }
 
 function stopWebGazer(){
   webgazer.end();
 }
+

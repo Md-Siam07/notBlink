@@ -74,7 +74,7 @@ export class StudentExamCardComponent implements OnInit {
 
     //this.refreshExamList();
 
-    
+
   }
 
   calculateRemainingTimeAndInitiate(){
@@ -83,6 +83,7 @@ export class StudentExamCardComponent implements OnInit {
       this.tempRemainingTime = new Date(this.tempExamDate).getTime() - new Date().getTime();
       //console.log( new Date('2022-04-21T01:30:00').getTime() - new Date().getTime() );
       //console.log( new Date('2022-04-21T03:12:00').getTime() - new Date().getTime() );
+      console.log("C Rem time: ", this.tempRemainingTime);
       if(this.tempRemainingTime>0){
         setTimeout( () => {
           exam.hasStarted = true;

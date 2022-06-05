@@ -150,7 +150,11 @@ module.exports.addEvidence = (req, res, next) => {
     notification.roll = req.body.roll;
     notification.phone_number = req.body.phone_number;
     notification.time = Date.now;
-    if(req.body.screenRecord != ''){
+    if(req.body.screenRecord == '' && req.body.cameraRecord == '')   {
+        notification.cameraRecord = '';
+        notification.screenRecord = '';
+    }
+    else if(req.body.screenRecord != ''){
         //var file = new File([req.file], Date.now + '.mp4');
         notification.screenRecord = url + '/public/' + req.file.filename;
         notification.cameraRecord = '';

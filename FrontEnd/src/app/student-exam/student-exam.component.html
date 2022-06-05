@@ -1,6 +1,7 @@
 
 <br><br><br><br><br>
-<div class="calibrationDiv" *ngIf="!calibrationDone">
+ <div class="calibrationDiv" *ngIf="!calibrationDone && stepDone >= 5">
+
   <input type="button" (click)="calibrationClick(0)" class="calibration" id="pt1" style="background-color: red; opacity: 0.2">
   <input type="button" (click)="calibrationClick(1)" class="calibration" id="pt2" style="background-color: red; opacity: 0.2">
   <input type="button" (click)="calibrationClick(2)" class="calibration" id="pt3" style="background-color: red; opacity: 0.2">
@@ -12,6 +13,8 @@
   <input type="button" (click)="calibrationClick(8)" class="calibration" id="pt9" style="background-color: red; opacity: 0.2">
 </div>
 
+
+<!-- <app-screen-record *ngIf="stepDone > 2"></app-screen-record> -->
 <div class="afterCalibration" *ngIf="calibrationDone">
   <div class="row">
     <div class="col-1"> </div>
@@ -19,20 +22,19 @@
       <br><br><br><br><br>
       <br><br><br><br><br>
       <br><br><br><br><br>
-      <!-- <app-screen-record></app-screen-record> -->
     </div>
     <div class="col-6">
       <object [data]="examDetails.question | safe" type="application/pdf" width="1000" height="800"> </object>
     </div>
     <div class="col-1"> </div>
   </div>
-  <button (click)="checkCameraPermission()">check</button>
+  <!-- <button>check</button> -->
   <!-- <app-window-monitoring></app-window-monitoring> -->
   <!-- <app-screen-record></app-screen-record> -->
 </div>
 
 
-<app-eye-track></app-eye-track>
+ <app-eye-track *ngIf="stepDone >= 5"></app-eye-track>
 
 
 

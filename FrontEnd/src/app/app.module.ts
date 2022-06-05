@@ -31,6 +31,7 @@ import { EyeTrackComponent } from './student-exam/eye-track/eye-track.component'
 import { SafePipe } from './safe.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ToastrModule } from 'ngx-toastr';
     DetailsTeacherExamCardComponent,
     DetailsStudentExamCardComponent,
     EyeTrackComponent,
-    SafePipe
+    SafePipe,
+    OtpVerificationComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,7 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut: 1000,
+      timeOut: 3500,
       progressBar: true,
       positionClass: 'toast-bottom-center',
       preventDuplicates: true,
