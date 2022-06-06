@@ -6,6 +6,7 @@ import { User } from 'src/app/shared/user.model';
 import { UserService } from 'src/app/shared/user.service';
 import io from 'socket.io-client';
 import { Exam } from 'src/app/shared/exam.model';
+import { ToastrService } from 'ngx-toastr';
 
 declare function startTrack(time_limit: number): any;
 declare function suspectedStatus(): any;
@@ -23,7 +24,7 @@ let completeBlob: Blob;
 export class EyeTrackComponent implements OnInit, OnDestroy {
 
   id: string = '';
-  constructor(private route: ActivatedRoute, private userService: UserService, private examService: StudentExamService) { }
+  constructor(private route: ActivatedRoute, private userService: UserService, private examService: StudentExamService, private toastr: ToastrService) { }
   notification= new MyNotification();
   userDetails = new User();
   exam = new Exam();
@@ -99,7 +100,7 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
       try{
         this.recordVideo.nativeElement.src = URL.createObjectURL(completeBlob)
       }catch(e){
-        //to do
+        this.toastr.error('something went wrong');
         console.log(e);
       }
     };
@@ -109,7 +110,7 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
 
     this.recorder.start();
     }).catch( (err:any) => {
-      //to dos
+      this.toastr.error('camera record error, please check your camera and try again')
       console.log(err)
     });
 

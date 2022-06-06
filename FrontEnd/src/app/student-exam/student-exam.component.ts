@@ -83,6 +83,7 @@ export class StudentExamComponent implements OnInit {
   url!: string;
   msg!: string;
   notification = new MyNotification();
+  examEnded: Boolean = false;
 
   examDetails = new Exam();
   userDetails = new User();
@@ -128,11 +129,11 @@ export class StudentExamComponent implements OnInit {
       this.stream = strm;
       this.recorder = new MediaRecorder(strm);
       let displaySurface = strm.getVideoTracks()[0].getSettings().displaySurface;
-      console.log(displaySurface);
+      //console.log(displaySurface);
       if (displaySurface == 'monitor') {
         //to do
         this.entireScreenPermissionStatus = true;
-        console.log("entire screen!");
+        //console.log("entire screen!");
         this.stepFive();
 
       }else {
@@ -145,7 +146,7 @@ export class StudentExamComponent implements OnInit {
     this.recorder.ondataavailable = (e: { data: any; }) =>{   chunks.push(e.data) }
     this.recorder.onstop = (e: any) => {
       completeBlob = new Blob(chunks, { type: chunks[0].type });
-      this.sendScreenBlob();
+      this.sendBlob();
       console.log(completeBlob.size);
       try{
         this.recordVideo.nativeElement.src = URL.createObjectURL(completeBlob)
@@ -173,26 +174,26 @@ export class StudentExamComponent implements OnInit {
 
 
   recordStart() {
-    console.log('started')
+    //console.log('started')
     this.hasVideo = false;
     this.isRecording = true;
     this.startRecording();
   }
 
   sendScreenBlob(){
-    console.log('called')
+    //console.log('called')
     //this.examService.setBlob(completeBlob);
     this.notification.cameraRecord = "";
-    this.notification.screenRecord = this.url;
+    this.notification.screenRecord = '';
     this.notification.fullName = this.userDetails.fullName;
     this.notification.email = this.userDetails.email;
     this.notification.batch = this.userDetails.batch;
     this.notification.institute = this.userDetails.institute;
     this.notification.roll = this.userDetails.roll;
     this.notification.phone_number = this.userDetails.phone_number;
-    this.notification.message = this.msg;
-    this.toastr.error(this.msg);
-    console.log(this.notification);
+    this.notification.message = 'Exam ends. Here is the screen record of the examinee';
+    //this.toastr.error(this.msg);
+    //console.log(this.notification);
     this.studentService.notify(this.notification, this.id, new Blob()).subscribe(
       res => {
         socket.emit('notification', this.notification);
@@ -203,12 +204,13 @@ export class StudentExamComponent implements OnInit {
   }
 
   recordStop() {
-    console.log('stopped')
+    //console.log('stopped')
     this.hasVideo = true;
     this.isRecording = false;
-    console.log("state: ", this.recorder);
+    //console.log("state: ", this.recorder);
     if (this.recorder) {
       this.recorder.stop();
+      this.toastr.success('record stopped')
       this.stream.getVideoTracks()[0].stop();
     }
 
@@ -217,7 +219,7 @@ export class StudentExamComponent implements OnInit {
   }
 
   sendBlob(){
-    console.log('called')
+    //console.log('called')
     //this.examService.setBlob(completeBlob);
     this.notification.cameraRecord = "";
     this.notification.screenRecord = "abcc";
@@ -228,7 +230,7 @@ export class StudentExamComponent implements OnInit {
     this.notification.roll = this.userDetails.roll;
     this.notification.phone_number = this.userDetails.phone_number;
     this.notification.message = "User tried to change or resize the tab";
-    console.log(this.notification);
+    //console.log(this.notification);
     this.studentService.notify(this.notification, this.id, completeBlob).subscribe(
       res => { console.log('done')},
       err => {}
@@ -237,7 +239,7 @@ export class StudentExamComponent implements OnInit {
   }
 
   sendNotification(){
-    console.log('called')
+    //console.log('called')
     //this.examService.setBlob(completeBlob);
     this.notification.cameraRecord = "";
     this.notification.screenRecord = "";
@@ -248,7 +250,7 @@ export class StudentExamComponent implements OnInit {
     this.notification.roll = this.userDetails.roll;
     this.notification.phone_number = this.userDetails.phone_number;
     this.notification.message = this.msg;
-    console.log(this.notification);
+    //console.log(this.notification);
     this.studentService.notify(this.notification, this.id, new Blob()).subscribe(
       res => { console.log('done')},
       err => {}
@@ -259,18 +261,30 @@ export class StudentExamComponent implements OnInit {
   clockDown(date:Date) {
     this.tempExamDate = this.examDetails.examDate + 'T' + this.examDetails.startTime + ":00";
     this.tempRemainingTime = new Date(this.tempExamDate).getTime() - new Date().getTime();
-    this.tempRemainingTime += this.examDetails.duration * 1000;
+    this.tempRemainingTime += this.examDetails.duration * 1000 * 60;
+
+    //console.log(this.tempRemainingTime)
 
     if (this.tempRemainingTime < 5 * 60 * 1000 && this.tempRemainingTime >= 0) {
       this.hide = !this.hide;
     }
 
+    if(this.tempRemainingTime < 0 && !this.examEnded){
+      this.examEnded = true;
+      console.log(this.examEnded)
+      
+      this.endExam();
+      
+    }
+
     if (this.tempRemainingTime < 0) {
+      
       this.hide = false;
       this.remDay = "00";
       this.remHour = "00";
       this.remMinute = "00";
       this.remSecond = "00";
+      
     }
     else {
       this.remSecond = Math.floor(this.tempRemainingTime / 1000);
@@ -300,7 +314,7 @@ export class StudentExamComponent implements OnInit {
     const idDom = "pt" + (id + 1).toString();
     let btn = document.getElementById(idDom);
     if (btn) {
-      console.log(((this.clickCount[id] + 1) * 0.2).toString());
+      //console.log(((this.clickCount[id] + 1) * 0.2).toString());
       btn.style["opacity"] = ((this.clickCount[id] + 1) * 0.2).toString();
     }
 
@@ -315,8 +329,8 @@ export class StudentExamComponent implements OnInit {
       this.calibrationDone = true;
       this.stepDone = 6;
       yesCanNotifity();
-      this.msg = 'Exam started';
-      this.toastr.success(this.msg);
+     // this.msg = 'Exam started';
+      this.toastr.success('Exam started');
       this.url = '';
       //this.recordStop();
       this.sendNotification();
@@ -334,11 +348,17 @@ export class StudentExamComponent implements OnInit {
 
   }
 
+  endExam(){
+    this.toastr.success('Exam ended');
+    this.recordStop();
+    this.router.navigateByUrl('dashboard');
+  }
+
   isExamineeEnrolled() {
     this.userID = this.userDetails._id;
-     console.log(this.examDetails.participants)
-     console.log(this.userID)
-     console.log("ddd - ", this.examDetails.participants.includes(this.userID))
+     //console.log(this.examDetails.participants)
+    // console.log(this.userID)
+     //console.log("ddd - ", this.examDetails.participants.includes(this.userID))
     return this.examDetails.participants.includes(this.userID)
   }
 
@@ -400,7 +420,7 @@ export class StudentExamComponent implements OnInit {
     if (navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({video: true})
       .then(function(s){
-        console.log("Get camera permission");
+        //console.log("Get camera permission");
         that.stepDone = 5;
         //that.stepFive();
       })
