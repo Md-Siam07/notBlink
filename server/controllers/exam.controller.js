@@ -183,14 +183,15 @@ module.exports.addEvidence = (req, res, next) => {
         notification.cameraRecord = url + '/public/' + req.file.filename;
     }
     //console.log(notification)
-    Exam.findByIdAndUpdate(req.params.id, {$push: {notification: notification}}, {new:true}, (err, doc) => {
-        if(!err) {
-            console.log('added')
-            res.send(doc);}
-        else{
-            console.log(`Error in add evidence: `+ JSON.stringify(err, undefined, 2));
-        }
-    })
+    if(notification.message != 'undefined')
+        Exam.findByIdAndUpdate(req.params.id, {$push: {notification: notification}}, {new:true}, (err, doc) => {
+            if(!err) {
+                console.log(notification)
+                res.send(doc);}
+            else{
+                console.log(`Error in add evidence: `+ JSON.stringify(err, undefined, 2));
+            }
+        })
 }
 
 module.exports.getNotification = (req, res, next) => {

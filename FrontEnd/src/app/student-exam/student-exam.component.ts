@@ -108,6 +108,7 @@ export class StudentExamComponent implements OnInit {
           this.router.navigateByUrl('dashboard')
         }
         else {
+          socket.emit('examID', this.examDetails._id)
           this.userService.getUserProfile().subscribe(
           (res:any) =>{
             this.userDetails = res['user'];
@@ -197,6 +198,7 @@ export class StudentExamComponent implements OnInit {
     this.studentService.notify(this.notification, this.id, new Blob()).subscribe(
       res => {
         socket.emit('notification', this.notification);
+        
         //this.startRecording()
       },
       err => {}
@@ -331,6 +333,8 @@ export class StudentExamComponent implements OnInit {
       yesCanNotifity();
      // this.msg = 'Exam started';
       this.toastr.success('Exam started');
+      socket.emit('join', this.userDetails);
+      
       this.url = '';
       //this.recordStop();
       this.sendNotification();

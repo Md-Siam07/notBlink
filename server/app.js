@@ -47,18 +47,48 @@ io.on('connection', (socket) => {
   //console.log('a user connected');
   socket.on('notification', notification =>{
     //console.log('ashche');
+    console.log('notification: ', notification.message)
     io.emit('notification', notification);
   })
 
+  socket.on('join', user=> {
+    //console.log('user ', user.fullName, ' joined the exam');
+    var notification = new Notification();
+    notification.fullName = user.fullName;
+    notification.email = user.email;
+    notification.time = Date.now;
+    notification.phone_number = '';
+    notification.roll = 0;
+    notification.batch  = 0;
+    notification.institute = '';
+    notification.cameraRecord = '';
+    notification.screenRecord = '';
+    notification.message = 'user: ' + user.fullName + ' email: ' + user.email + ' started the exam';
+    //console.log('notification: ', notification.message)
+    if (!examID.match(/^[0-9a-fA-F]{24}$/)) {
+      // invalid id
+      //console.log('invalid id')
+    }
+    else{
+      Exam.findOneAndUpdate( {_id: examID}, {$push:{notification:notification}}, {new:true}, (err, res) =>{
+        if(res) 
+          console.log('add disc successfully')
+        else
+          console.log('err in disconnect ', JSON.stringify(err, undefined,2))
+      })
+    }
+
+  })
+
   socket.on('newUser', userName => {
-    console.log('user', userName)
+    //console.log('user', userName)
     //socket.id = user._id;
     name = userName;
     //email = user.email;
   })
 
   socket.on('newUserEmail', iemail => {
-    console.log('email: ', iemail)
+    //console.log('email: ', iemail)
     email = iemail;
   })
 
@@ -98,12 +128,13 @@ io.on('connection', (socket) => {
       // invalid id
     }
     else{
-      Exam.findOneAndUpdate( {_id: examID}, {$push:{notification:notification}}, {new:true}, (err, res) =>{
-        if(res) 
-          console.log('add disc successfully')
-        else
-          console.log('err in disconnect ', JSON.stringify(err, undefined,2))
-      })
+      if(name != '' && email != '')
+        Exam.findOneAndUpdate( {_id: examID}, {$push:{notification:notification}}, {new:true}, (err, res) =>{
+          if(res) 
+            console.log('add disc successfully')
+          else
+            console.log('err in disconnect ', JSON.stringify(err, undefined,2))
+        })
     }
     
   })
