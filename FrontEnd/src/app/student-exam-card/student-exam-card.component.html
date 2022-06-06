@@ -61,11 +61,27 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Are you confirm to start exam?
-          <br>
           <b>[Exam Name : {{currentExam.examName}}]</b>
           <br>
           <b>[Exam Code : {{model.examCode}}]</b>
+          <hr>
+          <b>INSTRUCTIONS</b><br>
+          <input type="checkbox"> Share your entine screen.
+          <br>
+          <input type="checkbox"> Sharing a specific tab won't let you proceed.
+          <br>
+          <input type="checkbox"> Allow your camera permission.
+          <br>
+          <input type="checkbox"> Wait until your face is recognized and caliberate
+          <br>
+          <input type="checkbox"> In order to caliberate you need to click on 9 red dots. Upon clicking 5 times on each dot, they will turn green. You can start the exam as soon as all the dots are turned green.
+          <br>
+          <input type="checkbox"> Calibration is needed for accuracy.
+          <br>
+          <input type="checkbox"> You may be wrongly identified as suspicious if not properly caliberated.
+          <br>
+          <br>
+          <b>I have read all the instructions and want to start the exam</b>
         </div>
         <form>
             <div class="modal-footer">

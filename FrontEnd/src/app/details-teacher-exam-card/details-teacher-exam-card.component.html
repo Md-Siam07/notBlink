@@ -6,8 +6,7 @@
           <div class="col-6">
             <h2>{{examDetails.examName}}</h2>
             <hr class="cl-head">
-            <br><br>
-
+            <br>
             <h4>{{examDetails.teacherName}}</h4>
             <i class="fa fa-calendar"></i> {{getExamDate(examDetails.examDate)}} {{getExamMonth(examDetails.examDate)}} <br>
             <i class="fa fa-clock"></i> {{examDetails.startTime}} <br>
@@ -25,15 +24,33 @@
             </div>
             <br><br>
             <div class="btn-button">
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onClick(examDetails)">Invite </button>&nbsp;&nbsp;
-              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" (click)="onClick(examDetails)">Edit Exam </button>&nbsp;&nbsp;
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalDel" (click)="onClick(examDetails)">Delete Exam </button>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onClick(examDetails)">Invite </button>&nbsp;
+              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" (click)="onClick(examDetails)">Edit Exam </button>&nbsp;
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalDel" (click)="onClick(examDetails)">Delete Exam </button>&nbsp;
+              <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#guideModal">Guidelines </button>
             </div>
+            <br>
+            <!-- <div class="manual">
+              <h4>GUIDELINES</h4>
+              <hr class="cl-head">
+              <h5>About notification - </h5>
+              <input type="checkbox" checked> As soon as an examinee is detected to be suspicious, you will receive a notification. <br>
+              <input type="checkbox" checked> New notifications can be found at the bottom of the notification column. <br>
+              <input type="checkbox" checked> You will receive notification once an examinee. <br>
+                <ul>
+                  <li>Tries to change the screen.</li>
+                  <li>Comes back to to the exam tab.</li>
+                  <li>Outsights the screen longer than the limit you specified containing the video footage of examinee's camera.</li>
+                  <li>Gets disconnected</li>
+                  <li>Default notification containing the screen record of the entire exam of the examinee.</li>
+                </ul>
+              <input type="checkbox" checked> Clicking on the evidence URLs will direct you towards a page that plays the evidences.
+            </div> -->
           </div>
           <div class="col-6">
             <h2>Participante List&nbsp;&nbsp;<i class="fa fa-users"></i></h2>
             <hr class="cl-head">
-            <br><br>
+            <br>
             <div *ngFor="let participant of participants">
               &nbsp;&nbsp;&nbsp;
               <span class="fa fa-user-circle"></span>
@@ -49,7 +66,7 @@
       <div class="col-4">
         <h2>Notification&nbsp;&nbsp;<i class="fas fa-bell"></i></h2>
         <hr class="cl-head">
-        <br><br>
+        <br>
         <ul class="list-group list-group-flush" *ngFor="let notification of notificationList | async">
           <li class="list-group-item">
             Suspicious Activity
@@ -255,6 +272,34 @@
                 <button type="submit" class="btn btn-success" data-bs-dismiss="modal" (click)="kick()">Yes</button>
             </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal
+  guideline -->
+  <div class="modal fade" id="guideModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Guidelines</h5>
+        </div>
+        <div class="modal-body">
+          <input type="checkbox" checked> As soon as an examinee is detected to be suspicious, you will receive a notification. <br>
+          <input type="checkbox" checked> New notifications can be found at the bottom of the notification column. <br>
+          <input type="checkbox" checked> You will receive notification once an examinee. <br>
+            <ul>
+              <li>Tries to change the screen.</li>
+              <li>Comes back to to the exam tab.</li>
+              <li>Outsights the screen longer than the limit you specified containing the video footage of examinee's camera.</li>
+              <li>Gets disconnected</li>
+              <li>Default notification containing the screen record of the entire exam of the examinee.</li>
+            </ul>
+          <input type="checkbox" checked> Clicking on the evidence URLs will direct you towards a page that plays the evidences.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
