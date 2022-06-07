@@ -115,7 +115,7 @@ export class StudentExamCardComponent implements OnInit {
     //console.log(this.model);
     this.examService.joinExam(this.model, this.model.examCode).subscribe(
       (res:any) =>{
-        console.log(res);
+        //console.log(res);
         this.toastr.success("Successfully joined in exam.")
         this.refreshExamList();
       },
@@ -142,7 +142,7 @@ export class StudentExamCardComponent implements OnInit {
     //console.log(this.model);
     this.examService.leaveExam(this.model, this.model.examCode).subscribe(
       (res:any) =>{
-        console.log('leave');
+        //console.log('leave');
         this.toastr.error("Successfully leave from exam.")
         this.refreshExamList();
         //console.log('successful');

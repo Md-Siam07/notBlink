@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     this.userServce.login(this.model).subscribe(
       (res:any) => {
         if(res['token']){
-          console.log(res['token'])
+          //console.log(res['token'])
           localStorage.setItem('token', res['token']);
           this.userServce.changeStatus();
           this.router.navigateByUrl('dashboard');

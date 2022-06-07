@@ -72,7 +72,7 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
   intervalID: any = setInterval(() => {
     if (suspectedStatus() != 0) {
       this.playAudio('suspected.m4a');
-      console.log('stopped')
+      //console.log('stopped')
       this.hasVideo = true;
       this.isRecording = false;
       if(this.recorder.state != 'inactive')
@@ -96,7 +96,7 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
     this.recorder.onstop = (e: any) => {
       completeBlob = new Blob(chunks, { type: chunks[0].type });
       this.sendBlob();
-      console.log(completeBlob.size);
+      //console.log(completeBlob.size);
       try{
         this.recordVideo.nativeElement.src = URL.createObjectURL(completeBlob)
       }catch(e){
@@ -129,7 +129,7 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
 
 
   recordStop() {
-    console.log('stopped')
+    //console.log('stopped')
     this.hasVideo = true;
     this.isRecording = false;
     if(this.recorder.state != 'inactive')
@@ -171,7 +171,7 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
   }
 
   sendBlob(){
-    console.log('called')
+    //console.log('called')
     //this.examService.setBlob(completeBlob);
     this.notification.cameraRecord = "abcc";
     this.notification.screenRecord = "";
@@ -182,7 +182,7 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
     this.notification.roll = this.userDetails.roll;
     this.notification.phone_number = this.userDetails.phone_number;
     this.notification.message = "User has outsighted the screen longer than the limit";
-    console.log(this.notification);
+    //console.log(this.notification);
     this.examService.notify(this.notification, this.id, completeBlob).subscribe(
       res => {
         socket.emit('notification', this.notification);
@@ -202,7 +202,7 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
     // For other browsers:
     // Create a link pointing to the ObjectURL containing the blob.
     const data = window.URL.createObjectURL(completeBlob);
-    console.log(data)
+    //console.log(data)
 
     const link = document.createElement('a');
     link.href = data;

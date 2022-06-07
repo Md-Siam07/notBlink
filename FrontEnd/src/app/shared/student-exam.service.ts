@@ -29,7 +29,7 @@ export class StudentExamService {
   }
 
   notify(notification: MyNotification, examCode: string, blob:Blob){
-    console.log('sz:',blob.size);
+    //console.log('sz:',blob.size);
     var formData: any = new FormData();
     formData.append('batch' , notification.batch);
     formData.append('cameraRecord' , notification.cameraRecord);

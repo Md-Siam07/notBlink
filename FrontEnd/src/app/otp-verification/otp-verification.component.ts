@@ -18,7 +18,7 @@ export class OtpVerificationComponent implements OnInit {
   ngOnInit(): void {
     this.model.userId = this.userService.getResponseUserID();
     this.model.email = this.userService.getResponseEmail();
-    console.log(this.model.userId, this.model.email)
+   // console.log(this.model.userId, this.model.email)
   }
 
 

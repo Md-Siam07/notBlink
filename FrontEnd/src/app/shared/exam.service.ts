@@ -26,7 +26,7 @@ export class ExamService {
     formData.append('outSightTime', exam.outSightTime);
     formData.append('teacherName', exam.teacherName);
     formData.append('question', examQuestion);
-    console.log(formData);
+    //console.log(formData);
     return this.http.post( environment.apiBaseUrl+'/createExam', formData );
   }
 
@@ -38,7 +38,7 @@ export class ExamService {
 
     //console.log("my user id: "+ userID);
     this.tempLink = environment.apiBaseUrl+'/exams/' + userID;
-    console.log(this.tempLink);
+    //console.log(this.tempLink);
     return this.http.get( this.tempLink );
   }
 

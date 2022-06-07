@@ -43,7 +43,7 @@ export class WindowMonitoringComponent implements OnInit {
     getScreenSize(event:any) {
       this.scrHeight = window.innerHeight;
       this.scrWidth = window.innerWidth;
-      console.log(this.scrHeight, this.scrWidth);
+      //console.log(this.scrHeight, this.scrWidth);
       //this.notify();
   }
   playAudio(filename: string){
@@ -56,7 +56,7 @@ export class WindowMonitoringComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     isScreenWidthHeightOK();
-    console.log('id id: ',this.id);
+    //console.log('id id: ',this.id);
     this.scrHeight = window.innerHeight;
     this.scrWidth = window.innerWidth;
     this.userService.getUserProfile().subscribe(

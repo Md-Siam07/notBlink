@@ -101,7 +101,7 @@ export class DetailsStudentExamCardComponent implements OnInit {
   }
 
   onLeaveClick(givenExam: Exam){
-    console.log(givenExam._id);
+    //console.log(givenExam._id);
     this.currentExamCode = givenExam._id;
     this.model.examCode = givenExam._id;
     this.model.examName = givenExam.examName;
@@ -109,12 +109,12 @@ export class DetailsStudentExamCardComponent implements OnInit {
   }
 
   leaveExam(){
-    console.log(this.model);
+    //console.log(this.model);
     this.studentExamService.leaveExam(this.model, this.model.examCode).subscribe(
       (res:any) =>{
 
-        this.toastr.error("Successfully leave from exam.")
-        console.log('successful');
+        this.toastr.error("Successfully left the exam.")
+        //console.log('successful');
         this.router.navigateByUrl('dashboard');
       },
       (err:any) => {
@@ -142,7 +142,7 @@ export class DetailsStudentExamCardComponent implements OnInit {
     this.examDetails.participants.forEach(participantID => {
       this.participantSet.add(participantID);
     });
-    console.log('participant set: ', this.examDetails.participants);
+    //console.log('participant set: ', this.examDetails.participants);
     this.participantSet.forEach(participantID => {
       this.examService.getParticipant(participantID).subscribe(
         (res:any) => {

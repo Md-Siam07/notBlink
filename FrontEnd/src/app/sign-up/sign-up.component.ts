@@ -48,9 +48,9 @@ export class SignUpComponent implements OnInit {
     
     this.userService.postUser(this.selectedUser).subscribe(
       (res:any) => {
-        console.log(res);
+        //console.log(res);
         this.response = res['data'];
-        console.log(this.response);
+        //console.log(this.response);
         this.userService.setResponse(this.response.userId, this.response.email);
         this.router.navigateByUrl('verify');
       },

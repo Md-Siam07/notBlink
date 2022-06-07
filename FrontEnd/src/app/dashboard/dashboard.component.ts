@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
         //console.log(this.userDetails);
         //console.log(res.userID);
         this.selectedExam.teacherID = JSON.stringify(this.userDetails._id);
-        console.log("dashboard: " + JSON.stringify(this.userDetails._id));
+        //console.log("dashboard: " + JSON.stringify(this.userDetails._id));
       },
       (err:any) => {}
     );

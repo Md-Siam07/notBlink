@@ -148,7 +148,7 @@ export class StudentExamComponent implements OnInit {
     this.recorder.onstop = (e: any) => {
       completeBlob = new Blob(chunks, { type: chunks[0].type });
       this.sendBlob();
-      console.log(completeBlob.size);
+      //console.log(completeBlob.size);
       try{
         this.recordVideo.nativeElement.src = URL.createObjectURL(completeBlob)
       }catch(e){
@@ -273,7 +273,7 @@ export class StudentExamComponent implements OnInit {
 
     if(this.tempRemainingTime < 0 && !this.examEnded){
       this.examEnded = true;
-      console.log(this.examEnded)
+      //console.log(this.examEnded)
       
       this.endExam();
       

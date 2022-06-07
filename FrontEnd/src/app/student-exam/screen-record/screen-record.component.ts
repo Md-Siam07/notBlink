@@ -79,7 +79,7 @@ export class ScreenRecordComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    console.log('id id: ',this.id);
+   // console.log('id id: ',this.id);
     this.userService.getUserProfile().subscribe(
       (res:any) => {
         this.userDetails = res['user'];

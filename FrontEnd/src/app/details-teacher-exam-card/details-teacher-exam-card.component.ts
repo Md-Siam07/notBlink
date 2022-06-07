@@ -87,7 +87,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     this.userService.getUserProfile().subscribe(
       (res:any) => {
         this.userDetails = res['user'] as User;
-        console.log(this.userDetails.isTeacher)
+        //console.log(this.userDetails.isTeacher)
         if(!this.userDetails.isTeacher){
           this.router.navigateByUrl('dashboard');
         }
@@ -117,7 +117,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
+    //console.log(changes)
   }
 
   uploadFile(event:any) {
@@ -142,7 +142,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   }
 
   refreshParticipantList(){
-    console.log('called')
+    //console.log('called')
     this.participantSet = new Set<string>();
     this.participants = [];
 
@@ -152,7 +152,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
         this.examDetails.participants.forEach(participantID => {
           this.participantSet.add(participantID);
         });
-        console.log('participant set: ', this.examDetails.participants);
+       // console.log('participant set: ', this.examDetails.participants);
         this.participantSet.forEach(participantID => {
           this.examService.getParticipant(participantID).subscribe(
             (res:any) => {
@@ -174,7 +174,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   update(){
     this.examService.update(this.selectedExam, this.file).subscribe(
       (res:any) =>{
-        console.log(this.selectedExam);
+        //console.log(this.selectedExam);
         this.reloadComponent();
         this.toastr.success('Exam is updated');
         //console.log('successful');
@@ -189,7 +189,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   delete(){
     this.examService.deleteExam(this.selectedExam).subscribe( (res:any) =>{
       //console.log('deleted');
-      this.toastr.warning('Exam is deleted');
+      this.toastr.success('Exam is deleted');
       this.router.navigateByUrl('/dashboard');
     },
     (err)=>{
@@ -211,7 +211,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     console.log(this.model.recipiennt);
     this.examService.invite(this.model).subscribe(
       (res:any) =>{
-        console.log('sent');
+        //console.log('sent');
         this.model.recipiennt = '';
         this.toastr.success('Invitation sent');
       },
@@ -232,7 +232,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     this.examService.kickFromExam(this.kickModel, this.kickModel.examCode).subscribe(
       (res:any) =>{
         this.toastr.success('Successfully kicked');
-        console.log('successful');
+        //console.log('successful');
         this.examService.getSingleExamDetails(this.id).subscribe(
           (response:any) => {
             this.examDetails = response as Exam;
