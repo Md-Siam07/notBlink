@@ -81,7 +81,7 @@ module.exports.participantInfo = (req, res) => {
 }
 
 const sendOTPVerificationEmail = async ({_id, email}, res) => {
-    console.log('called')
+    //console.log('called')
     try{
         const otp = `${Math.floor(100000 + Math.random()* 90000)}`;
         const mailOptions = {
@@ -123,9 +123,9 @@ const sendOTPVerificationEmail = async ({_id, email}, res) => {
 module.exports.verifyOTP = async (req, res) => {
     flag = false;
     try{
-        console.log(req.body)
+        //console.log(req.body)
         let {userId, otp} = req.body;
-        console.log(userId, otp);
+        //console.log(userId, otp);
         if(!userId || !otp){
             throw Error("Empty otp details are not allowed");
         } else{

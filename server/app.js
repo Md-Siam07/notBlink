@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
   //console.log('a user connected');
   socket.on('notification', notification =>{
     //console.log('ashche');
-    console.log('notification: ', notification.message)
+    //console.log('notification: ', notification.message)
     io.emit('notification', notification);
   })
 
@@ -130,8 +130,10 @@ io.on('connection', (socket) => {
     else{
       if(name != '' && email != '')
         Exam.findOneAndUpdate( {_id: examID}, {$push:{notification:notification}}, {new:true}, (err, res) =>{
-          if(res) 
-            console.log('add disc successfully')
+          if(res) {
+
+          }
+            //console.log('add disc successfully')
           else
             console.log('err in disconnect ', JSON.stringify(err, undefined,2))
         })

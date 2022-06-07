@@ -28,7 +28,7 @@ module.exports.sendMail = (req, res, next) =>{
     //     }
     // }) 
     newMailer(to, examCode).then( result => {
-        console.log('Email sent...', result);
+        //console.log('Email sent...', result);
         res.send(result);
     })
     .catch(error => console.log(error.message));
