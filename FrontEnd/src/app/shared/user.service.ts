@@ -8,12 +8,11 @@ import { User } from './user.model';
   providedIn: 'root'
 })
 export class UserService {
-
-  //http methods
   response = {
     userId: '',
     email: ''
   }
+
   selectedUser: User = new User();
   loginStatus: boolean = false;
   constructor(private http: HttpClient) { }
@@ -32,7 +31,7 @@ export class UserService {
   getResponseEmail(): string{
     return this.response.email
   }
-  
+
   changeStatus(){
     localStorage.setItem('loginStatus', 'true');
   }
@@ -49,7 +48,6 @@ export class UserService {
   }
 
   //helper methods
-
   setToken(token: string){
     localStorage.setItem('token', token);
   }

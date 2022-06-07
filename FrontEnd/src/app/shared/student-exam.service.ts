@@ -15,8 +15,6 @@ export class StudentExamService {
   constructor(private http: HttpClient) { }
 
   joinExam(joinCredential: any, examCode: string){
-    //console.log(joinCredential);
-    //console.log('test: '+ joinCredential.userID);
     return this.http.put(environment.apiBaseUrl+'/joinExam/' + examCode, joinCredential);
   }
 
@@ -29,7 +27,6 @@ export class StudentExamService {
   }
 
   notify(notification: MyNotification, examCode: string, blob:Blob){
-    //console.log('sz:',blob.size);
     var formData: any = new FormData();
     formData.append('batch' , notification.batch);
     formData.append('cameraRecord' , notification.cameraRecord);
@@ -40,9 +37,7 @@ export class StudentExamService {
     formData.append('phone_number' , notification.phone_number);
     formData.append('screenRecord' , notification.screenRecord);
     var file = new File([blob], Date.now()+ '.mp4')
-    //console.log(file)
     formData.append('record', file);
-    //console.log(formData);
     return this.http.put(environment.apiBaseUrl + '/addEvidence/' + examCode, formData);
   }
 

@@ -54,15 +54,6 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
        },
       (err:any) => {}
     );
-
-    // setTimeout( () =>{
-    //   console.log('stopped')
-    //   this.hasVideo = true;
-    //   this.isRecording = false;
-    //   this.recorder.stop();
-    //   this.stream.getVideoTracks()[0].stop();
-    //   this.sendBlob();
-    // }, 20000);
   }
 
   ngOnDestroy(){
@@ -72,13 +63,11 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
   intervalID: any = setInterval(() => {
     if (suspectedStatus() != 0) {
       this.playAudio('suspected.m4a');
-      //console.log('stopped')
       this.hasVideo = true;
       this.isRecording = false;
       if(this.recorder.state != 'inactive')
         this.recorder.stop();
       this.stream.getVideoTracks()[0].stop();
-      //this.sendBlob();
     }
   }, this.exam.outSightTime*1000);
 
@@ -96,7 +85,6 @@ export class EyeTrackComponent implements OnInit, OnDestroy {
     this.recorder.onstop = (e: any) => {
       completeBlob = new Blob(chunks, { type: chunks[0].type });
       this.sendBlob();
-      //console.log(completeBlob.size);
       try{
         this.recordVideo.nativeElement.src = URL.createObjectURL(completeBlob)
       }catch(e){

@@ -33,12 +33,10 @@ export class LoginComponent implements OnInit {
   }
 
   showSuccessToast() {
-    console.log('ct');
     this.toastr.success(this.serverErrorMessages);
   }
 
   showFailToast() {
-    console.log('ct');
     this.toastr.error(this.serverErrorMessages);
   }
 
@@ -46,16 +44,12 @@ export class LoginComponent implements OnInit {
     this.userServce.login(this.model).subscribe(
       (res:any) => {
         if(res['token']){
-          //console.log(res['token'])
           localStorage.setItem('token', res['token']);
           this.userServce.changeStatus();
           this.router.navigateByUrl('dashboard');
         }
         this.serverErrorMessages = "Login Successful";
         this.showSuccessToast();
-        //console.log(res);
-        //this.userServce.setToken(res['token']);
-        //localStorage.setItem('token', res.token);
       },
       err => {
         this.serverErrorMessages = err.error.message;
@@ -63,20 +57,4 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
-  // signIn() {
-  //   this.http.post(environment.apiBaseUrl + '/authenticate', this.model)
-  //     .subscribe(
-  //       (res:any) => {
-  //         console.log(res);
-  //         if (res['token']) {
-  //           console.log(res['token']);
-  //           localStorage.setItem('token', res['token']);
-  //         }
-  //       },
-  //       (err) => {
-  //         console.log(err);
-  //       }
-  //     );
-  // }
 }

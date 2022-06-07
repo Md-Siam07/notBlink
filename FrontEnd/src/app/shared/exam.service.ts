@@ -26,7 +26,6 @@ export class ExamService {
     formData.append('outSightTime', exam.outSightTime);
     formData.append('teacherName', exam.teacherName);
     formData.append('question', examQuestion);
-    //console.log(formData);
     return this.http.post( environment.apiBaseUrl+'/createExam', formData );
   }
 
@@ -35,10 +34,7 @@ export class ExamService {
   }
 
   getExamList(userID: string){
-
-    //console.log("my user id: "+ userID);
     this.tempLink = environment.apiBaseUrl+'/exams/' + userID;
-    //console.log(this.tempLink);
     return this.http.get( this.tempLink );
   }
 
@@ -60,24 +56,16 @@ export class ExamService {
     formData.append('outSightTime', exam.outSightTime);
     formData.append('teacherName', exam.teacherName);
     formData.append('question', examQuestion);
-    ///console.log(exam, examQuestion);
-    //console.log(exam);
-    //console.log(environment.apiBaseUrl + '/exam' + `/${exam._id}`);
     return this.http.put(environment.apiBaseUrl + '/exam' + `/${exam._id}`, formData);
   }
 
   deleteExam(exam:Exam){
-    //console.log(exam._id);
-    //console.log(environment.apiBaseUrl+ '/exams'+ `/${exam._id}`);
     return this.http.delete(environment.apiBaseUrl+ '/exams'+ `/${exam._id}`);
-
   }
 
   invite(inviteCredentials:any){
-    //console.log(inviteCredentials);
     return this.http.post(environment.apiBaseUrl + '/invite', inviteCredentials);
   }
-
 
   getParticipant(participantID: string){
     return this.http.get(environment.apiBaseUrl + '/participantinfo/' + participantID);
@@ -86,6 +74,4 @@ export class ExamService {
   kickFromExam(leaveCredential: any, examCode: string){
     return this.http.put(environment.apiBaseUrl + '/student/exams/' + examCode, leaveCredential);
   }
-
-
 }

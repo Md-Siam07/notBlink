@@ -10,7 +10,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
-//const io = require('socket.io')(3000);
 
 const routeIndex = require('./routes/index.router');
 
@@ -21,7 +20,6 @@ const io = require('socket.io')(server, {
 });
 
 //middleware
-//app.use(require('connect').bodyParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(cors());
@@ -44,15 +42,11 @@ server.listen(process.env.PORT, () => console.log(`Server started at port: ${pro
 
 io.on('connection', (socket) => {
   var name = '', email = '', examID = '';
-  //console.log('a user connected');
   socket.on('notification', notification =>{
-    //console.log('ashche');
-    //console.log('notification: ', notification.message)
     io.emit('notification', notification);
   })
 
   socket.on('join', user=> {
-    //console.log('user ', user.fullName, ' joined the exam');
     var notification = new Notification();
     notification.fullName = user.fullName;
     notification.email = user.email;
@@ -64,10 +58,7 @@ io.on('connection', (socket) => {
     notification.cameraRecord = '';
     notification.screenRecord = '';
     notification.message = 'user: ' + user.fullName + ' email: ' + user.email + ' started the exam';
-    //console.log('notification: ', notification.message)
     if (!examID.match(/^[0-9a-fA-F]{24}$/)) {
-      // invalid id
-      //console.log('invalid id')
     }
     else{
       Exam.findOneAndUpdate( {_id: examID}, {$push:{notification:notification}}, {new:true}, (err, res) =>{
@@ -81,14 +72,10 @@ io.on('connection', (socket) => {
   })
 
   socket.on('newUser', userName => {
-    //console.log('user', userName)
-    //socket.id = user._id;
     name = userName;
-    //email = user.email;
   })
 
   socket.on('newUserEmail', iemail => {
-    //console.log('email: ', iemail)
     email = iemail;
   })
 
@@ -108,22 +95,6 @@ io.on('connection', (socket) => {
     notification.cameraRecord = '';
     notification.screenRecord = '';
     notification.message = 'user: ' + name + ' email: ' + email + ' got disconnected';
-    // Exam.findByIdAndUpdate(mongoose.Types.ObjectId(examID), {$push: {notification: notification}}, {new:true}, (err, doc) => {
-    //   if(!err) {
-    //       console.log('added')
-    //       res.send(doc);}
-    //   else{
-    //       console.log(`Error in add evidence: `+ JSON.stringify(err, undefined, 2));
-    //   }
-    // })
-    // Exam.findOne({_id: examID}, (err, res) => {
-    //   if(err){
-    //     console.log(`Error in add evidence: `+ JSON.stringify(err, undefined, 2));
-    //   }
-    //   if(res){
-    //     res.update( $push: {notification: notification})
-    //   }
-    // })
     if (!examID.match(/^[0-9a-fA-F]{24}$/)) {
       // invalid id
     }
@@ -133,13 +104,9 @@ io.on('connection', (socket) => {
           if(res) {
 
           }
-            //console.log('add disc successfully')
           else
             console.log('err in disconnect ', JSON.stringify(err, undefined,2))
         })
     }
-    
   })
 })
-
-//app.use('/exams', examController); 

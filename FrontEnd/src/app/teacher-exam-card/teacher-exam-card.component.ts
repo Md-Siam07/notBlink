@@ -48,14 +48,10 @@ export class TeacherExamCardComponent implements OnInit {
     this.userService.getUserProfile().subscribe(
       (res:any) => {
         this.userDetails = res['user'];
-        //console.log(this.userDetails);
-        //console.log(this.userDetails._id);
         this.tempID = this.userDetails._id;
         this.examService.getExamList(this.tempID).subscribe( (res:any) =>{
-          //console.log('get: ' + this.tempID);
           this.examService.exams = res as Exam[];
           this.exams = this.examService.exams;
-          //console.log(this.examService.exams);
         });
       },
       (err:any) => {}
@@ -68,11 +64,9 @@ export class TeacherExamCardComponent implements OnInit {
   }
 
   update(){
-    //console.log(this.selectedExam.duration);
     this.examService.update(this.selectedExam, this.file).subscribe(
       (res:any) =>{
         this.toastr.success('Exam is updated');
-       // console.log(res)
         this.refreshExamList();
         this.resetForm();
       },
@@ -84,16 +78,13 @@ export class TeacherExamCardComponent implements OnInit {
 
   refreshExamList(){
     this.examService.getExamList(this.tempID).subscribe( (res:any) =>{
-      //console.log('get: ' + this.tempID);
       this.examService.exams = res as Exam[];
       this.exams = this.examService.exams;
-      //console.log(this.examService.exams);
     });
   }
 
   delete(){
     this.examService.deleteExam(this.selectedExam).subscribe( (res:any) =>{
-      //console.log('deleted');
       this.toastr.success('Exam is deleted')
       this.refreshExamList();
     },
@@ -104,24 +95,17 @@ export class TeacherExamCardComponent implements OnInit {
   }
 
   uploadFile(event:any) {
-    this.file = event.target.files[0]; 
+    this.file = event.target.files[0];
   }
 
   createExam(){
     this.selectedExam.teacherID = this.userDetails._id;
     this.selectedExam.teacherName = this.userDetails.fullName;
-    //console.log(this.selectedExam)
-    //console.log(this.userDetails);
     this.examService.postExam(this.selectedExam, this.file).subscribe(
       (res:any) => {
-        //console.log(this.selectedExam);
-        //console.log('successfull');
-        //this.successToast();
         this.toastr.success('Successfully exam is created')
         this.resetForm();
         this.refreshExamList();
-        //this.router.navigateByUrl('dashboard');
-
       },
       (err:any) => {
 
@@ -132,11 +116,9 @@ export class TeacherExamCardComponent implements OnInit {
   invite(){
     this.model.examCode = this.selectedExam._id;
     this.model.recipiennt = this.recipientEmail;
-    //console.log(this.model);
     this.examService.invite(this.model).subscribe(
       (res:any) =>{
         this.toastr.success('Invitation sent');
-        //this.model.examCode='';
         this.model.recipiennt = '';
       },
       (err) => {
@@ -158,7 +140,6 @@ export class TeacherExamCardComponent implements OnInit {
 
   getExamMonth(input: string): any{
     this.month = input.substring(5,7);
-    //console.log('month: '+ this.month);
     return this.months.get(parseInt(this.month));
   }
 
@@ -166,7 +147,4 @@ export class TeacherExamCardComponent implements OnInit {
     var tempUrl = 'teacher/examdetails/' + exam._id;
     this.router.navigateByUrl(tempUrl);
   }
-
-  
-
 }

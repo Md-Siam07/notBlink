@@ -24,7 +24,6 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-   // children: [{path:'', component: LoginComponent}]
   },
   {
     path: '',

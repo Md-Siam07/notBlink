@@ -28,22 +28,15 @@ export class ScreenRecordComponent implements OnInit {
     onFocus(event:any) {
     this.msg = 'User is back on screen';
     this.url = '';
-    //this.recordStop();
     this.sendNotification()
-    //todo (notify that the student is back)
-
   }
 
   @HostListener('window:blur', ['$event'])
     onBlur(event:any) {
     this.msg = 'User has left the screen';
     this.url = '';
-    //this.recordStop();
     this.sendNotification();
     this.playAudio('changeScreen.m4a');
-    //alert("You can not chnage the screen during the exam!\nOnly the tab of !Blink is accepted!");
-    //this.notify();
-    //alert("user leave korso ken?")
   }
 
   playAudio(filename: string){
@@ -100,7 +93,6 @@ export class ScreenRecordComponent implements OnInit {
       this.recorder = new MediaRecorder(strm);
       let displaySurface = strm.getVideoTracks()[0].getSettings().displaySurface;
       if (displaySurface !== 'monitor') {
-        //to do
         console.log('Selection of entire screen mandatory!');
       }
       const chunks: any[] | undefined = [];
@@ -116,9 +108,6 @@ export class ScreenRecordComponent implements OnInit {
         console.log(e);
       }
     };
-
-
-
 
     this.recorder.start();
     }).catch( (err:any) => {

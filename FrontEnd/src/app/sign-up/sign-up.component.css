@@ -9,7 +9,6 @@ body {
   background-attachment: fixed;
 }
 
-
 /* Text Align */
 .label {
   text-align: left !important;
@@ -26,7 +25,6 @@ body {
 .text-j {
   text-align: justify;
 }
-
 
 /* Text Color */
 .text-whitesmoke {
@@ -51,7 +49,6 @@ body {
   color: black;
 }
 
-
 /* Lines */
 
 .line-b {
@@ -65,7 +62,6 @@ body {
 
 .form-button {
   background-color: #6D8B74;
-  /*border-color: #6D8B74;*/
   color: #e6e6e6;
 }
 
@@ -198,8 +194,6 @@ button:hover {
 
 .main-bg {
   background: #EFEAD8;
-  /*background: linear-gradient(#463333, #CDC2AE);
-  height:100vh;*/
 }
 
 /* Login & Register Pages*/

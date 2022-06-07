@@ -9,8 +9,6 @@ const Notification = mongoose.model('Notification');
 
 module.exports.create = (req, res, next) => {
     const url = req.protocol + '://' + req.get('host')
-    //console.log('called');
-    //console.log('body: ' , req.body);
     var exam = new Exam();
     exam.examName = req.body.examName;
     exam.startTime = req.body.startTime;
@@ -18,7 +16,6 @@ module.exports.create = (req, res, next) => {
     exam.examDate = req.body.examDate;
     exam.teacherID = req.body.teacherID;
     exam.teacherName = req.body.teacherName;
-    //exam.outSightTime = req.body.outSightTime;
     exam.participants = [];
     exam.notification = [];
     if(!req.file)
@@ -29,8 +26,6 @@ module.exports.create = (req, res, next) => {
         req.body.outSightTime = tempOutSightTime;
     }
     exam.outSightTime = req.body.outSightTime;
-    //exam.question = req.file.filename;
-    //console.log(exam);
     exam.save( (err, doc) =>{
         if(!err)
             res.send(doc);
@@ -59,7 +54,6 @@ module.exports.getStudentExams = (req, res, next) => {
 
 
 module.exports.singleExamInfo = (req, res, next) => {
-    //console.log(req.params.id)
     Exam.findById(req.params.id, (err, doc) => {
         if(!err) res.send(doc);
         else {
@@ -69,7 +63,6 @@ module.exports.singleExamInfo = (req, res, next) => {
 }
 
 module.exports.updateInfo = (req, res, next) => {
-    //console.log(req.body);
     const url = req.protocol + '://' + req.get('host')
     var tempQuestion, tempOutSightTime;
     Exam.findById(req.params.id, (err, doc) => {
@@ -81,8 +74,6 @@ module.exports.updateInfo = (req, res, next) => {
             console.log(`Error in updating exam`);
         }
     } )
-   // console.log('called');
-   // console.log('body: ' , req.body);
     if(req.file){
         tempQuestion = url + '/public/' + req.file.filename;
     }
@@ -100,7 +91,6 @@ module.exports.updateInfo = (req, res, next) => {
         question : tempQuestion,
         outSightTime: req.body.outSightTime
     };
-    //exam.question = url + '/public/' + req.file.filename;
 
     Exam.findByIdAndUpdate(req.params.id, { $set:exam }, { new:true } , (err, doc) => {
         if(!err) {res.send(doc);}
@@ -119,8 +109,6 @@ module.exports.deleteExam = (req, res, next) => {
 
 module.exports.joinExam = (req, res, next) => {
     var userID = req.body.userID;
-    //console.log(req.body);
-   // console.log(userID);
     Exam.findById(req.params.id, (err, document) =>{
         if(!err){
             console.log('document bloced: ', document.blocked)
@@ -141,7 +129,6 @@ module.exports.joinExam = (req, res, next) => {
 
 module.exports.removeParcipant = (req, res, next) => {
     var userID = req.body.userID;
-    //console.log(req);
     Exam.findByIdAndUpdate(req.params.id, {$pull: {participants: {$in: [req.body.userID]}}}, {new:true}, (err, doc) =>{
         if(!err) {
             Exam.findByIdAndUpdate(req.params.id,  {$addToSet: {blocked: userID}}, {new:true}, (error, document) => {
@@ -160,7 +147,6 @@ module.exports.removeParcipant = (req, res, next) => {
 
 module.exports.addEvidence = (req, res, next) => {
     const url = req.protocol + '://' + req.get('host');
-    //console.log('body: ', req.body);
     var notification = new Notification();
     notification.fullName = req.body.fullName;
     notification.email = req.body.email;
@@ -174,7 +160,6 @@ module.exports.addEvidence = (req, res, next) => {
         notification.screenRecord = '';
     }
     else if(req.body.screenRecord != ''){
-        //var file = new File([req.file], Date.now + '.mp4');
         notification.screenRecord = url + '/public/' + req.file.filename;
         notification.cameraRecord = '';
     }
@@ -182,7 +167,6 @@ module.exports.addEvidence = (req, res, next) => {
         notification.screenRecord = '';
         notification.cameraRecord = url + '/public/' + req.file.filename;
     }
-    //console.log(notification)
     if(notification.message != 'undefined')
         Exam.findByIdAndUpdate(req.params.id, {$push: {notification: notification}}, {new:true}, (err, doc) => {
             if(!err) {

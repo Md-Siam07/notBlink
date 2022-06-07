@@ -60,7 +60,6 @@ body {
 
 .form-button {
   background-color: #6D8B74;
-  /*border-color: #6D8B74;*/
   color: #e6e6e6;
 }
 
@@ -148,7 +147,6 @@ body {
 }
 
 /* Bootstrap Form Control Extension */
-
 .form-control,
 .border-line {
   background-color: #a09c9c;
@@ -190,10 +188,8 @@ button:hover {
 }
 
 /* Backgrounds */
-
 .main-bg {
   background: #EFEAD8;
-  /*background: linear-gradient(#463333, #CDC2AE);*/
   height:100vh;
 }
 

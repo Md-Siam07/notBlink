@@ -27,12 +27,10 @@ module.exports.register = (req, res, next) => {
     user.batch = req.body.batch;
     user.roll =  req.body.roll;
     user.verified = false;
-   //user.
     user.save( 
         (err, doc) =>{
         if(!err){
             sendOTPVerificationEmail(doc, res)
-            
         }
         else{
             if(err.code == 11000)
@@ -41,21 +39,13 @@ module.exports.register = (req, res, next) => {
                 return next(err);
         }} 
         )
-        // .then( (result) => {
-        //     sendOTPVerificationEmail(result, res)
-        // } );
 }
 
 module.exports.authenticate = (req, res, next) => {
-    //call passport authentication
     passport.authenticate('local', (err, user, info) => {
-        //error from passport middleware
         if(err) return res.status(400).json(err);
-        //registered user
         else if(user) return res.status(200).json({"token": user.generateJwt()});
-        //unknown user or wrong password
         else return res.status(404).json(info);
-
     })(req, res);
 }
 
@@ -68,7 +58,6 @@ module.exports.userProfile = (req, res, next) => {
                 return res.status(200).json({ status: true, user: _.pick(user, ['_id','fullName', 'email', 'isTeacher', 'institute', 'phone_number', 'batch', 'roll', 'designation']) });
         }
     );
-
 }
 
 module.exports.participantInfo = (req, res) => {
@@ -81,7 +70,6 @@ module.exports.participantInfo = (req, res) => {
 }
 
 const sendOTPVerificationEmail = async ({_id, email}, res) => {
-    //console.log('called')
     try{
         const otp = `${Math.floor(100000 + Math.random()* 90000)}`;
         const mailOptions = {
@@ -123,9 +111,7 @@ const sendOTPVerificationEmail = async ({_id, email}, res) => {
 module.exports.verifyOTP = async (req, res) => {
     flag = false;
     try{
-        //console.log(req.body)
         let {userId, otp} = req.body;
-        //console.log(userId, otp);
         if(!userId || !otp){
             throw Error("Empty otp details are not allowed");
         } else{
@@ -162,8 +148,6 @@ module.exports.verifyOTP = async (req, res) => {
 
                     }
                 }
-
-                
             }
         }
     

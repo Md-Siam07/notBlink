@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../shared/user.service';
 
 @Component({
@@ -9,25 +10,25 @@ import { UserService } from '../shared/user.service';
 })
 export class OtpVerificationComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private toastr: ToastrService) { }
   model = {
     userId : '',
     email : '',
     otp : ''
   }
+
   ngOnInit(): void {
     this.model.userId = this.userService.getResponseUserID();
     this.model.email = this.userService.getResponseEmail();
-   // console.log(this.model.userId, this.model.email)
   }
-
-
 
   verify(){
     this.userService.verifyOTP(this.model).subscribe(
       (res:any)=>{
-        if(res.status == 'VERIFIED')
+        if(res.status == 'VERIFIED') {
+          this.toastr.success("Succesfully verified email")
           this.router.navigateByUrl('dashboard')
+        }
       },
       err => console.log(err)
     )
@@ -43,5 +44,4 @@ export class OtpVerificationComponent implements OnInit {
       }
     )
   }
-
 }

@@ -40,7 +40,6 @@ export class StudentExamCardComponent implements OnInit {
     [11, "NOV"],
     [12, "DEC"]
   ]);
-  //examCode : string = "";
 
   model ={
     examCode: '',
@@ -58,46 +57,33 @@ export class StudentExamCardComponent implements OnInit {
     this.userService.getUserProfile().subscribe(
       (res:any) => {
         this.userDetails = res['user'];
-        //console.log(this.userDetails);
-        //console.log(this.userDetails._id);
         this.tempID = this.userDetails._id;
         this.model.userID = this.userDetails._id;
         this.examService.retrieveExam(this.tempID).subscribe( (res:any) =>{
-         // console.log('get: ' + this.tempID);
           this.examService.exams = res as Exam[];
-         // console.log(this.examService.exams);
           this.listOfExams = this.examService.exams;
           this.calculateRemainingTimeAndInitiate();
         });
       },
       (err:any) => {}
     );
-
-    //this.refreshExamList();
-
-
   }
 
   calculateRemainingTimeAndInitiate(){
     this.listOfExams.forEach( (exam) => {
       this.tempExamDate = exam.examDate + 'T' + exam.startTime + ":00";
       this.tempRemainingTime = new Date(this.tempExamDate).getTime() - new Date().getTime();
-      //console.log( new Date('2022-04-21T01:30:00').getTime() - new Date().getTime() );
-      //console.log( new Date('2022-04-21T03:12:00').getTime() - new Date().getTime() );
-      console.log("C Rem time: ", this.tempRemainingTime);
       if(this.tempRemainingTime>0){
         setTimeout( () => {
           exam.hasStarted = true;
           this.examStartModel.examCode = exam._id;
           this.examStartModel.showModal = true;
-
         }, this.tempRemainingTime)
       }
     } )
   }
 
   onLeaveClick(givenExam: Exam){
-    //console.log(givenExam._id);
     this.currentExamCode = givenExam._id;
     this.model.examCode = givenExam._id;
     this.model.examName = givenExam.examName;
@@ -112,10 +98,8 @@ export class StudentExamCardComponent implements OnInit {
   }
 
   join(){
-    //console.log(this.model);
     this.examService.joinExam(this.model, this.model.examCode).subscribe(
       (res:any) =>{
-        //console.log(res);
         this.toastr.success("Successfully joined in exam.")
         this.refreshExamList();
       },
@@ -129,23 +113,17 @@ export class StudentExamCardComponent implements OnInit {
 
   refreshExamList(){
     this.examService.retrieveExam(this.tempID).subscribe( (res:any) =>{
-      //M.toast("refreshed");
-      //console.log('refresh exam list: ' + this.tempID);
       this.examService.exams = res as Exam[];
       this.listOfExams = this.examService.exams;
       this.calculateRemainingTimeAndInitiate();
-      //console.log(this.examService.exams);
     });
   }
 
   leaveExam(){
-    //console.log(this.model);
     this.examService.leaveExam(this.model, this.model.examCode).subscribe(
       (res:any) =>{
-        //console.log('leave');
         this.toastr.error("Successfully leave from exam.")
         this.refreshExamList();
-        //console.log('successful');
       },
       (err:any) => {
         console.log('Error in updating exam: '+ JSON.stringify(err, undefined, 2));
@@ -160,9 +138,7 @@ export class StudentExamCardComponent implements OnInit {
 
   getExamMonth(input: string): any{
     this.month = input.substring(5,7);
-    //console.log('month: '+ this.month);
     return this.months.get(parseInt(this.month));
-   // return this.month;
   }
 
   examStart(currentExam: Exam){

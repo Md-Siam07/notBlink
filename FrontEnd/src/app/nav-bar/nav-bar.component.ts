@@ -19,11 +19,7 @@ export class NavBarComponent implements OnInit {
 
   status: boolean = false;
 
-  // background: string = 'red';
-  // fontSize: number = 10;
-
   ngOnInit(): void {
-    //this.status = this.userService.loginStatus;
   }
 
   getStatus():boolean{
@@ -35,25 +31,10 @@ export class NavBarComponent implements OnInit {
       (res:any) => {
         this.userDetails = res['user'];
         this.userid = res._id;
-        //console.log('siam')
-        //console.log(this.userDetails);
-        //console.log(res._id);
       },
       (err:any) => {}
     );
   }
-  // loginClicked(){
-  //   if(this.userService.loginStatus)
-  //     this.router.navigateByUrl('dashboard');
-  //   else
-  //     this.router.navigateByUrl('login');
-  // }
-
-  // change() : string {
-  //   return this.background;
-  //   console.log('red');
-  //   document.documentElement.style.cssText = "background-color: red";
-  // }
 
   onLogout() {
     this.userService.deleteToken();

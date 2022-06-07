@@ -62,7 +62,6 @@ export class DetailsStudentExamCardComponent implements OnInit {
   ngOnInit(): void {
 
     this.id = this.route.snapshot.params['id'];
-    //console.log(this.id);
     this.studentExamService.getSingleExamDetails(this.id).subscribe(
       (res:any) => {
         this.examDetails = res as Exam;
@@ -81,16 +80,9 @@ export class DetailsStudentExamCardComponent implements OnInit {
     this.userService.getUserProfile().subscribe(
       (res:any) => {
         this.userDetails = res['user'];
-        //console.log(this.userDetails);
-        //console.log(this.userDetails._id);
         this.tempID = this.userDetails._id;
         this.model.userID = this.userDetails._id;
     });
-
-
-
-    //this.examDetails = this.studentExamService.selectedExam;
-    //console.log(this.examDetails);
   }
 
   examGoingOn(givenExam: Exam){
@@ -101,7 +93,6 @@ export class DetailsStudentExamCardComponent implements OnInit {
   }
 
   onLeaveClick(givenExam: Exam){
-    //console.log(givenExam._id);
     this.currentExamCode = givenExam._id;
     this.model.examCode = givenExam._id;
     this.model.examName = givenExam.examName;
@@ -109,20 +100,15 @@ export class DetailsStudentExamCardComponent implements OnInit {
   }
 
   leaveExam(){
-    //console.log(this.model);
     this.studentExamService.leaveExam(this.model, this.model.examCode).subscribe(
       (res:any) =>{
-
         this.toastr.error("Successfully left the exam.")
-        //console.log('successful');
         this.router.navigateByUrl('dashboard');
       },
       (err:any) => {
         console.log('Error in updating exam: '+ JSON.stringify(err, undefined, 2));
       }
     );
-
-    //this.refreshExamList();
   }
 
   getExamDate(input: string): string{
@@ -131,18 +117,15 @@ export class DetailsStudentExamCardComponent implements OnInit {
 
   getExamMonth(input: string): any{
     this.month = input.substring(5,7);
-    //console.log('month: '+ this.month);
     return this.months.get(parseInt(this.month));
   }
 
   refreshParticipantList(){
     this.participantSet = new Set<string>();
     this.participants = [];
-    //this.examDetails = this.examService.selectedExam;
     this.examDetails.participants.forEach(participantID => {
       this.participantSet.add(participantID);
     });
-    //console.log('participant set: ', this.examDetails.participants);
     this.participantSet.forEach(participantID => {
       this.examService.getParticipant(participantID).subscribe(
         (res:any) => {
@@ -173,26 +156,17 @@ export class DetailsStudentExamCardComponent implements OnInit {
       this.remSecond = Math.floor(this.tempRemainingTime / 1000);
       this.remMinute = Math.floor(this.remSecond / 60);
       this.remHour = Math.floor(this.remMinute / 60);
-      //this.remDay = Math.floor(this.remHour / 24);
 
-      //this.remHour %= 24;
       this.remMinute %= 60;
       this.remSecond %= 60;
       this.remHour = this.remHour < 10 ? '0' + this.remHour : this.remHour;
       this.remMinute = this.remMinute < 10 ? '0' + this.remMinute : this.remMinute;
       this.remSecond = this.remSecond < 10 ? '0' + this.remSecond : this.remSecond;
     }
-
-
-
-    //console.log(this.rhour+":"+this.rmins+":"+this.rsec);
-
-
   }
 
   examStart(currentExam: Exam){
     this.examService.selectedExam = currentExam;
     this.router.navigateByUrl('student/exam/'+currentExam._id);
   }
-
 }

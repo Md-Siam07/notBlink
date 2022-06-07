@@ -31,7 +31,6 @@ body{
   }
   .card .card-header {
     background: #5F7161;
-    /*background: #FFC017;*/
     padding: 0 0.9375rem;
     font-weight: 500;
     display: flex;
@@ -318,59 +317,6 @@ body{
     min-height:100vh;
     padding-top: 88px;
   }
-  /*
-  .button {
-    display: flex;
-    align-items: center;
-  }
-
-
-  .card-margin:hover {
-    width: 101%;
-    height: 101%;
-  }*/
-
-
-
-  /*
-  .modal-body {
-    background-color: #58aa94;
-  }
-
-  .modal-header {
-    background-color: #1f6351;
-  }
-
-  .form-control {
-    background-color: #c6faec;
-  }
-
-
-
-  .modal-body {
-    color: white;
-    background-color: #22ada8;
-  }
-
-  .modal-header {
-    color: white;
-    background-color: #115f5c;
-  }
-
-  .form-control {
-    color: white;
-    background-color: #63dcd8;
-  }
-
-
-  .createExam {
-
-  }
-
-  .card-header {
-    text-align: right;
-  }*/
-
 
   .title {
     color: rgb(193, 105, 58);

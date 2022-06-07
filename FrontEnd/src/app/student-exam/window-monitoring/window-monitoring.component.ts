@@ -16,24 +16,17 @@ declare function isScreenWidthHeightOK():any;
 export class WindowMonitoringComponent implements OnInit {
 
   notification= new MyNotification();
-  //notifications!: MyNotification[];
   userDetails = new User();
   id: string = '';
   constructor(private userService: UserService, private examService: StudentExamService, private route: ActivatedRoute) { }
 
   @HostListener('window:focus', ['$event'])
     onFocus(event:any) {
-
-    //todo (notify that the student is back)
-
   }
 
   @HostListener('window:blur', ['$event'])
     onBlur(event:any) {
     this.playAudio('changeScreen.m4a');
-    //alert("You can not chnage the screen during the exam!\nOnly the tab of !Blink is accepted!");
-    //this.notify();
-    //alert("user leave korso ken?")
   }
 
   scrHeight:any;
@@ -43,8 +36,6 @@ export class WindowMonitoringComponent implements OnInit {
     getScreenSize(event:any) {
       this.scrHeight = window.innerHeight;
       this.scrWidth = window.innerWidth;
-      //console.log(this.scrHeight, this.scrWidth);
-      //this.notify();
   }
   playAudio(filename: string){
     let audio = new Audio();
@@ -56,7 +47,6 @@ export class WindowMonitoringComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     isScreenWidthHeightOK();
-    //console.log('id id: ',this.id);
     this.scrHeight = window.innerHeight;
     this.scrWidth = window.innerWidth;
     this.userService.getUserProfile().subscribe(
@@ -65,14 +55,9 @@ export class WindowMonitoringComponent implements OnInit {
        },
       (err:any) => {}
     );
-
-    // socket.on('notification', (res:any) =>{
-
-    // })
   }
 
   notify(){
-    //console.log("notifying");
     this.notification.cameraRecord = "";
     this.notification.screenRecord = "";
     this.notification.fullName = this.userDetails.fullName;
@@ -85,7 +70,6 @@ export class WindowMonitoringComponent implements OnInit {
     this.examService.notify(this.notification, this.id, new Blob()).subscribe(
       res =>{
         socket.emit('notification', this.notification);
-        //this.notifications.push(this.notification);
       },
       err => {
         console.log('erroor');

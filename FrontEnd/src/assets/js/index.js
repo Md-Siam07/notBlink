@@ -18,14 +18,12 @@ function startTrack(LOOK_DELAY = 5000){
     }
     else if (!(data.x < LEFT_CUTOFF || data.x > RIGHT_CUTOFF || data.y < TOP_CUTOFF || data.y > BOTTOM_CUTOFF)){
       startLookTime = Number.POSITIVE_INFINITY;
-      //console.log("IAMHERE");
     }
     else if (startLookTime == Number.POSITIVE_INFINITY) {
       startLookTime = timestamp;
     }
 
     if (startLookTime + LOOK_DELAY < timestamp && canNotify) {
-      //console.log("Suspected");
       isSupected = 1;
       startLookTime = Number.POSITIVE_INFINITY;
     }
@@ -38,19 +36,17 @@ function yesCanNotifity() {
 }
 
 function suspectedStatus() {
-  //console.log("Called");
   var status = isSupected;
   isSupected = 0;
   return status;
 }
 
 function isScreenWidthHeightOK(){
-  //to do
   var screenWidth = screen.width;
   var screenHeight = screen.height;
   var windowWidth = window.innerWidth;
   var windowHeight = window.innerHeight;
-  //console.log('js: ',screenHeight, windowHeight);
+
   return (screenWidth == windowWidth && screenHeight*0.8 <= windowHeight);
 }
 

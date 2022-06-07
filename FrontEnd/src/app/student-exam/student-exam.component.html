@@ -14,7 +14,6 @@
   </div>
 
 
-  <!-- <app-screen-record *ngIf="stepDone > 2"></app-screen-record> -->
   <div class="afterCalibration" *ngIf="calibrationDone">
     <div class="row">
       <div class="col-1"> </div>
@@ -47,17 +46,13 @@
         </div>
       </div>
       <div class="col-6">
+        <button class="btn btn-warning" (click)="endExam()">Leave Exam</button>
         <object [data]="examDetails.question | safe" type="application/pdf" width="1000" height="800"> </object>
       </div>
       <div class="col-1">
-        <!-- {{remDay}} : {{remHour}} : {{remMinute}} : {{remSecond}} -->
       </div>
     </div>
-    <!-- <button>check</button> -->
-    <!-- <app-window-monitoring></app-window-monitoring> -->
-    <!-- <app-screen-record></app-screen-record> -->
   </div>
-
 
   <app-eye-track *ngIf="stepDone >= 5"></app-eye-track>
 

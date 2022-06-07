@@ -10,7 +10,7 @@ import { UserService } from 'src/app/shared/user.service';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-  
+
   isTeacher : boolean = false;
   selectedUser = new User();
   passwordMismatch : boolean = false;
@@ -39,25 +39,21 @@ export class SignUpComponent implements OnInit {
   }
 
   signUp(){
-    //console.log('sign up clicked');
     this.passwordMismatch = false;
     if(this.selectedUser.password!= this.cPassword){
         this.passwordMismatch = true;
         return;
     }
-    
+
     this.userService.postUser(this.selectedUser).subscribe(
       (res:any) => {
-        //console.log(res);
         this.response = res['data'];
-        //console.log(this.response);
         this.userService.setResponse(this.response.userId, this.response.email);
         this.router.navigateByUrl('verify');
       },
       err => {
         if(err.status == 422){
           this.serverErrorMessages = err.error.join('<br>');
-
         }
         else{
           this.serverErrorMessages = "Something went wrong";
@@ -83,6 +79,4 @@ export class SignUpComponent implements OnInit {
   hasAccount(){
     this.router.navigateByUrl('login');
   }
-
-
 }

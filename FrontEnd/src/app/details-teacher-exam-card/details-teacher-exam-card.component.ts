@@ -58,7 +58,6 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   tempUser !:User;
   dummyData !: any;
   notifications: MyNotification[] = [];
-  //notifications: Observable<MyNotification[]>
   copyNotifications: MyNotification[] = [];
   tempNotification = new MyNotification();
   participantSet = new Set<string>();
@@ -87,7 +86,6 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     this.userService.getUserProfile().subscribe(
       (res:any) => {
         this.userDetails = res['user'] as User;
-        //console.log(this.userDetails.isTeacher)
         if(!this.userDetails.isTeacher){
           this.router.navigateByUrl('dashboard');
         }
@@ -117,7 +115,6 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    //console.log(changes)
   }
 
   uploadFile(event:any) {
@@ -142,7 +139,6 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   }
 
   refreshParticipantList(){
-    //console.log('called')
     this.participantSet = new Set<string>();
     this.participants = [];
 
@@ -152,7 +148,6 @@ export class DetailsTeacherExamCardComponent implements OnInit {
         this.examDetails.participants.forEach(participantID => {
           this.participantSet.add(participantID);
         });
-       // console.log('participant set: ', this.examDetails.participants);
         this.participantSet.forEach(participantID => {
           this.examService.getParticipant(participantID).subscribe(
             (res:any) => {
@@ -174,10 +169,8 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   update(){
     this.examService.update(this.selectedExam, this.file).subscribe(
       (res:any) =>{
-        //console.log(this.selectedExam);
         this.reloadComponent();
         this.toastr.success('Exam is updated');
-        //console.log('successful');
       },
       err => {
         console.log('Error in updating exam: '+ JSON.stringify(err, undefined, 2));
@@ -188,7 +181,6 @@ export class DetailsTeacherExamCardComponent implements OnInit {
 
   delete(){
     this.examService.deleteExam(this.selectedExam).subscribe( (res:any) =>{
-      //console.log('deleted');
       this.toastr.success('Exam is deleted');
       this.router.navigateByUrl('/dashboard');
     },
@@ -211,7 +203,6 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     console.log(this.model.recipiennt);
     this.examService.invite(this.model).subscribe(
       (res:any) =>{
-        //console.log('sent');
         this.model.recipiennt = '';
         this.toastr.success('Invitation sent');
       },
@@ -232,7 +223,6 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     this.examService.kickFromExam(this.kickModel, this.kickModel.examCode).subscribe(
       (res:any) =>{
         this.toastr.success('Successfully kicked');
-        //console.log('successful');
         this.examService.getSingleExamDetails(this.id).subscribe(
           (response:any) => {
             this.examDetails = response as Exam;
@@ -275,22 +265,12 @@ export class DetailsTeacherExamCardComponent implements OnInit {
       this.remSecond = Math.floor(this.tempRemainingTime / 1000);
       this.remMinute = Math.floor(this.remSecond / 60);
       this.remHour = Math.floor(this.remMinute / 60);
-      //this.remDay = Math.floor(this.remHour / 24);
 
-      //this.remHour %= 24;
       this.remMinute %= 60;
       this.remSecond %= 60;
       this.remHour = this.remHour < 10 ? '0' + this.remHour : this.remHour;
       this.remMinute = this.remMinute < 10 ? '0' + this.remMinute : this.remMinute;
       this.remSecond = this.remSecond < 10 ? '0' + this.remSecond : this.remSecond;
     }
-
-
-
-    //console.log(this.rhour+":"+this.rmins+":"+this.rsec);
-
-
   }
-
-
 }

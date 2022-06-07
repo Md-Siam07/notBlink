@@ -8,12 +8,10 @@
 /* Color of the navbar BEFORE scroll */
 .navbar-scroll {
   background-color: #6D8B74;
-  /*background-color: #FFC017;*/
 }
 
 .logo{
   color: #EFEAD8;
-
 }
 
 /* Color of the links AFTER scroll */
@@ -45,7 +43,6 @@ h3 {
 .offcanvas-header {
   background-color: #966767;
 }
-
 
 .main-bg {
   padding-left: 10px;

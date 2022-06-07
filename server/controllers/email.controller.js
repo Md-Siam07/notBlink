@@ -21,14 +21,7 @@ let transporter = nodemailer.createTransport({
 module.exports.sendMail = (req, res, next) =>{
     to = req.body.recipiennt;
     examCode = req.body.examCode;
-    // sendEmail( (doc, err) =>{
-    //     if(!err) {res.send(doc);}
-    //     else{
-    //         console.log(`Error sending email`);
-    //     }
-    // }) 
     newMailer(to, examCode).then( result => {
-        //console.log('Email sent...', result);
         res.send(result);
     })
     .catch(error => console.log(error.message));
@@ -77,7 +70,3 @@ async function sendEmail(receipient, examCode){
     return err
   }
 }
-
-
-
-//siam

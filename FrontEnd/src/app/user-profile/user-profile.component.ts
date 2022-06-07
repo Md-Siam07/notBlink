@@ -18,20 +18,8 @@ export class UserProfileComponent implements OnInit {
       (res:any) => {
         this.userDetails = res['user'];
         this.userid = res._id;
-        //console.log('siam')
-        //console.log(this.userDetails);
-        //console.log(res._id);
       },
       (err:any) => {}
     );
   }
-
-  onLogout(){
-    this.userService.deleteToken();
-    this.userService.loginStatus = false;
-    this.userDetails = new User();
-    this.router.navigateByUrl('/login');
-    
-  }
-
 }

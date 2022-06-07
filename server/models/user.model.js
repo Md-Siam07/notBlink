@@ -3,9 +3,6 @@ const bycript = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 var usreSchema = new mongoose.Schema({
-    // _id:{
-    //     type: String
-    // },
     
     fullName:{
         type: String,
