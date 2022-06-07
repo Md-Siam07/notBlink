@@ -94,7 +94,7 @@ export class TeacherExamCardComponent implements OnInit {
   delete(){
     this.examService.deleteExam(this.selectedExam).subscribe( (res:any) =>{
       //console.log('deleted');
-      this.toastr.warning('Exam is deleted')
+      this.toastr.success('Exam is deleted')
       this.refreshExamList();
     },
     (err)=>{
