@@ -234,8 +234,9 @@ export class DetailsTeacherExamCardComponent implements OnInit {
         this.toastr.success('Successfully kicked');
         console.log('successful');
         this.examService.getSingleExamDetails(this.id).subscribe(
-          (res:any) => {
-            this.examDetails = res as Exam;
+          (response:any) => {
+            this.examDetails = response as Exam;
+            console.log('exam: ', this.examDetails)
             this.refreshParticipantList();
           },
           err => {}

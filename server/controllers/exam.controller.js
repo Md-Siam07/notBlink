@@ -145,7 +145,7 @@ module.exports.removeParcipant = (req, res, next) => {
     Exam.findByIdAndUpdate(req.params.id, {$pull: {participants: {$in: [req.body.userID]}}}, {new:true}, (err, doc) =>{
         if(!err) {
             Exam.findByIdAndUpdate(req.params.id,  {$addToSet: {blocked: userID}}, {new:true}, (error, document) => {
-                if(error){
+                if(!error){
                     console.log('participant added in blocked list');
                     res.send(document);
                 }
