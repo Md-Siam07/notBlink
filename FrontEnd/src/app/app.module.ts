@@ -8,6 +8,7 @@ import { UserComponent } from 'src/user/user.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgxPrintModule } from 'ngx-print';
 
 
 //routes
@@ -32,6 +33,7 @@ import { SafePipe } from './safe.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
+import { StudentUnderExamComponent } from './student-under-exam/student-under-exam.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import { OtpVerificationComponent } from './otp-verification/otp-verification.co
     DetailsStudentExamCardComponent,
     EyeTrackComponent,
     SafePipe,
-    OtpVerificationComponent
+    OtpVerificationComponent,
+    StudentUnderExamComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +64,7 @@ import { OtpVerificationComponent } from './otp-verification/otp-verification.co
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgxPrintModule,
     ToastrModule.forRoot({
       timeOut: 3500,
       progressBar: true,

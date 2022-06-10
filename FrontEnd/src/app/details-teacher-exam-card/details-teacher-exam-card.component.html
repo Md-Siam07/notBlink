@@ -24,22 +24,30 @@
             </div>
             <br><br>
             <div class="btn-button">
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onClick(examDetails)">Invite </button>&nbsp;
-              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" (click)="onClick(examDetails)">Edit Exam </button>&nbsp;
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalDel" (click)="onClick(examDetails)">Delete Exam </button>&nbsp;
-              <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#guideModal">Guidelines </button>
+              <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onClick(examDetails)">Invite </button>&nbsp;
+              <button type="button" class="btn btn-warning mb-2" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" (click)="onClick(examDetails)">Edit Exam </button>&nbsp;
+              <button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#exampleModalDel" (click)="onClick(examDetails)">Delete Exam </button>&nbsp;
+              <button type="button" class="btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#guideModal">Guidelines </button>&nbsp;
+              <button printSectionId="makePDF" ngxPrint type="button" class="btn btn-secondary mb-2">Notification </button>
             </div>
             <br>
           </div>
           <div class="col-6">
-            <h2>Participante List&nbsp;&nbsp;<i class="fa fa-users"></i></h2>
+            <h2>Participant List&nbsp;&nbsp;<i class="fa fa-users"></i></h2>
             <hr class="cl-head">
             <br>
             <div *ngFor="let participant of participants">
-              &nbsp;&nbsp;&nbsp;
-              <span class="fa fa-user-circle"></span>
-              &nbsp;{{participant.fullName}}
-              <button type="button" class="btn-close" aria-label="Close" data-bs-toggle="modal" data-bs-target="#kickModal" (click)="onKick(participant)"></button>
+              <div class="row">
+                <div class="col-10">
+                  &nbsp;&nbsp;
+                  <span class="fa fa-user-circle"></span>
+                  &nbsp;{{participant.fullName}}
+                </div>
+                <div class="col-2">
+                  <span class="fa fa-info-circle" (click)="studentDetails(participant._id)"></span>&nbsp;
+                  <button type="button" class="btn-close" aria-label="Close" data-bs-toggle="modal" data-bs-target="#kickModal" (click)="onKick(participant)"></button>
+                </div>
+              </div>
               <hr>
             </div>
           </div>
@@ -47,7 +55,7 @@
         <br> <br>
         <object [data]="examDetails.question | safe" type="application/pdf" width="800" height="600"> </object>
       </div>
-      <div class="col-4">
+      <div class="col-4" id="makePDF">
         <h2>Notification&nbsp;&nbsp;<i class="fas fa-bell"></i></h2>
         <hr class="cl-head">
         <br>

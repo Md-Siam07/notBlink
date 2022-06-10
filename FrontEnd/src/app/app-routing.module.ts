@@ -10,6 +10,7 @@ import { OtpVerificationComponent } from './otp-verification/otp-verification.co
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { StudentExamComponent } from './student-exam/student-exam.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { StudentUnderExamComponent } from './student-under-exam/student-under-exam.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,11 @@ const routes: Routes = [
   {
     path: 'verify',
     component: OtpVerificationComponent
+  },
+  {
+    path: 'teacher/examdetails/:id1/:id2',
+    component: StudentUnderExamComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

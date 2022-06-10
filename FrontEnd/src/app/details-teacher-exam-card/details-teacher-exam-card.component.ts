@@ -178,6 +178,11 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     )
   }
 
+  studentDetails(student_id:any) {
+    var url = "/teacher/examdetails/" + this.examDetails._id + "/" + student_id;
+    console.log(student_id);
+    this.router.navigateByUrl(url);
+  }
 
   delete(){
     this.examService.deleteExam(this.selectedExam).subscribe( (res:any) =>{
@@ -187,7 +192,6 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     (err)=>{
       console.log('error in deleting: ' + JSON.stringify(err, undefined, 2));
     } )
-
   }
 
   resetForm(){
