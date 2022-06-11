@@ -51,13 +51,13 @@ io.on('connection', (socket) => {
     notification.fullName = user.fullName;
     notification.email = user.email;
     notification.time = Date.now;
-    notification.phone_number = '';
-    notification.roll = 0;
-    notification.batch  = 0;
-    notification.institute = '';
+    notification.phone_number = user.phone_number;
+    notification.roll = user.roll;
+    notification.batch  = user.batch;
+    notification.institute = user.institute;
     notification.cameraRecord = '';
     notification.screenRecord = '';
-    notification.message = 'user: ' + user.fullName + ' email: ' + user.email + ' started the exam';
+    notification.message = 'Started the exam';
     if (!examID.match(/^[0-9a-fA-F]{24}$/)) {
     }
     else{
@@ -94,7 +94,7 @@ io.on('connection', (socket) => {
     notification.institute = '';
     notification.cameraRecord = '';
     notification.screenRecord = '';
-    notification.message = 'user: ' + name + ' email: ' + email + ' got disconnected';
+    notification.message = 'Got disconnected';
     if (!examID.match(/^[0-9a-fA-F]{24}$/)) {
       // invalid id
     }

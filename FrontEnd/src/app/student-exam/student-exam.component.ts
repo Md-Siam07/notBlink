@@ -109,7 +109,6 @@ export class StudentExamComponent implements OnInit {
         }
       }
     );
-
   }
 
   @ViewChild('recordVideo')

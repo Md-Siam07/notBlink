@@ -70,6 +70,11 @@ export class UserService {
       return null;
   }
 
+  /*getUserDetails(userID: string){
+    //todo
+    return this.http.get(environment.apiBaseUrl + '/exam/' + userID);
+  }*/
+
     isLoggedIn(){
       var userPayload = this.getUserPayload();
       if(userPayload){
