@@ -29,6 +29,7 @@ export class StudentUnderExamComponent implements OnInit {
   tempNotification = new MyNotification();
   //notifications: MyNotification[] = [];
   notificationList = new BehaviorSubject<MyNotification[]>([]);
+  onlySuspected = false;
 
   months =  new Map([
     [1, "JAN"],
@@ -77,14 +78,13 @@ export class StudentUnderExamComponent implements OnInit {
     //this.
   }
 
+  notificationFilter() {
+    this.onlySuspected = !this.onlySuspected;
+  }
+
   loadNotification(){
     this.examService.getNotifications(this.examID).subscribe(
       (res:any) => {
-        //this.tempNotification = res as MyNotification;
-        //var email = res['email'] as string;
-        //todo
-        //console.log(email);
-        //console.log(this.tempNotification);
         this.notificationList.next(res);
       },
       err => {}
