@@ -65,6 +65,10 @@ export class StudentExamComponent implements OnInit {
         this.msg = "Exam tab not full screened"
         this.url = '';
         this.sendNotification();
+      }else if(isScreenWidthHeightOK() && this.calibrationDone) {
+        this.msg = "Exam tab full screened"
+        this.url = '';
+        this.sendNotification();
       }
   }
 
@@ -193,7 +197,7 @@ export class StudentExamComponent implements OnInit {
     this.notification.roll = this.userDetails.roll;
     this.notification.phone_number = this.userDetails.phone_number;
     //this.notification.message = "User tried to change or resize the tab";
-    this.notification.message = "User leave the exam. Here is the screen record of the examinee";
+    this.notification.message = "Exam ends for the examinee. Here is the screen record of the examinee";
     this.studentService.notify(this.notification, this.id, completeBlob).subscribe(
       res => { console.log('done')},
       err => {}
