@@ -169,4 +169,10 @@ export class DetailsStudentExamCardComponent implements OnInit {
     this.examService.selectedExam = currentExam;
     this.router.navigateByUrl('student/exam/'+currentExam._id);
   }
+
+  isExamFinish(): Boolean {
+    this.tempExamDate = this.examDetails.examDate + 'T' + this.examDetails.startTime + ":00";
+    this.tempRemainingTime = new Date(this.tempExamDate).getTime() - new Date().getTime();
+    return this.tempRemainingTime + this.examDetails.duration*60*1000 <= 0;
+  }
 }

@@ -1,7 +1,7 @@
 <div class=" main-bg">
   <div class="container">
     <div class="row">
-      <div class="col">
+      <div class="col-7">
         <h2>{{examDetails.examName}}</h2>
         <hr class="cl-head">
         <br>
@@ -39,8 +39,11 @@
         <input type="checkbox" checked> You can't outsight screen for more than {{examDetails.outSightTime}} seconds. <br>
         <input type="checkbox" checked> Your camera footage will be sent to teacher as soon as you are detected to be suspicious.
       </div>
+      <div class="row mt-5" *ngIf="isExamFinish()">
+        <object [data]="examDetails.question | safe" type="application/pdf" height="700"> </object>
+      </div>
     </div>
-      <div class="col">
+      <div class="col-5">
         <h2>Participant List&nbsp;&nbsp;<i class="fa fa-users"></i></h2>
         <hr class="cl-head">
         <br>
@@ -50,10 +53,10 @@
           &nbsp;{{participant.fullName}}
         <hr>
         </div>
+
+        <app-face-recognition></app-face-recognition>
       </div>
     </div>
-    <br> <br>
-    <!-- <object [data]="examDetails.question | safe" type="application/pdf" width="800" height="600"> </object> -->
   </div>
 </div>
 

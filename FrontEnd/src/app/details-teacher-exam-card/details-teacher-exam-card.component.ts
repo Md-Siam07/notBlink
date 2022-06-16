@@ -98,8 +98,11 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     )
 
     this.examService.getSingleExamDetails(this.id).subscribe(
-      (res: any) => {this.examDetails = res as Exam
-      this.refreshParticipantList()},
+      (res: any) => {
+        this.examDetails = res as Exam;
+        this.refreshParticipantList();
+        console.log(this.examDetails.question);
+      },
       err => console.log(err)
     );
 

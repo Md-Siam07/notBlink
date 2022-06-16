@@ -34,6 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
 import { StudentUnderExamComponent } from './student-under-exam/student-under-exam.component';
+import { FaceRecognitionComponent } from './student-exam/face-recognition/face-recognition.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { StudentUnderExamComponent } from './student-under-exam/student-under-ex
     EyeTrackComponent,
     SafePipe,
     OtpVerificationComponent,
-    StudentUnderExamComponent
+    StudentUnderExamComponent,
+    FaceRecognitionComponent
   ],
   imports: [
     BrowserModule,
