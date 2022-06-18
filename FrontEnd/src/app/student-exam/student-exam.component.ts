@@ -58,6 +58,13 @@ export class StudentExamComponent implements OnInit {
 
   scrHeight:any;
   scrWidth:any;
+  userName = '';
+  msgDummy ={
+    msg: ''
+  };
+  messageList: {message: string, userName: string, mine: boolean}[] = [];
+  userList: string[] = [];
+  //socket: any;
 
   @HostListener('window:resize', ['$event'])
     getScreenSize(event:any) {
@@ -80,6 +87,8 @@ export class StudentExamComponent implements OnInit {
   msg!: string;
   notification = new MyNotification();
   examEnded: Boolean = false;
+  file!: File;
+  
 
   examDetails = new Exam();
   userDetails = new User();
@@ -108,11 +117,36 @@ export class StudentExamComponent implements OnInit {
           this.userService.getUserProfile().subscribe(
           (res:any) =>{
             this.userDetails = res['user'];
+            socket.emit('newUser', this.userDetails.fullName);
+            this.userNameUpdate(this.userDetails.fullName);
             this.stepOne();
           })
         }
       }
     );
+  }
+
+  userNameUpdate(name: string): void {
+    //this.socket = io.io(`https://chat-competent-programming.herokuapp.com/?userName=${name}`);
+    this.userName = name;
+
+    socket.emit('set-user-name', name);
+
+    socket.on('user-list', (userList: string[]) => {
+      this.userList = userList;
+    });
+
+    socket.on('message-broadcast', (data: {message: string, userName: string}) => {
+      if (data) {
+        this.messageList.push({message: data.message, userName: data.userName, mine: false});
+      }
+    });
+  }
+
+  sendMessage(): void {
+    socket.emit('message', this.msgDummy.msg);
+    this.messageList.push({message: this.msgDummy.msg, userName: this.userName, mine: true});
+    this.msgDummy.msg = '';
   }
 
   @ViewChild('recordVideo')
@@ -379,5 +413,13 @@ export class StudentExamComponent implements OnInit {
 
   stepFour() {  // Entire Screen share permission
     this.recordStart();
+  }
+
+  uploadFile(event:any) {
+    this.file = event.target.files[0];
+  }
+
+  submitAnswer(){
+    
   }
 }

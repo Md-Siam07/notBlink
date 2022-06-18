@@ -55,6 +55,21 @@ var ExamSchema = new mongoose.Schema({
         message:{
             type: String
         }
+    }],
+    answer: [{
+        fullName: String,
+        email: String, 
+        institute: String,
+        batch: Number,
+        roll: Number,
+        phone_number: String,
+        time:{
+            type: Date,
+            default: Date.now
+        },
+        asnwerURL:{
+            type: String
+        }
     }]
 });
 

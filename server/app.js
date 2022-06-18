@@ -40,11 +40,24 @@ app.use((err, req, res, next) => {
 //start server
 server.listen(process.env.PORT, () => console.log(`Server started at port: ${process.env.PORT}`));
 
+let userList = new Map();
+
 io.on('connection', (socket) => {
   var name = '', email = '', examID = '';
   socket.on('notification', notification =>{
     io.emit('notification', notification);
   })
+
+  let userName = socket.handshake.query.userName;
+  //console.log(name)
+    addUser(name, socket.id);
+
+    socket.broadcast.emit('user-list', [...userList.keys()]);
+    socket.emit('user-list', [...userList.keys()]);
+
+    socket.on('message', (msg) => {
+        socket.broadcast.emit('message-broadcast', {message: msg, userName: name});
+    })
 
   socket.on('join', user=> {
     var notification = new Notification();
@@ -95,6 +108,7 @@ io.on('connection', (socket) => {
     notification.cameraRecord = '';
     notification.screenRecord = '';
     notification.message = 'Got disconnected';
+    removeUser(userName, socket.id)
     if (!examID.match(/^[0-9a-fA-F]{24}$/)) {
       // invalid id
     }
@@ -110,3 +124,20 @@ io.on('connection', (socket) => {
     }
   })
 })
+
+function addUser(userName, id) {
+  if (!userList.has(userName)) {
+      userList.set(userName, new Set(id));
+  } else {
+      userList.get(userName).add(id);
+  }
+}
+
+function removeUser(userName, id) {
+  if (userList.has(userName)) {
+      let userIds = userList.get(userName);
+      if (userIds.size == 0) {
+          userList.delete(userName);
+      }
+  }
+}

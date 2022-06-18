@@ -24,6 +24,12 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   recipientEmail: string = "";
   kickParticipant = new User();
   file!: File;
+  userName = '';
+  msgDummy = {
+    msg: ''
+  };
+  messageList: {message: string, userName: string, mine: boolean}[] = [];
+  userList: string[] = [];
   months =  new Map([
     [1, "JAN"],
     [2, "FEB"],
@@ -86,6 +92,8 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     this.userService.getUserProfile().subscribe(
       (res:any) => {
         this.userDetails = res['user'] as User;
+        this.userNameUpdate(this.userDetails.fullName);
+        socket.emit('newUser', this.userDetails.fullName);
         if(!this.userDetails.isTeacher){
           this.router.navigateByUrl('dashboard');
         }
@@ -106,6 +114,30 @@ export class DetailsTeacherExamCardComponent implements OnInit {
       err => console.log(err)
     );
 
+  }
+
+  userNameUpdate(name: string): void {
+    //this.socket = io.io(`https://chat-competent-programming.herokuapp.com/?userName=${name}`);
+    this.userName = name;
+
+    socket.emit('set-user-name', name);
+
+    socket.on('user-list', (userList: string[]) => {
+      this.userList = userList;
+    });
+
+    socket.on('message-broadcast', (data: {message: string, userName: string}) => {
+      if (data) {
+        console.log(data);
+        this.messageList.push({message: data.message, userName: data.userName, mine: false});
+      }
+    });
+  }
+
+  sendMessage(): void {
+    socket.emit('message', this.msgDummy.msg);
+    this.messageList.push({message: this.msgDummy.msg, userName: this.userName, mine: true});
+    this.msgDummy.msg = '';
   }
 
   loadNotification(){

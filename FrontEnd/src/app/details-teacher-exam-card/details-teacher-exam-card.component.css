@@ -8,3 +8,40 @@
   color: black;
   height:4px;
 }
+
+.chatbox {
+  background: rgba(255, 255, 255, 0.05);
+  width: 80%;
+  height: 75%;
+  border-radius: 0.2em;
+  position: relative;
+  box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.1);
+}
+.chatbox .messages_list {
+  overflow-y: auto;
+  height: 100%;
+}
+.chatbox__messages.mine .message-box {
+  float: right;
+}
+.chatbox__messages .message-box {
+  float: left;
+}
+.chatbox .message-box {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1em 0;
+  height: auto;
+  width: 55%;
+  border-radius: 5px;
+  margin: 2em 1em;
+  overflow: auto;
+}
+.chatbox .message-box > p.name {
+  color: rgb(25, 10, 10);
+  font-size: 1em;
+}
+.chatbox .message-box > p.message {
+  color: rgb(18, 11, 11);
+  font-size: 0.7em;
+  margin: 0 2.8em;
+}

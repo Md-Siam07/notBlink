@@ -18,6 +18,7 @@ module.exports.create = (req, res, next) => {
     exam.teacherName = req.body.teacherName;
     exam.participants = [];
     exam.notification = [];
+    exam.answer = [];
     if(!req.file)
         exam.question = '';
     else
@@ -64,11 +65,12 @@ module.exports.singleExamInfo = (req, res, next) => {
 
 module.exports.updateInfo = (req, res, next) => {
     const url = req.protocol + '://' + req.get('host')
-    var tempQuestion, tempOutSightTime;
+    var tempQuestion, tempOutSightTime, tempAnswer;
     Exam.findById(req.params.id, (err, doc) => {
         if(!err) {
             tempQuestion = doc.question;
             tempOutSightTime = doc.outSightTime;
+            tempAnswer = doc.answer;
         }
         else {
             console.log(`Error in updating exam`);
@@ -89,6 +91,7 @@ module.exports.updateInfo = (req, res, next) => {
         teacherID: req.body.teacherID,
         teacherName: req.body.teacherName,
         question : tempQuestion,
+        answer: tempAnswer,
         outSightTime: req.body.outSightTime
     };
 
@@ -185,4 +188,18 @@ module.exports.getNotification = (req, res, next) => {
             console.log(`Error in retriving notification`);
         }
     } )
+}
+
+module.exports.addAnswer = (req, res, next) => {
+    const url = req.protocol + '://' + req.get('host');
+    var answer = {
+        fullName: req.body.fullName,
+        email: req.body.email, 
+        institute: req.body.institute,
+        batch: req.body.batch,
+        roll: req.body.roll,
+        phone_number: req.body.phone_number,
+        asnwerURL: screenRecord = url + '/public/' + req.file.filename
+    };
+    Exam.findByIdAndUpdate(req.params.id, )
 }

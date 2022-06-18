@@ -5,6 +5,7 @@ const multer = require('multer');
 const userController = require('../controllers/user.controller');
 const examController = require('../controllers/exam.controller');
 const emailController = require('../controllers/email.controller');
+const imageVerificationController = require('../controllers/imageVerification.controller')
 const jwtHelper = require('../config/jwtHelper');
 
 const DIR = './public/'
@@ -51,6 +52,7 @@ router.put('/addEvidence/:id', upload.single('record') ,examController.addEviden
 router.get('/exam/notifications/:id', examController.getNotification)
 router.post('/verifyOTP', userController.verifyOTP)
 router.post('/resendOTP', userController.resendOTP)
+router.post('/verifyImage', upload.single('image'), imageVerificationController.verifyImage)
 
 module.exports = router;
 
