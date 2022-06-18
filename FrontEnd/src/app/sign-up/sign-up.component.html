@@ -1,7 +1,7 @@
 <div class=" main-bg">
     <div class="login-container text-c animated flipInX">
       <div>
-          <h1 class="logo-badge text-whitesmoke"><span class="fa fa-user-circle"></span></h1>
+          <h1 class="logo-badge"><span class="fa fa-user-circle"></span></h1>
       </div>
           <h3 class="text-darkgreen">Sign Up</h3>
           <br>
@@ -9,10 +9,10 @@
           <form class="margin-t">
               <div class="mb-3">
                 <input type="radio" (click)="setUserType(false)" class="btn-check" name="options-outlined" id="warning-outlined" autocomplete="off" checked>
-                <label class="btn btn-outline-dark radio-button" for="warning-outlined">I am a student</label>
+                <label class="btn btn-outline-primary radio-button" for="warning-outlined">I am a student</label>
 
                 <input type="radio" (click)="setUserType(true)" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off">
-                <label class="btn btn-outline-dark radio-button" for="danger-outlined">I am a teacher</label>
+                <label class="btn btn-outline-primary radio-button" for="danger-outlined">I am a teacher</label>
               </div>
 
               <div class="form-group mb-2">
@@ -60,8 +60,6 @@
 
               <button type="submit" (click)="signUp()" class="btn btn-light form-button button-l margin-b btn-h" style="border: none;">Sign Up</button>
 
-
-              <a class="text-darkgreen" href="#"><small>Forgot password?</small></a>
               <p class="text-whitesmoke text-center"><small>Do not have an account? </small>
               <a href="" class="text-darkgreen" routerLink="signup" (click)="hasAccount()"><small >Sign in</small></a></p>
           </form>

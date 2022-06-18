@@ -1,5 +1,5 @@
 body{
-    background: #F4F7FD;
+    background: #ffffff;
     margin-top:20px;
   }
 
@@ -22,7 +22,7 @@ body{
     word-wrap: break-word;
     background-color: #ffffff;
     background-clip: border-box;
-    border: 1px solid #000000;
+    border: 1px solid #1363bf;
     border-radius: 8px;
   }
 
@@ -30,13 +30,13 @@ body{
     border: 0;
   }
   .card .card-header {
-    background: #5F7161;
+    background: #1363bf;
     padding: 0 0.9375rem;
     font-weight: 500;
     display: flex;
     align-items: center;
     min-height: 50px;
-    border: 1px solid #2b524e;
+    border: 1px solid #1363bf;
   }
   .card-header:first-child {
     border-radius: calc(8px - 1px) calc(8px - 1px) 0 0;
@@ -59,14 +59,14 @@ body{
   }
 
   .widget-49 .widget-49-title-wrapper .widget-49-date-primary .widget-49-date-day {
-  color: #4e73e5;
+  color: #1363bf;
   font-weight: 500;
   font-size: 1.5rem;
   line-height: 1;
   }
 
   .widget-49 .widget-49-title-wrapper .widget-49-date-primary .widget-49-date-month {
-  color: #4e73e5;
+  color: #1363bf;
   line-height: 1;
   font-size: 1rem;
   text-transform: uppercase;
@@ -102,21 +102,21 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #e8faf8;
+  background-color: #dbdcdf;
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
   }
 
   .widget-49 .widget-49-title-wrapper .widget-49-date-success .widget-49-date-day {
-  color: #6D8B74;
+  color: #1363bf;
   font-weight: 500;
   font-size: 1.5rem;
   line-height: 1;
   }
 
   .widget-49 .widget-49-title-wrapper .widget-49-date-success .widget-49-date-month {
-  color: #6D8B74;
+  color: #1363bf;
   line-height: 1;
   font-size: 1rem;
   text-transform: uppercase;
@@ -279,12 +279,12 @@ body{
   }
 
   .widget-49 .widget-49-title-wrapper .widget-49-meeting-info .widget-49-pro-title {
-  color: #3c4142;
+  color: #000;
   font-size: 14px;
   }
 
   .widget-49 .widget-49-title-wrapper .widget-49-meeting-info .widget-49-meeting-time {
-  color: #057e2b;
+  color: #1363bf;
   font-size: 13px;
   }
 
@@ -313,9 +313,9 @@ body{
 
   /* Backgrounds */
   .main-bg {
-    background: #EFEAD8;
+    background: #ffffff;
     min-height:100vh;
-    padding-top: 88px;
+    padding-top: 95px;
   }
 
   .title {

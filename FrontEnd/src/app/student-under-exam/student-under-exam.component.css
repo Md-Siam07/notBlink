@@ -1,12 +1,13 @@
+
 .main-bg {
-  background: #D4ECDD;
+  background: #ffffff;
   min-height:100vh;
   padding-top: 88px;
 }
 
 .cl-head {
-  color: black;
-  height:4px;
+  color: #1363bf;
+  height: 1px;
 }
 
 .row1 {
@@ -54,6 +55,12 @@
   margin-top: 20px;
   padding: 10px;
   width: 100%;
+}
+
+.profile {
+  font-size: 110%;
+  border: 1px solid #1363bf;
+  border-radius: 5px;
 }
 
 /*chat box

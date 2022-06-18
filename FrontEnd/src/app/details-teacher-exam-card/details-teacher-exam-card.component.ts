@@ -135,9 +135,11 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   }
 
   sendMessage(): void {
-    socket.emit('message', this.msgDummy.msg);
-    this.messageList.push({message: this.msgDummy.msg, userName: this.userName, mine: true});
-    this.msgDummy.msg = '';
+    if (this.msgDummy.msg != '') {
+      socket.emit('message', this.msgDummy.msg);
+      this.messageList.push({message: this.msgDummy.msg, userName: this.userName, mine: true});
+      this.msgDummy.msg = '';
+    }
   }
 
   loadNotification(){

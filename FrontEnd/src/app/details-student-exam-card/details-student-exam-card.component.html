@@ -24,7 +24,7 @@
         <br><br>
       <div class="btn-button">
         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModalStart" [disabled]="!examDetails.hasStarted" *ngIf="!examGoingOn(examDetails)" (click)="onLeaveClick(examDetails)">Start Exam </button>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModalStart" *ngIf="examGoingOn(examDetails)" (click)="onLeaveClick(examDetails)"><b>Start Exam</b> </button>&nbsp;&nbsp;
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalStart" *ngIf="examGoingOn(examDetails)" (click)="onLeaveClick(examDetails)"><b>Start Exam</b> </button>&nbsp;&nbsp;
         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModalLeave" (click)="onLeaveClick(examDetails)">Leave Exam </button>
       </div>
       <br><br>
@@ -40,6 +40,8 @@
         <input type="checkbox" checked> Your camera footage will be sent to teacher as soon as you are detected to be suspicious.
       </div>
       <div class="row mt-5" *ngIf="isExamFinish()">
+        <h4>QUESTION</h4>
+        <hr class="cl-head">
         <object [data]="examDetails.question | safe" type="application/pdf" height="700"> </object>
       </div>
     </div>
@@ -54,7 +56,7 @@
         <hr>
         </div>
 
-        <app-face-recognition></app-face-recognition>
+        <!-- <app-face-recognition></app-face-recognition> -->
       </div>
     </div>
   </div>

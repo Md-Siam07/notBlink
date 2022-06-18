@@ -2,24 +2,14 @@
 .navbar-scroll .nav-link,
 .navbar-scroll .navbar-toggler-icon,
 .navbar-scroll  {
-  color: #262626;
+  color: #ffffff;
 }
 
 /* Color of the navbar BEFORE scroll */
 .navbar-scroll {
-  background-color: #6D8B74;
+  background-color: #1363DF;
 }
 
-.logo{
-  color: #EFEAD8;
-}
-
-/* Color of the links AFTER scroll */
-.navbar-scrolled .nav-link,
-.navbar-scrolled .navbar-toggler-icon,
-.navbar-scroll .navbar-brand {
-  color: #262626;
-}
 
 /* Color of the navbar AFTER scroll */
 .navbar-scrolled {
@@ -31,13 +21,14 @@
   padding-top: auto;
   padding-bottom: auto;
 }
-.navbar-brand {
-  font-size: unset;
-  height: 3.5rem;
-}
 
 h3 {
   color: whitesmoke;
+}
+
+.signin {
+  color: #1363DF;
+  /*height: 30px;*/
 }
 
 .offcanvas-header {
@@ -61,27 +52,6 @@ body {
 }
 
 
-/* Text Align */
-.label {
-  text-align: left !important;
-}
-.text-c {
-  text-align: center;
-}
-.text-l {
-  text-align: left;
-}
-.text-r {
-  text-align: right;
-}
-.text-j {
-  text-align: justify;
-}
-
-.normal-text {
-  color: black;
-}
-
 /* Text Color */
 .text-whitesmoke {
   color: whitesmoke;
@@ -91,7 +61,6 @@ body {
   color: #463333;
   text-align: center;
 }
-
-.list-group-item {
-  background: #FFF0F0;
+.nav-item {
+  color: red;
 }

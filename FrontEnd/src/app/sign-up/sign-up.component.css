@@ -9,6 +9,7 @@ body {
   background-attachment: fixed;
 }
 
+
 /* Text Align */
 .label {
   text-align: left !important;
@@ -25,16 +26,20 @@ body {
 .text-j {
   text-align: justify;
 }
+/*
+.radio-button {
+  color: #1363bf;
+} */
 
 /* Text Color */
 .text-whitesmoke {
-  color: whitesmoke;
+  color: rgb(0, 0, 0);
 }
 .text-darkyellow {
   color: #FFC017;
 }
 .text-darkgreen {
-  color: #5F7161;
+  color: #1363bf;
 }
 .text-middarkgreen {
   color: #6D8B74;
@@ -44,15 +49,11 @@ body {
   color: #D0C9C0;
 }
 
-.radio-button {
-  background-color: #D0C9C0;
-  color: black;
-}
 
 /* Lines */
 
 .line-b {
-  border-bottom: 1px solid #6D8B74 !important;
+  border-bottom: 1px solid #1363bf !important;
 }
 
 /* Buttons */
@@ -61,7 +62,7 @@ body {
 }
 
 .form-button {
-  background-color: #6D8B74;
+  background-color: #1363bf;
   color: #e6e6e6;
 }
 
@@ -73,8 +74,6 @@ body {
 .form-button:active:hover,
 .form-button.active:hover,
 .form-button.active:focus {
-  background-color: #5F7161;
-  border-color: #6D8B74;
   color: #e6e6e6;
 }
 .button-l {
@@ -149,10 +148,9 @@ body {
 }
 
 /* Bootstrap Form Control Extension */
-
 .form-control,
 .border-line {
-  background-color: #a09c9c;
+  background-color: #fffafa;
   background-image: none;
   border: 1px solid #424242;
   border-radius: 1px;
@@ -177,7 +175,7 @@ body {
 /* Container */
 
 .container-content {
-  background-color: #D0C9C0;
+  background-color: #e9e9ea;
   color: inherit;
   padding: 15px 20px 20px 20px;
   border-color: #6D8B74;
@@ -191,9 +189,9 @@ button:hover {
 }
 
 /* Backgrounds */
-
 .main-bg {
-  background: #EFEAD8;
+  background: #ffffff;
+  height:100vh;
 }
 
 /* Login & Register Pages*/
@@ -213,7 +211,7 @@ button:hover {
 }
 
 .logo-badge {
-  color: #D0C9C0;
+  color: #1363bf;
   font-size: 80px;
   font-weight: 800;
   letter-spacing: -10px;

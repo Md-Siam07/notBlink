@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-7">
-        <div class="row">
+        <div class="row profile mt-3">
           <div class="col-8">
             <b>Name:</b>
             {{studentDetails.fullName}} <br>
@@ -25,17 +25,16 @@
             {{studentDetails.phone_number}} <br>
           </div>
         </div>
-        <hr>
 
-        <div>
-          <button class="btn btn-outline-danger mt-2" (click)="notificationFilter()">
+        <div class="mt-3">
+          <button class="btn btn-danger mt-2" (click)="notificationFilter()">
             <div *ngIf="onlySuspected">All Notification</div>
             <div *ngIf="!onlySuspected">Only Suspected Notification</div>
           </button> &nbsp;
-          <button printSectionId="makePDF" ngxPrint type="button" class="btn btn-outline-primary mt-2">Report Download </button>
+          <button printSectionId="makePDF" ngxPrint type="button" class="btn btn-primary mt-2">Report Download </button>
         </div>
 
-        <div class="row chatbox mt-5">
+        <!-- <div class="row chatbox mt-5">
           <h5>CHAT BOX</h5>
           <div class="row1">
             <div class="start mt-3" style="display: flex; justify-content: center;">
@@ -65,7 +64,10 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
+
+        <div class="row" id="divPieChart" style="height: 500px;"></div>
+        <div id="divGanttChart"></div>
 
       </div>
       <div class="col-5" id="makePDF">
@@ -77,10 +79,10 @@
             <div class="row">
               <div class="col-3">
                 <div class="row">
-                  <button class="btn btn-outline-dark" disabled>{{getExamDate(notification.time)}} {{getExamMonth(notification.time)}} </button>
+                  <button class="btn btn-outline-primary" disabled>{{getExamDate(notification.time)}} {{getExamMonth(notification.time)}} </button>
                 </div>
                 <div class="row mt-1">
-                  <span class="badge bg-dark">{{getExamTime(notification.time)}}</span>
+                  <span class="badge bg-primary">{{getExamTime(notification.time)}}</span>
                 </div>
                 &nbsp;&nbsp;
               </div>
@@ -113,10 +115,13 @@
                     {{notification.message}}
                   </div>
                 </div>
+                <div *ngIf="notification.screenRecord != '' || notification.cameraRecord != ''">
+                  <button class="btn btn-outline-secondary" *ngIf="notification.screenRecord != ''"><a href="{{notification.screenRecord}}" target="_blank">Screen Record</a></button>
+                  <button class="btn btn-outline-secondary" *ngIf="notification.cameraRecord != ''"><a href="{{notification.cameraRecord}}" target="_blank">Camera Footage</a></button>
+                </div>
               </div>
             </div>
-            <!-- <div *ngIf="notification.screenRecord != '' || notification.cameraRecord != ''"> Evidence:</div> <a href="{{notification.screenRecord}}" *ngIf="notification.screenRecord != ''" target="_blank">Screen Record</a> &nbsp;&nbsp;
-            <a href="{{notification.cameraRecord}}" *ngIf="notification.cameraRecord != ''" target="_blank">Camera Footage</a> -->
+
           </li>
         </ul>
       </div>
@@ -138,5 +143,4 @@
 </svg>
 
 
-<div id="divPieChart" style="width: 900px; height: 500px;"></div>
-<div id="divGanttChart"></div>
+

@@ -1,10 +1,12 @@
 .main-bg {
-  background: #EFEAD8;
+  background: #ffffff;
   min-height:100vh;
   padding-top: 88px;
 }
 
 .cl-head {
-  color: black;
-  height:4px;
+  color: #1363bf;
+  height: 1px;
 }
+
+

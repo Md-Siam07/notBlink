@@ -28,7 +28,7 @@
               <button type="button" class="btn btn-warning mb-2" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" (click)="onClick(examDetails)">Edit Exam </button>&nbsp;
               <button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#exampleModalDel" (click)="onClick(examDetails)">Delete Exam </button>&nbsp;
               <button type="button" class="btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#guideModal">Guidelines </button>&nbsp;
-              <button printSectionId="makePDF" ngxPrint type="button" class="btn btn-secondary mb-2">Notification </button>
+              <button printSectionId="makePDF" ngxPrint type="button" class="btn btn-secondary mb-2">Notification Print</button>
             </div>
             <br>
           </div>
@@ -53,37 +53,45 @@
           </div>
         </div>
         <div class="row mt-5">
+          <h4>QUESTION</h4>
           <object [data]="examDetails.question | safe" type="application/pdf" height="700"> </object>
         </div>
         <div class="row chatbox mt-5">
           <h5>CHAT BOX</h5>
           <div class="row1">
             <div class="start mt-3" style="display: flex; justify-content: center;">
-              <span class="badge bg-primary">Do you have any query? Ask here...</span>
-            </div>
-            <!-- <div class="row mt-3">
-              <div class="col-9">
-                <button class="btn btn-outline-secondary text-left">Hi how are you</button>
-              </div>
-              <div class="col-3"></div>
+              <span class="badge bg-dark">Do you have any query? Ask here...</span>
             </div>
 
-            <div class="row mt-3">
-              <div class="col-3"></div>
-              <div class="col-9 leftSide">
-                <button class="btn btn-outline-dark text-left"> Fine and ypuFine and ypuFine and ypuFine and ypuFine and ypu</button>
+            <div *ngFor="let msg of messageList; let i = index">
+              <div class="row mt-3" *ngIf="!messageList[i].mine">
+                <div class="col-9">
+                  <p><span class="badge bg-secondary">{{ msg.userName }}</span></p>
+                  <button class="btn btn-outline-secondary text-left" disabled>{{ msg.message }}</button>
+                </div>
+                <div class="col-3"></div>
               </div>
-            </div> -->
-            <div class="chatbox__messages" *ngFor="let msg of messageList; let i = index" [ngClass]="{mine: messageList[i].mine}">
+
+              <div class="row mt-3"  *ngIf="messageList[i].mine">
+                <div class="col-3"></div>
+                <div class="col-9 leftSide">
+                  <p><span class="badge bg-primary">{{ msg.userName }}</span></p>
+                  <button class="btn btn-outline-primary text-left" disabled>{{ msg.message }}</button>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- <div class="chatbox__messages" *ngFor="let msg of messageList; let i = index" [ngClass]="{mine: messageList[i].mine}">
               <div class="user-message">
                 <div class="message-box">
                   <p class="name">{{ msg.userName }}</p>
                   <br/>
-                  <p class="message">{{ msg.message }}</p>
+                  <p class="message">{{msg.message }}</p>
                 </div>
               </div>
-            </div>
-          
+            </div> -->
+
           </div>
           <div class="row2 row">
             <div class="col-10">
@@ -91,19 +99,19 @@
             </div>
             <div class="col-2">
               <div class="row">
-               <button class="btn btn-outline-success" (click)="sendMessage()"><b>Send</b></button>
+               <button class="btn btn-outline-primary" (click)="sendMessage()">Send</button>
               </div>
             </div>
           </div>
         </div>
-        
+
       </div>
       <div class="col-4" id="makePDF">
         <h2>Notification&nbsp;&nbsp;<i class="fas fa-bell"></i></h2>
         <hr class="cl-head">
         <br>
         <ul class="list-group list-group-flush" *ngFor="let notification of notificationList | async">
-          <li class="list-group-item">
+          <li class="list-group-item" style="border: 1px solid #1363bf; border-radius: 5px">
             Suspicious Activity
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
