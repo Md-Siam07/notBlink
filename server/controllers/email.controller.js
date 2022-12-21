@@ -14,7 +14,7 @@ let transporter = nodemailer.createTransport({
   host: "smtp-mail.outlook.com",
   auth: {
       user: 'riad00311@hotmail.com',
-      pass: 'riad85189934'
+      pass: ''
   }
 })
 
