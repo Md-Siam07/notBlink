@@ -19,6 +19,13 @@ const io = require('socket.io')(server, {
     cors: '*'
 });
 
+const io2 = require('socket.io')(server, {
+  cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+  }, path: "/socket"
+});
+
 //middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false })); 
@@ -124,6 +131,20 @@ io.on('connection', (socket) => {
     }
   })
 })
+
+io2.on('connection', socket => {
+  socket.on('join-room', (roomId, userId) => {
+      socket.join(roomId);
+      socket.broadcast.to(roomId).emit('user-connected', userId);
+      socket.on('disconnect', () => {
+          socket.broadcast.to(roomId).emit('user-disconnected', userId);
+      })
+      socket.on('chat', (content) => {
+          socket.broadcast.to(roomId).emit('new-message', content);
+      })
+  })
+
+});
 
 function addUser(userName, id) {
   if (!userList.has(userName)) {

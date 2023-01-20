@@ -1,3 +1,5 @@
+import { ConferenceComponent } from './conference/conference.component';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -17,6 +19,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserService } from './shared/user.service';
+import { SocketService } from './call/services/socket.service';
+import { PeerService } from './call/services/peer.service';
 
 import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
@@ -35,6 +39,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
 import { StudentUnderExamComponent } from './student-under-exam/student-under-exam.component';
 import { FaceRecognitionComponent } from './student-exam/face-recognition/face-recognition.component';
+import { CallComponent } from './call/components/call/call.component';
+import { VideoPlayerComponent } from './call/components/video-player/video-player.component';
 
 @NgModule({
   declarations: [
@@ -56,11 +62,15 @@ import { FaceRecognitionComponent } from './student-exam/face-recognition/face-r
     SafePipe,
     OtpVerificationComponent,
     StudentUnderExamComponent,
-    FaceRecognitionComponent
+    FaceRecognitionComponent,
+    CallComponent,
+    VideoPlayerComponent,
+    ConferenceComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CommonModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
@@ -78,7 +88,7 @@ import { FaceRecognitionComponent } from './student-exam/face-recognition/face-r
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-  },UserService, AuthGuard],
+  },UserService, AuthGuard, PeerService, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,3 +1,5 @@
+import { CallComponent } from './call/components/call/call.component';
+import { ConferenceComponent } from './conference/conference.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -57,6 +59,16 @@ const routes: Routes = [
   {
     path: 'teacher/examdetails/:id1/:id2',
     component: StudentUnderExamComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'call',
+    component: ConferenceComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'call/:roomId',
+    component: CallComponent,
     canActivate: [AuthGuard]
   }
 ];
