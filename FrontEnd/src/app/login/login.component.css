@@ -162,7 +162,7 @@ body {
 }
 .form-control:focus,
 .border-line:focus {
-  border-color: #6D8B74;
+  border-color: black;
   background-color: #616161;
   color: #e6e6e6;
 }
@@ -178,7 +178,7 @@ body {
   background-color: #e9e9ea;
   color: inherit;
   padding: 15px 20px 20px 20px;
-  border-color: #6D8B74;
+  border-color: black;
   border-image: none;
   border-style: solid solid none;
   border-width: 1px 0;
