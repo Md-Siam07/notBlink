@@ -222,4 +222,17 @@ button:hover {
   text-align: left;
 }
 
+.custom-file-upload {
+  color: #363636;
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #cfcfcf;
+  border-radius: 3px;
+  padding: 5px 12px;
+  outline: none;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 10pt;
+  margin-left: 10px;
+}
 

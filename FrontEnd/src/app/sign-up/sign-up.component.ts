@@ -15,6 +15,7 @@ export class SignUpComponent implements OnInit {
   selectedUser = new User();
   passwordMismatch : boolean = false;
   cPassword: string = "";
+  file!: File;
 
   response = {
     userId: '',
@@ -45,7 +46,7 @@ export class SignUpComponent implements OnInit {
         return;
     }
 
-    this.userService.postUser(this.selectedUser).subscribe(
+    this.userService.postUser(this.selectedUser, this.file).subscribe(
       (res:any) => {
         this.response = res['data'];
         this.userService.setResponse(this.response.userId, this.response.email);
@@ -82,5 +83,9 @@ export class SignUpComponent implements OnInit {
 
   hasAccount(){
     this.router.navigateByUrl('login');
+  }
+
+  uploadFile(event:any) {
+    this.file = event.target.files[0];
   }
 }

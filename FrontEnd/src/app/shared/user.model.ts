@@ -10,5 +10,5 @@ export class User {
     roll!: number ;
     verified: Boolean = false;
     isTeacher: boolean = false;
-    
+    photoURL:string = "";
 }

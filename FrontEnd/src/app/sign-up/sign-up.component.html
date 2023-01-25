@@ -56,9 +56,17 @@
             <div class="form-group mb-4">
               
            
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
-              <input #imageVar accept="image/*" (click)="test(imageVar)" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
-              <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Face must be clear and visible</p>
+              <div *ngIf="!isTeacher">
+                <label class="custom-file-upload" for="img">
+                  <i class="fa fa-upload"></i>
+                  Upload Image
+                </label>
+                <input type="file" name="uploadfile"
+                    id="img" style="display:none;"
+                    (change)="uploadFile($event)"
+                    required/>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">Face must be clear and visible</p>
+              </div>
 
           </div>
 

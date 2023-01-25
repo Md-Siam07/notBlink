@@ -35,7 +35,7 @@ const upload = multer({
 
 router.use(express.static(__dirname + "./public/"));
 
-router.post('/register', userController.register);
+router.post('/register', upload.single('image'), userController.register);
 router.post('/authenticate', userController.authenticate);
 router.get('/userProfile', jwtHelper.verifyJwtToken ,userController.userProfile);
 router.post('/createExam', upload.single('question'), examController.create);

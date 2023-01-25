@@ -1,3 +1,4 @@
+import { appRoutes } from './../routes';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -35,8 +36,19 @@ export class UserService {
   changeStatus(){
     localStorage.setItem('loginStatus', 'true');
   }
-  postUser(user: User){
-    return this.http.post( environment.apiBaseUrl+'/register' , user, this.noAuthHeader)
+  postUser(user: User, file:File){
+    var formData: any = new FormData();
+    formData.append('fullName', user.fullName);
+    formData.append('email', user.email);
+    formData.append('password', user.password);
+    formData.append('institute', user.institute);
+    formData.append('phone_number', user.phone_number);
+    formData.append('designation', user.designation);
+    formData.append('bactch', user.batch);
+    formData.append('roll', user.roll);
+    formData.append('isTeacher', user.isTeacher);
+    formData.append('image', file);
+    return this.http.post( environment.apiBaseUrl+'/register' , formData, this.noAuthHeader)
   }
 
   login(authCredentials: any){

@@ -10,6 +10,11 @@
   background-color: #1363DF;
 }
 
+img {
+  border-radius: 100%;
+  align-items: center;
+}
+
 
 /* Color of the navbar AFTER scroll */
 .navbar-scrolled {
