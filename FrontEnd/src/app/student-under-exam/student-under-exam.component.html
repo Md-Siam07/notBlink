@@ -1,4 +1,4 @@
-<div class=" main-bg">
+<div class=" main-bg" id="print-section">
   <div class="container">
     <div class="row">
       <div class="col-7">
@@ -31,7 +31,7 @@
             <div *ngIf="onlySuspected">All Notification</div>
             <div *ngIf="!onlySuspected">Only Suspected Notification</div>
           </button> &nbsp;
-          <button printSectionId="makePDF" ngxPrint [useExistingCss]="true"  type="button" class="btn btn-primary mt-2">Report Download </button>
+          <button printSectionId="makePDF" ngxPrint [useExistingCss]="true"  type="button" class="btn btn-primary mt-2" printSectionId="print-section">Report Download </button>
         </div>
 
         <!-- <div class="row chatbox mt-5">
