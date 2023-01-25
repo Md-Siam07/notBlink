@@ -13,6 +13,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { StudentExamComponent } from './student-exam/student-exam.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { StudentUnderExamComponent } from './student-under-exam/student-under-exam.component';
+import { FeaturesComponent } from './features/features.component';
+import { PricingComponent } from './pricing/pricing.component';
 
 const routes: Routes = [
   {
@@ -70,6 +72,14 @@ const routes: Routes = [
     path: 'call/:roomId',
     component: CallComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'features',
+    component: FeaturesComponent
+  },
+  {
+    path: 'pricing',
+    component: PricingComponent
   }
 ];
 

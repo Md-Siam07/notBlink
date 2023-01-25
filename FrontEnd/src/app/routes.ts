@@ -4,6 +4,7 @@ import { SignUpComponent } from "./sign-up/sign-up.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { LoginComponent } from "./login/login.component";
 import { AuthGuard } from "./auth/auth.guard";
+import { FeaturesComponent } from "./features/features.component";
 
 export const appRoutes: Routes = [
     {
@@ -17,6 +18,10 @@ export const appRoutes: Routes = [
     {
         path: 'login',
         component: LoginComponent,
+    },
+    {
+        path: 'features',
+        component: FeaturesComponent
     }
 
 ];

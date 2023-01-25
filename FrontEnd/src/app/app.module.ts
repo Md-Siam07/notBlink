@@ -41,6 +41,8 @@ import { StudentUnderExamComponent } from './student-under-exam/student-under-ex
 import { FaceRecognitionComponent } from './student-exam/face-recognition/face-recognition.component';
 import { CallComponent } from './call/components/call/call.component';
 import { VideoPlayerComponent } from './call/components/video-player/video-player.component';
+import { FeaturesComponent } from './features/features.component';
+import { PricingComponent } from './pricing/pricing.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { VideoPlayerComponent } from './call/components/video-player/video-playe
     FaceRecognitionComponent,
     CallComponent,
     VideoPlayerComponent,
-    ConferenceComponent
+    ConferenceComponent,
+    FeaturesComponent,
+    PricingComponent
   ],
   imports: [
     BrowserModule,

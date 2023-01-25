@@ -26,8 +26,10 @@ h3 {
   color: whitesmoke;
 }
 
+.pointer {cursor: pointer;}
+
 .signin {
-  color: #1363DF;
+  color: #000000;
   /*height: 30px;*/
 }
 
