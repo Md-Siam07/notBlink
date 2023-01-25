@@ -165,7 +165,9 @@ export class StudentUnderExamComponent implements OnInit {
 
         this.outTime = this.examDetails.duration * 60 * 1000 - this.inTime;
         this.inTime -= this.cheatTime;
-
+        if(this.outTime<0) this.outTime*=-1;
+        if(this.inTime<0) this.inTime*=-1;
+        if(this.cheatTime<0) this.cheatTime*=-1;
         this.cdata.setData(this.outTime, this.inTime, this.cheatTime);
 
         google.charts.load('current', {packages: ['corechart']});
