@@ -43,7 +43,7 @@ import { CallComponent } from './call/components/call/call.component';
 import { VideoPlayerComponent } from './call/components/video-player/video-player.component';
 import { FeaturesComponent } from './features/features.component';
 import { PricingComponent } from './pricing/pricing.component';
-import { WebcamComponent } from './call/components/webcam/webcam.component';
+import { SnapshotComponent } from './snapshot/snapshot.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +71,7 @@ import { WebcamComponent } from './call/components/webcam/webcam.component';
     ConferenceComponent,
     FeaturesComponent,
     PricingComponent,
-    WebcamComponent,
+    SnapshotComponent
   ],
   imports: [
     BrowserModule,

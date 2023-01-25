@@ -3,7 +3,7 @@ import { Subject, Observable } from 'rxjs';
 import { WebcamImage, WebcamInitError } from 'ngx-webcam';
 
 @Component({
-  selector: 'app-webcam',
+  selector: 'app-snapshot',
   template: `
     <webcam
       [height]="0"
@@ -16,7 +16,7 @@ import { WebcamImage, WebcamInitError } from 'ngx-webcam';
   `,
   styles: [],
 })
-export class WebcamComponent implements OnInit {
+export class SnapshotComponent implements OnInit {
   // toggle webcam on/off
   public showWebcam = false;
   public errors: WebcamInitError[] = [];
@@ -31,7 +31,9 @@ export class WebcamComponent implements OnInit {
     boolean | string
   >();
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    setInterval(() => this.triggerSnapshot.apply(this), 5000)
+  }
 
   public triggerSnapshot(): void {
     this.trigger.next();
@@ -46,7 +48,16 @@ export class WebcamComponent implements OnInit {
   }
 
   public handleImage(webcamImage: WebcamImage): void {
-    console.info('received webcam image', webcamImage);
+    const formData = new FormData()
+    const url = '' 
+
+    formData.append('snapshot', webcamImage.imageAsBase64)
+    
+    fetch(url, {
+      method: 'POST',
+      body: formData  
+    }).then(_ => console.log("SNAPSHOT POSTED"))
+
     this.webcamImage = webcamImage;
   }
 
