@@ -1,3 +1,5 @@
+import { User } from 'src/app/shared/user.model';
+import { UserService } from 'src/app/shared/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Utils from 'src/app/utils/utils';
@@ -14,11 +16,12 @@ export class CallComponent implements OnInit {
   public localStream!: MediaStream;
   public roomId: string = '';
   public isHideChat = true;
-
+  userx = new User();
   constructor(
     private activatedRoute: ActivatedRoute,
     private socketService: SocketService,
-    private peerService: PeerService,) { }
+    private peerService: PeerService,
+    private userService: UserService) { }
 
   ngAfterViewInit(): void {
     this.listenNewUser();
@@ -32,6 +35,13 @@ export class CallComponent implements OnInit {
       this.localStream = stream;
       this.openPeer();
     })
+
+    this.userService.getUserProfile().subscribe(
+      (res:any) => {
+        this.userx = res['user'];
+        console.log(this.userx)
+      }
+    )
   }
 
   hideOrUnhideChat(): void {

@@ -6,8 +6,10 @@
                           [stream]="localStream"
                           class="my-video">
         </app-video-player>
-        <app-video-player *ngFor="let user of joinedUsers"
+        <div *ngIf="userx.isTeacher">
+            <app-video-player *ngFor="let user of joinedUsers"
                           [stream]="user.stream">
-        </app-video-player>
+            </app-video-player>
+        </div>
     </div>
 </div>
