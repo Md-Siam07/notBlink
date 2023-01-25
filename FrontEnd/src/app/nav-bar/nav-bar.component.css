@@ -26,20 +26,22 @@ h3 {
   color: whitesmoke;
 }
 
+.pointer {cursor: pointer;}
+
 .signin {
-  color: #1363DF;
+  color: #000000;
   /*height: 30px;*/
 }
 
 .offcanvas-header {
-  background-color: #966767;
+  background-color: #1363bf;
 }
 
 .main-bg {
   padding-left: 10px;
   padding-right: 10px;
   background: rgb(255, 255, 255);
-  background: linear-gradient( #ffffff, #EBD4D4);
+  background: linear-gradient( #ffffff, #1363bf);
   height:100vh;
 }
 

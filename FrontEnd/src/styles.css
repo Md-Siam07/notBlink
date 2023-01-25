@@ -1,6 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~ngx-toastr/toastr.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 a, h1, h2, h3, h4, h5, button, div, img, p{
   font-family: 'Ubuntu', sans-serif;
+}
+
+.forScroll{
+  /* overflow: hidden; */
 }

@@ -35,7 +35,12 @@ export class NavBarComponent implements OnInit {
       (err:any) => {}
     );
   }
-
+  goToFeatures():void{
+    this.router.navigateByUrl('features');
+  }
+  goToPricing():void{
+    this.router.navigateByUrl('pricing');
+  }
   onLogout() {
     this.userService.deleteToken();
     this.userService.loginStatus = false;

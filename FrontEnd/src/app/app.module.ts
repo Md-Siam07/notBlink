@@ -10,7 +10,7 @@ import { UserComponent } from 'src/user/user.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgxPrintModule } from 'ngx-print';
+// import { NgxPrintModule } from 'ngx-print';
 
 
 //routes
@@ -41,6 +41,8 @@ import { StudentUnderExamComponent } from './student-under-exam/student-under-ex
 import { FaceRecognitionComponent } from './student-exam/face-recognition/face-recognition.component';
 import { CallComponent } from './call/components/call/call.component';
 import { VideoPlayerComponent } from './call/components/video-player/video-player.component';
+import { FeaturesComponent } from './features/features.component';
+import { PricingComponent } from './pricing/pricing.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { VideoPlayerComponent } from './call/components/video-player/video-playe
     FaceRecognitionComponent,
     CallComponent,
     VideoPlayerComponent,
-    ConferenceComponent
+    ConferenceComponent,
+    FeaturesComponent,
+    PricingComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +80,7 @@ import { VideoPlayerComponent } from './call/components/video-player/video-playe
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgxPrintModule,
+    // NgxPrintModule,
     ToastrModule.forRoot({
       timeOut: 3500,
       progressBar: true,

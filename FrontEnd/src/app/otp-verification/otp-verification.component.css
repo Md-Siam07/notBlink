@@ -41,6 +41,10 @@ html {
   .text-middarkgreen {
     color: #6D8B74;
   }
+  .text-trust{
+    color: #1363bf;
+  }
+ 
 
   .text-user{
     color: #D0C9C0;
@@ -59,7 +63,7 @@ html {
   }
 
   .form-button {
-    background-color: #6D8B74;
+    background-color: #1363bf;
     color: #e6e6e6;
   }
 
@@ -71,7 +75,7 @@ html {
   .form-button:active:hover,
   .form-button.active:hover,
   .form-button.active:focus {
-    background-color: #5F7161;
+    background-color: #194578;
     border-color: #6D8B74;
     color: #e6e6e6;
   }
@@ -150,7 +154,7 @@ html {
 
   .form-control,
   .border-line {
-    background-color: #a09c9c;
+    background-color: #fffafa;
     background-image: none;
     border: 1px solid #424242;
     border-radius: 1px;
@@ -162,7 +166,7 @@ html {
   }
   .form-control:focus,
   .border-line:focus {
-    border-color: #6D8B74;
+    border-color: black;
     background-color: #616161;
     color: #e6e6e6;
   }
@@ -175,10 +179,10 @@ html {
   /* Container */
 
   .container-content {
-    background-color: #D0C9C0;
+    background-color: whitesmoke;
     color: inherit;
     padding: 15px 20px 20px 20px;
-    border-color: #6D8B74;
+    border-color: black;
     border-image: none;
     border-style: solid solid none;
     border-width: 1px 0;
@@ -191,7 +195,7 @@ html {
   /* Backgrounds */
 
   .main-bg {
-    background: #EFEAD8;
+    background: white;
     height:100vh;
   }
 
@@ -212,7 +216,7 @@ html {
   }
 
   .logo-badge {
-    color: #D0C9C0;
+    color: #1363bf;
     font-size: 80px;
     font-weight: 800;
     letter-spacing: -10px;
