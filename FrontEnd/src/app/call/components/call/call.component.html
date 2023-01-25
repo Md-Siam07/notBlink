@@ -1,15 +1,18 @@
 <div class="call-container row">
-    <div class="media-area s-12 m-9 l-10"
-         [ngClass]="{'m-12 l-12 full-screen': isHideChat}">
-        <app-video-player *ngIf="localStream"
-                          [mode]="'owner'"
-                          [stream]="localStream"
-                          class="my-video">
-        </app-video-player>
-        <div *ngIf="userx.isTeacher">
-            <app-video-player *ngFor="let user of joinedUsers"
-                          [stream]="user.stream">
-            </app-video-player>
-        </div>
+  <div
+    class="media-area s-12 m-9 l-10"
+    [ngClass]="{ 'm-12 l-12 full-screen': isHideChat }"
+  >
+    <app-video-player
+      *ngIf="localStream"
+      [mode]="'owner'"
+      [stream]="localStream"
+      class="my-video"
+    >
+    </app-video-player>
+    <div *ngIf="userx.isTeacher">
+      <app-video-player *ngFor="let user of joinedUsers" [stream]="user.stream">
+      </app-video-player>
     </div>
+  </div>
 </div>
