@@ -44,8 +44,8 @@ export class UserService {
     formData.append('institute', user.institute);
     formData.append('phone_number', user.phone_number);
     formData.append('designation', user.designation);
-    formData.append('bactch', user.batch);
-    formData.append('roll', user.roll);
+    formData.append('bactch', user.batch || 0);
+    formData.append('roll', user.roll || 0);
     formData.append('isTeacher', user.isTeacher);
     formData.append('image', file);
     return this.http.post( environment.apiBaseUrl+'/register' , formData, this.noAuthHeader)

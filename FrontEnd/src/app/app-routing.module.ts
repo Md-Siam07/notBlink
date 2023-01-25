@@ -69,7 +69,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'call/:roomId',
+    path: 'call/:id',
     component: CallComponent,
     canActivate: [AuthGuard]
   },

@@ -30,7 +30,8 @@ export class CallComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.roomId = this.activatedRoute.snapshot.paramMap.get('roomId') || '';
+    this.roomId = this.activatedRoute.snapshot.paramMap.get('id') || '';
+    console.log('id: ', this.roomId)
     Utils.getMediaStream({ video: true, audio: true }).then(stream => {
       this.localStream = stream;
       this.openPeer();

@@ -24,11 +24,12 @@
             </div>
             <br><br>
             <div class="btn-button">
-              <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onClick(examDetails)">Invite </button>&nbsp;
-              <button type="button" class="btn btn-warning mb-2" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" (click)="onClick(examDetails)">Edit Exam </button>&nbsp;
-              <button type="button" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#exampleModalDel" (click)="onClick(examDetails)">Delete Exam </button>&nbsp;
-              <button type="button" class="btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#guideModal">Guidelines </button>&nbsp;
-              <button printSectionId="makePDF" ngxPrint type="button" class="btn btn-secondary mb-2">Notification Print</button>
+              <button type="button"  class="btn btn-outline-primary btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onClick(examDetails)">Invite </button>&nbsp;
+              <button type="button" class="btn btn-warning btn-outline-warning mb-2" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" (click)="onClick(examDetails)">Edit Exam </button>&nbsp;
+              <button type="button" class="btn btn-danger btn-outline-danger mb-2" data-bs-toggle="modal" data-bs-target="#exampleModalDel" (click)="onClick(examDetails)">Delete Exam </button>&nbsp;
+              <button type="button" class="btn btn-info btn-outline-info mb-2" data-bs-toggle="modal" data-bs-target="#guideModal">Guidelines </button>&nbsp;
+              <button printSectionId="makePDF" ngxPrint type="button" class="btn btn-outline-secondary btn-secondary mb-2">Notification Print</button>
+              <app-conference></app-conference>
             </div>
             <br>
           </div>
@@ -286,6 +287,7 @@
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Discard</button>
               <button type="button" class="btn btn-success" data-bs-dismiss="modal" >Save</button>
             </div>
+            
           </form>
         </div>
       </div>
