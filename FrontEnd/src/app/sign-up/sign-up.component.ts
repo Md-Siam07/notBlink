@@ -76,6 +76,10 @@ export class SignUpComponent implements OnInit {
     this.serverErrorMessages = "";
   }
 
+  test(imageInp: any):void{
+    console.log("hello")
+  }
+
   hasAccount(){
     this.router.navigateByUrl('login');
   }
