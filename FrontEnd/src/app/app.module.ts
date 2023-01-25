@@ -10,7 +10,7 @@ import { UserComponent } from 'src/user/user.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-// import { NgxPrintModule } from 'ngx-print';
+import { NgxPrintModule } from 'ngx-print';
 
 
 //routes
@@ -80,7 +80,7 @@ import { PricingComponent } from './pricing/pricing.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    // NgxPrintModule,
+    NgxPrintModule,
     ToastrModule.forRoot({
       timeOut: 3500,
       progressBar: true,

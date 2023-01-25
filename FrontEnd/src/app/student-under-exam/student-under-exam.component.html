@@ -31,7 +31,7 @@
             <div *ngIf="onlySuspected">All Notification</div>
             <div *ngIf="!onlySuspected">Only Suspected Notification</div>
           </button> &nbsp;
-          <button printSectionId="makePDF" ngxPrint type="button" class="btn btn-primary mt-2">Report Download </button>
+          <button printSectionId="makePDF" ngxPrint [useExistingCss]="true"  type="button" class="btn btn-primary mt-2">Report Download </button>
         </div>
 
         <!-- <div class="row chatbox mt-5">
