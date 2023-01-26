@@ -11,7 +11,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxPrintModule } from 'ngx-print';
-
+import { WebcamModule } from 'ngx-webcam';
+// import { NgxPrintModule } from 'ngx-print';
 
 //routes
 import { appRoutes } from './routes';
@@ -43,6 +44,7 @@ import { CallComponent } from './call/components/call/call.component';
 import { VideoPlayerComponent } from './call/components/video-player/video-player.component';
 import { FeaturesComponent } from './features/features.component';
 import { PricingComponent } from './pricing/pricing.component';
+import { SnapshotComponent } from './snapshot/snapshot.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import { PricingComponent } from './pricing/pricing.component';
     VideoPlayerComponent,
     ConferenceComponent,
     FeaturesComponent,
-    PricingComponent
+    PricingComponent,
+    SnapshotComponent
   ],
   imports: [
     BrowserModule,
@@ -81,18 +84,26 @@ import { PricingComponent } from './pricing/pricing.component';
     HttpClientModule,
     BrowserAnimationsModule,
     NgxPrintModule,
+    WebcamModule,
+    // NgxPrintModule,
     ToastrModule.forRoot({
       timeOut: 3500,
       progressBar: true,
       positionClass: 'toast-bottom-center',
       preventDuplicates: true,
-    })
+    }),
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  },UserService, AuthGuard, PeerService, SocketService],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    UserService,
+    AuthGuard,
+    PeerService,
+    SocketService,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
