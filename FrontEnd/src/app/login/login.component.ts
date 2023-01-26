@@ -50,6 +50,10 @@ export class LoginComponent implements OnInit {
         }
         this.serverErrorMessages = "Login Successful";
         this.showSuccessToast();
+        this.userServce.getUserProfile().subscribe(
+          (res:any) =>{
+            console.log(res["user"])
+          })
       },
       err => {
         this.serverErrorMessages = err.error.message;

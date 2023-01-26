@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { WebcamImage, WebcamInitError } from 'ngx-webcam';
+import { UserService } from '../shared/user.service';
+import { User } from '../shared/user.model';
 
 @Component({
   selector: 'app-snapshot',
@@ -20,7 +22,7 @@ export class SnapshotComponent implements OnInit {
   // toggle webcam on/off
   public showWebcam = false;
   public errors: WebcamInitError[] = [];
-
+  public user= new User();
   // latest snapshot
   public webcamImage: WebcamImage | null = null;
 
@@ -30,9 +32,18 @@ export class SnapshotComponent implements OnInit {
   private nextWebcam: Subject<boolean | string> = new Subject<
     boolean | string
   >();
+  
+  constructor(private userService: UserService){
 
+  }
   public ngOnInit(): void {
     setInterval(() => this.triggerSnapshot.apply(this), 5000)
+    this.userService.getUserProfile().subscribe(
+      (res:any) =>{
+        this.user = res['user'];
+        
+      })
+    
   }
 
   public triggerSnapshot(): void {
@@ -52,11 +63,13 @@ export class SnapshotComponent implements OnInit {
     const url = '' 
 
     formData.append('snapshot', webcamImage.imageAsBase64)
-    
-    fetch(url, {
-      method: 'POST',
-      body: formData  
-    }).then(_ => console.log("SNAPSHOT POSTED"))
+    let id="1";
+    this.userService.sendSnapShot(formData,id).subscribe((response)=>console.log(response+ "Snapshot Posted"))
+
+    // fetch(url, {
+    //   method: 'POST',
+    //   body: formData  
+    // }).then(_ => console.log("SNAPSHOT POSTED"))
 
     this.webcamImage = webcamImage;
   }
@@ -64,4 +77,5 @@ export class SnapshotComponent implements OnInit {
   public get triggerObservable(): Observable<void> {
     return this.trigger.asObservable();
   }
+
 }

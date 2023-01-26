@@ -21,7 +21,9 @@ export class CallComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private socketService: SocketService,
     private peerService: PeerService,
-    private userService: UserService) { }
+    private userService: UserService) { 
+      console.log(this.userx)
+    }
 
   ngAfterViewInit(): void {
     this.listenNewUser();

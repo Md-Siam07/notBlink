@@ -29,7 +29,7 @@
               <button type="button" class="btn btn-danger btn-outline-danger mb-2" data-bs-toggle="modal" data-bs-target="#exampleModalDel" (click)="onClick(examDetails)">Delete Exam </button>&nbsp;
               <button type="button" class="btn btn-info btn-outline-info mb-2" data-bs-toggle="modal" data-bs-target="#guideModal">Guidelines </button>&nbsp;
               <button printSectionId="makePDF" ngxPrint type="button" class="btn btn-outline-secondary btn-secondary mb-2">Notification Print</button>
-              <app-conference></app-conference>
+              <!-- <app-conference></app-conference> -->
             </div>
             <br>
           </div>
@@ -157,8 +157,8 @@
                 <textarea class="form-control" id="message-text" placeholder="Invitation Message"></textarea>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-success" data-bs-dismiss="modal" (click)="invite()">Send invitation</button>
+                <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" data-bs-dismiss="modal" (click)="invite()">Send invitation</button>
               </div>
             </form>
           </div>
@@ -209,7 +209,7 @@
               </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Discard</button>
-                  <button type="submit" class="btn btn-success" data-bs-dismiss="modal" (click)="update()">Save Change</button>
+                  <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" data-bs-dismiss="modal" (click)="update()">Save Change</button>
                 </div>
               </form>
             </div>
@@ -236,8 +236,8 @@
             </div>
             <form>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
-                    <button type="submit" class="btn btn-success" data-bs-dismiss="modal" (click)="delete()">Yes</button>
+                    <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" data-bs-dismiss="modal">No</button>
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" data-bs-dismiss="modal" (click)="delete()">Yes</button>
                 </div>
             </form>
           </div>
@@ -284,8 +284,8 @@
               <textarea class="form-control" id="message-text" placeholder="Invitation Message" #message="ngModel" ngDefaultControl [(ngModel)]="selectedExam.message" [ngModelOptions]="{standalone: true}"></textarea>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Discard</button>
-              <button type="button" class="btn btn-success" data-bs-dismiss="modal" >Save</button>
+              <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" data-bs-dismiss="modal">Discard</button>
+              <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" data-bs-dismiss="modal" >Save</button>
             </div>
             
           </form>
@@ -313,8 +313,8 @@
         </div>
         <form>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
-                <button type="submit" class="btn btn-success" data-bs-dismiss="modal" (click)="kick()">Yes</button>
+                <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" data-bs-dismiss="modal">No</button>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" data-bs-dismiss="modal" (click)="kick()">Yes</button>
             </div>
         </form>
       </div>
@@ -343,7 +343,7 @@
           <input type="checkbox" checked> Clicking on the evidence URLs will direct you towards a page that plays the evidences.
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

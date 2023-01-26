@@ -48,5 +48,7 @@ export class NavBarComponent implements OnInit {
     localStorage.setItem('loginStatus', 'false');
     this.router.navigateByUrl('/login');
   }
-
+  goHome=():void=>{
+    this.router.navigateByUrl("");
+  }
 }
