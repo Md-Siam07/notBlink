@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   }
   serverErrorMessages: string = '';
   loginStatus: boolean = false;
+  uploadata = new FormData();
   ngOnInit(): void {
     this.loginStatus = localStorage.getItem('loginStatus') == 'true';
     if(this.loginStatus){
@@ -61,4 +62,14 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+  // faceRecognize(){
+  //   this.uploadata.append('img', image);
+  //   this.uploadata.append('id', id);
+  //   this.uploadata.append('username', username);
+  //   this.userServce.faceRecognize(this.uploadata).subscribe(response=>{
+  //   console.log(response.toString());
+  // });
+  // }
+
 }

@@ -106,6 +106,7 @@ export class UserService {
       return this.http.post(environment.apiBaseUrl + '/resendOTP',response )
     }
     sendSnapShot(req: any, id:string ){
-      return this.http.get(environment.mlUrl + "/" + id + "/recognize",req )
+      return this.http.get(environment.mlUrl + "/" + id + "/recognize/",req )
     }
 }
+

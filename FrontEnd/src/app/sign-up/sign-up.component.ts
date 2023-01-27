@@ -68,6 +68,7 @@ export class SignUpComponent implements OnInit {
 
   registerToDjangoBackend(id : string){
     console.log("reached here")
+    var data = {}
     this.uploadata.append('id', id);
     this.uploadata.append('username', "X");
     this.uploadata.append('img', this.file);
