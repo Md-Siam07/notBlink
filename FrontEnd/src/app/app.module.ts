@@ -41,6 +41,8 @@ import { FaceRecognitionComponent } from './student-exam/face-recognition/face-r
 import { CallComponent } from './call/components/call/call.component';
 import { VideoPlayerComponent } from './call/components/video-player/video-player.component';
 import { ChunkedTransmissionComponent } from './chunked-transmission-component/chunked-transmission-component.component';
+import { TableComponent } from './table/table.component';
+import { ListComponent } from './list/list.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { ChunkedTransmissionComponent } from './chunked-transmission-component/c
     VideoPlayerComponent,
     ConferenceComponent,
     ChunkedTransmissionComponent,
+    TableComponent,
+    ListComponent,
   ],
   imports: [
     BrowserModule,

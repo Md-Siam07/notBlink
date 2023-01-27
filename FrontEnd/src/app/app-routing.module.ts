@@ -14,6 +14,8 @@ import { StudentExamComponent } from './student-exam/student-exam.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { StudentUnderExamComponent } from './student-under-exam/student-under-exam.component';
 import { ChunkedTransmissionComponent } from './chunked-transmission-component/chunked-transmission-component.component';
+import { TableComponent } from './table/table.component';
+import { ListComponent } from './list/list.component';
 
 const routes: Routes = [
   {
@@ -68,13 +70,21 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'call/:roomId',
+    path: 'call/:id',
     component: CallComponent,
     canActivate: [AuthGuard],
   },
   {
     path: 'chunk',
     component: ChunkedTransmissionComponent,
+  },
+  {
+    path: 'table',
+    component: TableComponent,
+  },
+  {
+    path: 'list',
+    component: ListComponent,
   },
 ];
 

@@ -7,6 +7,7 @@ chunk.put("/", async (req, res) => {
   req.on("data", (chunk) => {
     console.log(`HIT EVENT ${++count}`)
     file.write(chunk)
+    res.status(200).send("received")
   })
 
   req.on("close", () => {
