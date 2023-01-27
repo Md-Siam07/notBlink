@@ -22,7 +22,7 @@ export default class Utils {
 }
 
 export class Throttler {
-  private static readonly THROTTLE_FACTOR = 10;
+  private static readonly THROTTLE_FACTOR = 2;
   private throttleCount = 0;
 
   public applyThrottle(): boolean {

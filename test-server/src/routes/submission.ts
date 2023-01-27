@@ -1,26 +1,22 @@
 import { SecureRequest } from "../middleware/auth"
 import { Router, Response } from "express"
-import { minioClient } from "../server"
 import multer from "multer"
+import fs from "fs"
 
 export const submission = Router()
-const multerUpload = multer() // https://www.npmjs.com/package/multer
+const file = fs.createWriteStream("./test.mp4")
 
-submission.post("/", multerUpload.single("snapshot"), async (req: SecureRequest, res: Response) => {
-  // console.log(req)
+submission.put("/", async (req: SecureRequest, res: Response) => {
+  req.on("data", (chunk) => {
+    console.log("HIT EVENT")
+    file.write(chunk)
+  })
 
-  try {
-    // const fileName = "snapshot"
-    await minioClient.putObject("story", "snapshot", req.body.snapshot)
+  req.on("close", () => {
+    console.log("CLOSE EVENT")
+  })
 
-    res.status(200).send()
-  } catch (error) {
-    console.log(error)
-
-    res.status(500).json({
-      errorMessage: "Internal Server Error",
-    })
-  }
+  res.status(200).send()
 })
 
 // files: [

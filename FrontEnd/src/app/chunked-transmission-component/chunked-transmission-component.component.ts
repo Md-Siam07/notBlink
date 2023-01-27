@@ -12,7 +12,7 @@ import { Throttler } from '../utils/utils';
   styleUrls: ['./chunked-transmission-component.component.css'],
 })
 export class ChunkedTransmissionComponent implements OnInit {
-  private readonly DELTATIME = 200;
+  private readonly DELTATIME = 500;
 
   private isStreaming = false;
   private displayMediaStream: MediaStream = null!;
@@ -51,12 +51,11 @@ export class ChunkedTransmissionComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   getScreenSize(event: any) {
-    this.triggerStream();
+    // this.triggerStream();
   }
 
   triggerStream() {
     if (this.isStreaming) {
-      this.isStreaming = false;
       return;
     }
 
@@ -66,9 +65,13 @@ export class ChunkedTransmissionComponent implements OnInit {
 
     // these callbacks decide what to do with chunk streas
     displayMediaRecorder.ondataavailable = (e: BlobEvent) => {
-      if (this.displayMediaThrottler.applyThrottle()) {
-        // this.studentService.putVdeoChunk(e.data, '');
-      }
+      this.isStreaming = true;
+      // if (this.displayMediaThrottler.applyThrottle()) {
+      //   console.log('Throttle OK');
+      // } else {
+      //   console.log('Throttle BLOCKED');
+      // }
+      this.studentService.putVdeoChunk(e.data, '');
     };
 
     userMediaRecorder.ondataavailable = (e: BlobEvent) => {

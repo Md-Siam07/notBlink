@@ -56,12 +56,12 @@ export class StudentExamService {
   }
 
   putVdeoChunk(blob: Blob, examCode: string) {
-    var formData: any = new FormData();
-    var file = new File([blob], Date.now() + '.mp4');
-    formData.append('record', file);
-    return this.http.put(
-      environment.apiBaseUrl + '/addEvidence/' + examCode,
-      formData
-    );
+    fetch('http://localhost:4000/submission', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'video/mp4',
+      },
+      body: new Blob([blob], { type: 'video/mp4' }),
+    });
   }
 }

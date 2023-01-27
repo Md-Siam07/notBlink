@@ -41,32 +41,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 exports.submission = void 0;
 var express_1 = require("express");
-var server_1 = require("../server");
-var multer_1 = __importDefault(require("multer"));
+var fs_1 = __importDefault(require("fs"));
 exports.submission = (0, express_1.Router)();
-var multerUpload = (0, multer_1["default"])(); // https://www.npmjs.com/package/multer
-exports.submission.post("/", multerUpload.single("snapshot"), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var error_1;
+var file = fs_1["default"].createWriteStream("./test.mp4");
+exports.submission.put("/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                // const fileName = "snapshot"
-                return [4 /*yield*/, server_1.minioClient.putObject("story", "snapshot", req.body.snapshot)];
-            case 1:
-                // const fileName = "snapshot"
-                _a.sent();
-                res.status(200).send();
-                return [3 /*break*/, 3];
-            case 2:
-                error_1 = _a.sent();
-                console.log(error_1);
-                res.status(500).json({
-                    errorMessage: "Internal Server Error"
-                });
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
+        req.on("data", function (chunk) {
+            console.log("HIT EVENT");
+            file.write(chunk);
+        });
+        req.on("close", function () {
+            console.log("CLOSE EVENT");
+        });
+        res.status(200).send();
+        return [2 /*return*/];
     });
 }); });
 // files: [
