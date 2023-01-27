@@ -43,8 +43,8 @@ export class StudentExamService {
     formData.append('message', notification.message);
     formData.append('phone_number', notification.phone_number);
     formData.append('screenRecord', notification.screenRecord);
-    var file = new File([blob], Date.now() + '.mp4');
-    formData.append('record', file);
+    // var file = new File([blob], Date.now() + '.mp4');
+    // formData.append('record', file);
     return this.http.put(
       environment.apiBaseUrl + '/addEvidence/' + examCode,
       formData

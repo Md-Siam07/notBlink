@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { StudentExamService } from '../shared/student-exam.service';
 import { UserService } from '../shared/user.service';
 import { MyNotification } from '../shared/notification.model';
+import { Throttler } from '../utils/utils';
 
 @Component({
   selector: 'app-chunked-transmission-component',
@@ -11,10 +12,13 @@ import { MyNotification } from '../shared/notification.model';
   styleUrls: ['./chunked-transmission-component.component.css'],
 })
 export class ChunkedTransmissionComponent implements OnInit {
+  private readonly DELTATIME = 200;
+
   private isStreaming = false;
   private displayMediaStream: MediaStream = null!;
   private userMediaStream: MediaStream = null!;
-  private deltaTime = 2000;
+  private displayMediaThrottler = new Throttler();
+  private userMediaThrottler = new Throttler();
 
   constructor(
     private examService: StudentExamService,
@@ -62,16 +66,18 @@ export class ChunkedTransmissionComponent implements OnInit {
 
     // these callbacks decide what to do with chunk streas
     displayMediaRecorder.ondataavailable = (e: BlobEvent) => {
-      // TODO
-      // this.studentService.putVdeoChunk(e.data, '');
+      if (this.displayMediaThrottler.applyThrottle()) {
+        // this.studentService.putVdeoChunk(e.data, '');
+      }
     };
 
     userMediaRecorder.ondataavailable = (e: BlobEvent) => {
-      // TODO
-      // this.studentService.putVdeoChunk(e.data, '');
+      if (this.userMediaThrottler.applyThrottle()) {
+        // this.studentService.putVdeoChunk(e.data, '');
+      }
     };
 
-    displayMediaRecorder.start(this.deltaTime);
-    userMediaRecorder.start(this.deltaTime);
+    displayMediaRecorder.start(this.DELTATIME);
+    userMediaRecorder.start(this.DELTATIME);
   }
 }
