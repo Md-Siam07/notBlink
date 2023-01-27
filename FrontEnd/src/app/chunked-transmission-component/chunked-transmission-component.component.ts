@@ -31,10 +31,16 @@ export class ChunkedTransmissionComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.displayMediaStream = await navigator.mediaDevices.getDisplayMedia({
-      video: true,
+      video: {
+        width: { ideal: 640 },
+        height: { ideal: 480 },
+      },
     });
     this.userMediaStream = await navigator.mediaDevices.getUserMedia({
-      video: true,
+      video: {
+        width: { ideal: 640 },
+        height: { ideal: 480 },
+      },
     });
   }
 
