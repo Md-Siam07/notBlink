@@ -39,13 +39,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-exports.submission = void 0;
+exports.chunk = void 0;
 var express_1 = require("express");
 var fs_1 = __importDefault(require("fs"));
-exports.submission = (0, express_1.Router)();
+exports.chunk = (0, express_1.Router)();
 var file = fs_1["default"].createWriteStream("./test.mp4");
 var count = 1;
-exports.submission.put("/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+exports.chunk.put("/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         req.on("data", function (chunk) {
             console.log("HIT EVENT ".concat(++count));

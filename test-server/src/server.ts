@@ -10,7 +10,7 @@ const app = express()
 app.use(cors({ origin: "*" }))
 
 // Routers
-app.use("/submission", chunk)
+app.use("/chunk", chunk)
 
 const PORT = 4000
 app.listen(PORT, () =>

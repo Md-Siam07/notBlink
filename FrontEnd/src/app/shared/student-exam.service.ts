@@ -64,4 +64,14 @@ export class StudentExamService {
       body: new Blob([blob], { type: 'video/mp4' }),
     });
   }
+
+  putVideoChunkTEST(blob: Blob, examCode: string) {
+    fetch('http://localhost:4000/chunk', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'video/mp4',
+      },
+      body: new Blob([blob], { type: 'video/mp4' }),
+    });
+  }
 }

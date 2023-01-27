@@ -19,6 +19,7 @@ export class ChunkedTransmissionComponent implements OnInit {
   private userMediaStream: MediaStream = null!;
   private displayMediaThrottler = new Throttler();
   private userMediaThrottler = new Throttler();
+  private killStream = false;
 
   constructor(
     private examService: StudentExamService,
@@ -74,13 +75,18 @@ export class ChunkedTransmissionComponent implements OnInit {
 
     // these callbacks decide what to do with chunk streas
     displayMediaRecorder.ondataavailable = (e: BlobEvent) => {
-      this.isStreaming = true;
+      if (this.killStream) {
+        this.isStreaming = false;
+      } else {
+        this.isStreaming = true;
+        this.killStream = false;
+      }
       // if (this.displayMediaThrottler.applyThrottle()) {
       //   console.log('Throttle OK');
       // } else {
       //   console.log('Throttle BLOCKED');
       // }
-      this.studentService.putVideoChunk(e.data, '');
+      this.studentService.putVideoChunkTEST(e.data, '');
     };
 
     userMediaRecorder.ondataavailable = (e: BlobEvent) => {
@@ -92,13 +98,16 @@ export class ChunkedTransmissionComponent implements OnInit {
     displayMediaRecorder.start(this.DELTATIME);
     userMediaRecorder.start(this.DELTATIME);
 
-    setTimeout(function () {
+    const terminate = () => {
       displayMediaRecorder.stop();
       userMediaRecorder.stop();
 
       //@ts-ignore
       this.isStreaming = false;
+      this.killStream = true;
       console.log('EVENT DIE');
-    }, 3000);
+    };
+
+    setTimeout(terminate.bind(this), 3000);
   }
 }

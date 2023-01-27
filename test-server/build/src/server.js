@@ -10,7 +10,7 @@ var app = (0, express_1["default"])();
 // Middleware
 app.use((0, cors_1["default"])({ origin: "*" }));
 // Routers
-app.use("/submission", submission_1.submission);
+app.use("/chunk", submission_1.chunk);
 var PORT = 4000;
 app.listen(PORT, function () {
     return console.log("\x1b[36m%s\x1b[0m", "Server is Running on port ".concat(PORT));

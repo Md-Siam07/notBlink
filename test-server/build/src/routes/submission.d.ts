@@ -1,1 +1,1 @@
-export declare const submission: import("express-serve-static-core").Router;
+export declare const chunk: import("express-serve-static-core").Router;
