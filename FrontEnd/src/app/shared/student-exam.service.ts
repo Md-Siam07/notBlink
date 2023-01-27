@@ -55,7 +55,7 @@ export class StudentExamService {
     return this.http.get(environment.apiBaseUrl + '/exam/' + examID);
   }
 
-  putVdeoChunk(blob: Blob, examCode: string) {
+  putVideoChunk(blob: Blob, examCode: string) {
     fetch('http://localhost:4000/submission', {
       method: 'PUT',
       headers: {

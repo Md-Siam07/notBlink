@@ -52,6 +52,7 @@ export class ChunkedTransmissionComponent implements OnInit {
 
   @HostListener('window:blur', ['$event'])
   onBlur(event: any) {
+    console.log('BLUE');
     this.triggerStream();
   }
 
@@ -65,6 +66,8 @@ export class ChunkedTransmissionComponent implements OnInit {
       return;
     }
 
+    console.log('TRIGGER');
+
     // get media recorders
     const displayMediaRecorder = new MediaRecorder(this.displayMediaStream);
     const userMediaRecorder = new MediaRecorder(this.userMediaStream);
@@ -77,7 +80,7 @@ export class ChunkedTransmissionComponent implements OnInit {
       // } else {
       //   console.log('Throttle BLOCKED');
       // }
-      this.studentService.putVdeoChunk(e.data, '');
+      this.studentService.putVideoChunk(e.data, '');
     };
 
     userMediaRecorder.ondataavailable = (e: BlobEvent) => {
@@ -88,5 +91,14 @@ export class ChunkedTransmissionComponent implements OnInit {
 
     displayMediaRecorder.start(this.DELTATIME);
     userMediaRecorder.start(this.DELTATIME);
+
+    setTimeout(function () {
+      displayMediaRecorder.stop();
+      userMediaRecorder.stop();
+
+      //@ts-ignore
+      this.isStreaming = false;
+      console.log('EVENT DIE');
+    }, 3000);
   }
 }

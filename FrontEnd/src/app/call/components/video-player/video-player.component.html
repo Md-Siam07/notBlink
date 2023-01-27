@@ -1,7 +1,7 @@
 <div class="video-player"
      [ngClass]="{'my-video': mode === 'owner'}">
      <video #videoPlayer
-            muted></video>
+            muted hidden></video>
      <div class="action">
           <img alt="Mute or Unmute"
                *ngIf="micIconSrc"
