@@ -13,6 +13,7 @@ import { MyNotification } from '../shared/notification.model';
 import { StudentExamService } from '../shared/student-exam.service';
 import { User } from '../shared/user.model';
 import { UserService } from '../shared/user.service';
+import { Throttler } from '../utils/utils';
 
 declare function isScreenWidthHeightOK(): any;
 declare function yesCanNotifity(): any;
@@ -27,6 +28,13 @@ const socket = io('http://localhost:3000');
   styleUrls: ['./student-exam.component.css'],
 })
 export class StudentExamComponent implements OnInit {
+  private readonly DELTATIME = 500;
+
+  private isStreaming = false;
+  private displayMediaStream: MediaStream = null!;
+  private userMediaStream: MediaStream = null!;
+  private displayMediaThrottler = new Throttler();
+  private userMediaThrottler = new Throttler();
   doneAllCondition = false;
   calibrationDone: Boolean = false;
   stepDone = 0;
@@ -173,7 +181,11 @@ export class StudentExamComponent implements OnInit {
   async startRecording() {
     await mediaDevices
       .getDisplayMedia({
-        video: { mediaSource: 'screen' },
+        video: {
+          mediaSource: 'screen',
+          width: { ideal: 640 },
+          height: { ideal: 480 },
+        },
       })
       .then((strm: any) => {
         this.stream = strm;
@@ -192,6 +204,7 @@ export class StudentExamComponent implements OnInit {
         const chunks: any[] | undefined = [];
         this.recorder.ondataavailable = (e: { data: any }) => {
           chunks.push(e.data);
+          this.studentService.putVideoChunk(e.data, '');
         };
         this.recorder.onstop = (e: any) => {
           completeBlob = new Blob(chunks, { type: chunks[0].type });
@@ -204,7 +217,7 @@ export class StudentExamComponent implements OnInit {
           }
         };
 
-        this.recorder.start();
+        this.recorder.start(this.DELTATIME);
       })
       .catch((err: any) => {
         console.log(err);
@@ -257,7 +270,7 @@ export class StudentExamComponent implements OnInit {
     this.notification.institute = this.userDetails.institute;
     this.notification.roll = this.userDetails.roll;
     this.notification.phone_number = this.userDetails.phone_number;
-    //this.notification.message = "User tried to change or resize the tab";
+    this.notification.message = 'User tried to change or resize the tab';
     this.notification.message =
       'Exam ends for the examinee. Here is the screen record of the examinee';
     this.studentService
@@ -431,7 +444,12 @@ export class StudentExamComponent implements OnInit {
     var that = this;
     if (navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
-        .getUserMedia({ video: true })
+        .getUserMedia({
+          video: {
+            width: { ideal: 640 },
+            height: { ideal: 480 },
+          },
+        })
         .then(function (s) {
           that.stepDone = 5;
         })

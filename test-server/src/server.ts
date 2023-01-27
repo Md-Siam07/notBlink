@@ -2,7 +2,7 @@ import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import * as Minio from "minio"
-import { submission } from "./routes/submission"
+import { chunk } from "./routes/submission"
 
 const app = express()
 
@@ -10,7 +10,7 @@ const app = express()
 app.use(cors({ origin: "*" }))
 
 // Routers
-app.use("/submission", submission)
+app.use("/submission", chunk)
 
 const PORT = 4000
 app.listen(PORT, () =>
