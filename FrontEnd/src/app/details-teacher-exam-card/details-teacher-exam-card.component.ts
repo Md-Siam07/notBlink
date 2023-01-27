@@ -199,7 +199,9 @@ export class DetailsTeacherExamCardComponent implements OnInit {
         this.examService.getParticipant(participantID).subscribe(
           (res: any) => {
             this.tempUser = res as User;
-            this.participants.push(JSON.parse(JSON.stringify(this.tempUser)));
+            if (this.tempUser != null) {
+              this.participants.push(JSON.parse(JSON.stringify(this.tempUser)));
+            }
           },
           (err: any) => {}
         );

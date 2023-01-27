@@ -25,8 +25,6 @@ export class ListComponent implements OnInit {
       email: this.userService.email,
       type: this.userService.type,
     });
-    console.log('MARSHALL', marshall);
-
     fetch(environment.apiBaseUrl + '/viewData', {
       method: 'POST',
       headers: {
