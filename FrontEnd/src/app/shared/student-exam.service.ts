@@ -5,44 +5,63 @@ import { environment } from 'src/environments/environment';
 import { MyNotification } from './notification.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StudentExamService {
-
   exams: Exam[] = [];
-  selectedExam : Exam = new Exam();
+  selectedExam: Exam = new Exam();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  joinExam(joinCredential: any, examCode: string){
-    return this.http.put(environment.apiBaseUrl+'/joinExam/' + examCode, joinCredential);
+  joinExam(joinCredential: any, examCode: string) {
+    return this.http.put(
+      environment.apiBaseUrl + '/joinExam/' + examCode,
+      joinCredential
+    );
   }
 
-  retrieveExam(studentID: string){
-    return this.http.get(environment.apiBaseUrl + '/student/exams/' + studentID);
+  retrieveExam(studentID: string) {
+    return this.http.get(
+      environment.apiBaseUrl + '/student/exams/' + studentID
+    );
   }
 
-  leaveExam(leaveCredential: any, examCode: string){
-    return this.http.put(environment.apiBaseUrl + '/student/exams/' + examCode, leaveCredential);
+  leaveExam(leaveCredential: any, examCode: string) {
+    return this.http.put(
+      environment.apiBaseUrl + '/student/exams/' + examCode,
+      leaveCredential
+    );
   }
 
-  notify(notification: MyNotification, examCode: string, blob:Blob){
+  notify(notification: MyNotification, examCode: string, blob: Blob) {
     var formData: any = new FormData();
-    formData.append('batch' , notification.batch);
-    formData.append('cameraRecord' , notification.cameraRecord);
-    formData.append('email' , notification.email);
-    formData.append('fullName' , notification.fullName);
-    formData.append('institute' , notification.institute);
-    formData.append('message' , notification.message);
-    formData.append('phone_number' , notification.phone_number);
-    formData.append('screenRecord' , notification.screenRecord);
-    var file = new File([blob], Date.now()+ '.mp4')
+    formData.append('batch', notification.batch);
+    formData.append('cameraRecord', notification.cameraRecord);
+    formData.append('email', notification.email);
+    formData.append('fullName', notification.fullName);
+    formData.append('institute', notification.institute);
+    formData.append('message', notification.message);
+    formData.append('phone_number', notification.phone_number);
+    formData.append('screenRecord', notification.screenRecord);
+    var file = new File([blob], Date.now() + '.mp4');
     formData.append('record', file);
-    return this.http.put(environment.apiBaseUrl + '/addEvidence/' + examCode, formData);
+    return this.http.put(
+      environment.apiBaseUrl + '/addEvidence/' + examCode,
+      formData
+    );
   }
 
-  getSingleExamDetails(examID: string){
+  getSingleExamDetails(examID: string) {
     return this.http.get(environment.apiBaseUrl + '/exam/' + examID);
   }
 
+  putVdeoChunk(blob: Blob, examCode: string) {
+    var formData: any = new FormData();
+    var file = new File([blob], Date.now() + '.mp4');
+    formData.append('record', file);
+    return this.http.put(
+      environment.apiBaseUrl + '/addEvidence/' + examCode,
+      formData
+    );
+  }
 }

@@ -13,6 +13,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { StudentExamComponent } from './student-exam/student-exam.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { StudentUnderExamComponent } from './student-under-exam/student-under-exam.component';
+import { ChunkedTransmissionComponent } from './chunked-transmission-component/chunked-transmission-component.component';
 
 const routes: Routes = [
   {
@@ -22,7 +23,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'login',
@@ -30,51 +31,55 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'userprofile',
     component: UserProfileComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'student/exam/:id',
     component: StudentExamComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'teacher/examdetails/:id',
     component: DetailsTeacherExamCardComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'student/examdetails/:id',
     component: DetailsStudentExamCardComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'verify',
-    component: OtpVerificationComponent
+    component: OtpVerificationComponent,
   },
   {
     path: 'teacher/examdetails/:id1/:id2',
     component: StudentUnderExamComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'call',
     component: ConferenceComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'call/:roomId',
     component: CallComponent,
-    canActivate: [AuthGuard]
-  }
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'chunk',
+    component: ChunkedTransmissionComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

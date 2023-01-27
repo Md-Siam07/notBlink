@@ -12,7 +12,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxPrintModule } from 'ngx-print';
 
-
 //routes
 import { appRoutes } from './routes';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -41,6 +40,7 @@ import { StudentUnderExamComponent } from './student-under-exam/student-under-ex
 import { FaceRecognitionComponent } from './student-exam/face-recognition/face-recognition.component';
 import { CallComponent } from './call/components/call/call.component';
 import { VideoPlayerComponent } from './call/components/video-player/video-player.component';
+import { ChunkedTransmissionComponent } from './chunked-transmission-component/chunked-transmission-component.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +65,8 @@ import { VideoPlayerComponent } from './call/components/video-player/video-playe
     FaceRecognitionComponent,
     CallComponent,
     VideoPlayerComponent,
-    ConferenceComponent
+    ConferenceComponent,
+    ChunkedTransmissionComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,13 +83,19 @@ import { VideoPlayerComponent } from './call/components/video-player/video-playe
       progressBar: true,
       positionClass: 'toast-bottom-center',
       preventDuplicates: true,
-    })
+    }),
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  },UserService, AuthGuard, PeerService, SocketService],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    UserService,
+    AuthGuard,
+    PeerService,
+    SocketService,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
