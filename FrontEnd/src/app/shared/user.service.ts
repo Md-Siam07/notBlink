@@ -50,6 +50,9 @@ export class UserService {
     formData.append('image', file);
     return this.http.post( environment.apiBaseUrl+'/register' , formData, this.noAuthHeader)
   }
+  register(data: any) {
+    return this.http.post(environment.mlUrl, data);
+  }
 
   login(authCredentials: any){
     return this.http.post(environment.apiBaseUrl + '/authenticate', authCredentials, this.noAuthHeader);

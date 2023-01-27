@@ -16,7 +16,7 @@ export class SignUpComponent implements OnInit {
   passwordMismatch : boolean = false;
   cPassword: string = "";
   file!: File;
-
+  uploadata = new FormData();
   response = {
     userId: '',
     email: ''
@@ -50,6 +50,9 @@ export class SignUpComponent implements OnInit {
       (res:any) => {
         this.response = res['data'];
         this.userService.setResponse(this.response.userId, this.response.email);
+
+        this.registerToDjangoBackend(this.response.userId);
+        
         this.router.navigateByUrl('verify');
       },
       err => {
@@ -62,6 +65,18 @@ export class SignUpComponent implements OnInit {
       }
     )
   }
+
+  registerToDjangoBackend(id : string){
+    console.log("reached here")
+    this.uploadata.append('id', id);
+    this.uploadata.append('username', "X");
+    this.uploadata.append('img', this.file);
+    
+    this.userService.register(this.uploadata).subscribe(response=>{
+      console.log(response.toString());
+    });
+  }
+
 
   resetForm(){
     this.selectedUser.fullName = "";

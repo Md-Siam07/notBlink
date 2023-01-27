@@ -41,7 +41,16 @@ module.exports.register = (req, res, next) => {
         user.save( 
             (err, doc) =>{
             if(!err){
-                sendOTPVerificationEmail(doc, res)
+                //sendOTPVerificationEmail(doc, res)
+                //res.status(200).send(['Registration Successful']);
+                res.json({
+                    status: "PENDING",
+                    message: "Verification otp sent",
+                    data: {
+                        userId: doc._id,
+                        //req.body.email
+                    }
+                })
             }
             else{
                 if(err.code == 11000)

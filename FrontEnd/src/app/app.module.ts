@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxPrintModule } from 'ngx-print';
 import { WebcamModule } from 'ngx-webcam';
+import { AgGridModule } from 'ag-grid-angular';
 // import { NgxPrintModule } from 'ngx-print';
 
 //routes
@@ -45,6 +46,7 @@ import { VideoPlayerComponent } from './call/components/video-player/video-playe
 import { FeaturesComponent } from './features/features.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { SnapshotComponent } from './snapshot/snapshot.component';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
   declarations: [
@@ -72,13 +74,15 @@ import { SnapshotComponent } from './snapshot/snapshot.component';
     ConferenceComponent,
     FeaturesComponent,
     PricingComponent,
-    SnapshotComponent
+    SnapshotComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CommonModule,
     FormsModule,
+    AgGridModule,
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
     HttpClientModule,

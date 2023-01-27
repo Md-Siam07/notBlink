@@ -1,3 +1,6 @@
+
+
+<app-table></app-table>
 <div class=" main-bg">
   <div class="container">
     <div class="row">
@@ -29,7 +32,7 @@
               <button type="button" class="btn btn-danger btn-outline-danger mb-2" data-bs-toggle="modal" data-bs-target="#exampleModalDel" (click)="onClick(examDetails)">Delete Exam </button>&nbsp;
               <button type="button" class="btn btn-info btn-outline-info mb-2" data-bs-toggle="modal" data-bs-target="#guideModal">Guidelines </button>&nbsp;
               <button printSectionId="makePDF" ngxPrint type="button" class="btn btn-outline-secondary btn-secondary mb-2">Notification Print</button>
-              <!-- <app-conference></app-conference> -->
+             
             </div>
             <br>
           </div>
@@ -82,17 +85,7 @@
               </div>
             </div>
 
-
-            <!-- <div class="chatbox__messages" *ngFor="let msg of messageList; let i = index" [ngClass]="{mine: messageList[i].mine}">
-              <div class="user-message">
-                <div class="message-box">
-                  <p class="name">{{ msg.userName }}</p>
-                  <br/>
-                  <p class="message">{{msg.message }}</p>
-                </div>
-              </div>
-            </div> -->
-
+    
           </div>
           <div class="row2 row">
             <div class="col-10">
@@ -118,7 +111,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <!-- <b>Just Now </b><br> -->
+   
             <hr>
             Student Name: {{notification.fullName}} <br>
             Time: {{notification.time }} <br>
@@ -132,7 +125,6 @@
     </div>
   </div>
 </div>
-
 <!--Modal Class-->
     <!--Invitation-->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

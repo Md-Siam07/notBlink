@@ -1,5 +1,5 @@
 .main-bg {
-  background: #ffffff;
+  /* background: #ffffff; */
   min-height:100vh;
   padding-top: 88px;
 }
@@ -16,7 +16,9 @@
   max-height: 400px;
   overflow-y: scroll;
 }
-
+.group:focus .group-focus\:flex {
+  display: flex;
+}
 .chatbox {
   color: #1363bf;
   border: 1px solid #1363bf;

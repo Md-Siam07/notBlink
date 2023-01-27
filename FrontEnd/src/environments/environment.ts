@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiBaseUrl: 'http://localhost:3000/api',
-  mlUrl:"http://localhost:8000/api/users"
+  mlUrl:"http://localhost:8000/api/users/"
 };
 
 /*

@@ -36,10 +36,10 @@
                             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onClick(exam)">Invite </button>
                             <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModalEdit" (click)="onClick(exam)">Edit Exam </button>
                             <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModalDel" (click)="onClick(exam)">Delete Exam </button>
+                            <button type="button" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"  routerLink="['teacher/examdetails', '{{exam._id}}']" (click)="viewMoreRouting(exam)">Details</button>
+                          
                           </div>
-                          <div class="widget-49-meeting-action">
-                              <a class="btn btn-sm btn-flash-border-success"  routerLink="['teacher/examdetails', '{{exam._id}}']" (click)="viewMoreRouting(exam)">View MORE</a>
-                          </div>
+                         
                       </div>
                   </div>
               </div>

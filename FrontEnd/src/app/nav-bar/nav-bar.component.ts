@@ -14,14 +14,19 @@ export class NavBarComponent implements OnInit {
   userDetails = new User();
   userid: string = "";
   isCollapsed: boolean = true;
-
+  isLoggedIn: boolean=false;
   constructor(private userService: UserService, private router: Router) { }
 
   status: boolean = false;
-
+  dropdown: boolean= false;
   ngOnInit(): void {
+    this.getProfile();
   }
-
+  
+  dropdownInvert(){
+    this.dropdown=!this.dropdown;
+    console.log(this.dropdown)
+  }
   getStatus():boolean{
     return localStorage.getItem('loginStatus') == 'true';
   }
@@ -31,7 +36,7 @@ export class NavBarComponent implements OnInit {
       (res:any) => {
         this.userDetails = res['user'];
         this.userid = res._id;
-        console.log(this.userDetails)
+        this.isLoggedIn=true;
       },
       (err:any) => {}
     );
@@ -47,6 +52,7 @@ export class NavBarComponent implements OnInit {
     this.userService.loginStatus = false;
     localStorage.setItem('loginStatus', 'false');
     this.router.navigateByUrl('/login');
+    this.isLoggedIn=false;
   }
   goHome=():void=>{
     this.router.navigateByUrl("");

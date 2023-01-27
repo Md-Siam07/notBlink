@@ -4,6 +4,8 @@ import { Exam } from '../shared/exam.model';
 import { ExamService } from '../shared/exam.service';
 import { MyNotification } from '../shared/notification.model';
 import { User } from '../shared/user.model';
+import { AgGridAngular } from 'ag-grid-angular';
+import { CellClickedEvent, ColDef } from 'ag-grid-community';
 
 import io from 'socket.io-client';
 import { BehaviorSubject, observable, Observable, tap, timer } from 'rxjs';
@@ -44,7 +46,18 @@ export class DetailsTeacherExamCardComponent implements OnInit {
     [11, "NOV"],
     [12, "DEC"]
   ]);
+  columnDefs: ColDef[] = [
+    { field: 'make' },
+    { field: 'model' },
+    { field: 'price' }
+];
 
+rowData = [
+    { make: 'Toyota', model: 'Celica', price: 35000 },
+    { make: 'Ford', model: 'Mondeo', price: 32000 },
+    { make: 'Porsche', model: 'Boxster', price: 72000 }
+];
+  
   model = {
     examCode: this.selectedExam._id,
     recipiennt: ''
