@@ -2,7 +2,7 @@
 
 To run !Blink, first clone this repository (for hackathon: branch: dev-rudro, chunk, frontend_rework, dev, snapshot)
 Run the node backend:
--cd server
+-cd server <br>
 -npm i
 -node app.js
 Run peerjs:
