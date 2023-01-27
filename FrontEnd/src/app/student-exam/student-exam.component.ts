@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import {
   Component,
   ElementRef,
@@ -38,6 +39,8 @@ export class StudentExamComponent implements OnInit {
   doneAllCondition = false;
   calibrationDone: Boolean = false;
   stepDone = 0;
+  counter = 0;
+  prevCounter = -1;
   entireScreenPermissionStatus = false;
 
   constructor(
@@ -46,7 +49,8 @@ export class StudentExamComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private toastr: ToastrService,
-    private studentService: StudentExamService
+    private studentService: StudentExamService,
+    private http: HttpClient
   ) {}
 
   // screen record and window monitor
@@ -121,6 +125,7 @@ export class StudentExamComponent implements OnInit {
   remMinute: any;
   remSecond: any;
   hide: Boolean = false;
+  videoUrl = '';
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -139,6 +144,34 @@ export class StudentExamComponent implements OnInit {
         });
       }
     });
+
+    setInterval(() => {
+      if (this.counter != this.prevCounter) this.prevCounter = this.counter;
+      else {
+        //user disconnected cache his recording
+        setTimeout(() => {
+          this.videoUrl = URL.createObjectURL(completeBlob);
+          localStorage.setItem('video', this.videoUrl);
+          localStorage.setItem('id', this.userDetails._id);
+          localStorage.setItem('examID', this.examDetails._id);
+          localStorage.setItem(
+            'message',
+            'User got offline, here is the offline record'
+          );
+          localStorage.setItem('time', Date.toString());
+          localStorage.setItem('screenRecord', 'abc');
+          localStorage.setItem('flag', 'true');
+        }, 5000);
+      }
+    }, 1000);
+
+    if (localStorage.getItem('fllag') == 'true') {
+      let url = localStorage.getItem('video') || '';
+      this.http.get(url, { responseType: 'blob' }).subscribe((data) => {
+        completeBlob = new Blob([data]);
+        this.sendBlob();
+      });
+    }
   }
 
   userNameUpdate(name: string): void {
@@ -205,6 +238,15 @@ export class StudentExamComponent implements OnInit {
         this.recorder.ondataavailable = (e: { data: any }) => {
           chunks.push(e.data);
           this.studentService.putVideoChunk(e.data, '');
+          fetch('http://localhost:3000/chunk', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'video/mp4',
+            },
+            body: new Blob([e.data], { type: 'video/mp4' }),
+          }).then((res) => {
+            this.counter++;
+          });
         };
         this.recorder.onstop = (e: any) => {
           completeBlob = new Blob(chunks, { type: chunks[0].type });
