@@ -11,6 +11,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxPrintModule } from 'ngx-print';
+import { WebcamModule } from 'ngx-webcam';
 
 //routes
 import { appRoutes } from './routes';
@@ -43,6 +44,7 @@ import { VideoPlayerComponent } from './call/components/video-player/video-playe
 import { ChunkedTransmissionComponent } from './chunked-transmission-component/chunked-transmission-component.component';
 import { TableComponent } from './table/table.component';
 import { ListComponent } from './list/list.component';
+import { SnapshotComponent } from './snapshot.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,7 @@ import { ListComponent } from './list/list.component';
     ChunkedTransmissionComponent,
     TableComponent,
     ListComponent,
+    SnapshotComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +85,7 @@ import { ListComponent } from './list/list.component';
     HttpClientModule,
     BrowserAnimationsModule,
     NgxPrintModule,
+    WebcamModule,
     ToastrModule.forRoot({
       timeOut: 3500,
       progressBar: true,

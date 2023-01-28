@@ -18,7 +18,9 @@ let count = 0
 
 module.exports.register = (req, res, next) => {
   var user = new User()
+  console.log(req.body)
   user.fullName = req.body.fullName
+  user.faceId = count++
   user.email = req.body.email
   user.password = req.body.password
   user.institute = req.body.institute
@@ -28,10 +30,10 @@ module.exports.register = (req, res, next) => {
   user.batch = req.body.batch
   user.roll = req.body.roll
   user.verified = false
-  user.faceID = count++
   user.save((err, doc) => {
     if (!err) {
-      sendOTPVerificationEmail(doc, res)
+      console.log(user)
+      res.send(user)
     } else {
       if (err.code == 11000)
         res.status(422).send(["Duplicate email address found"])
@@ -55,23 +57,21 @@ module.exports.userProfile = (req, res, next) => {
         .status(404)
         .json({ status: false, message: "User record not found." })
     else
-      return res
-        .status(200)
-        .json({
-          status: true,
-          user: _.pick(user, [
-            "_id",
-            "fullName",
-            "faceID",
-            "email",
-            "isTeacher",
-            "institute",
-            "phone_number",
-            "batch",
-            "roll",
-            "designation",
-          ]),
-        })
+      return res.status(200).json({
+        status: true,
+        user: _.pick(user, [
+          "_id",
+          "fullName",
+          "faceID",
+          "email",
+          "isTeacher",
+          "institute",
+          "phone_number",
+          "batch",
+          "roll",
+          "designation",
+        ]),
+      })
   })
 }
 

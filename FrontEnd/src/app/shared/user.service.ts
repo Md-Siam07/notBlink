@@ -45,12 +45,28 @@ export class UserService {
   changeStatus() {
     localStorage.setItem('loginStatus', 'true');
   }
-  postUser(user: User) {
+  postUser(user: User, file: File) {
+    var formData: any = new FormData();
+    formData.append('fullName', user.fullName);
+    formData.append('email', user.email);
+    formData.append('password', user.password);
+    formData.append('institute', user.institute);
+    formData.append('phone_number', user.phone_number);
+    formData.append('designation', user.designation);
+    formData.append('bactch', user.batch || 0);
+    formData.append('roll', user.roll || 0);
+    formData.append('isTeacher', user.isTeacher);
+    formData.append('image', file);
+    console.log(user);
     return this.http.post(
       environment.apiBaseUrl + '/register',
-      user,
+      formData,
       this.noAuthHeader
     );
+  }
+
+  register(data: any) {
+    return this.http.post(environment.apiHelperUrl, data);
   }
 
   login(authCredentials: any) {
@@ -103,5 +119,8 @@ export class UserService {
   }
   resendOTP(response: any) {
     return this.http.post(environment.apiBaseUrl + '/resendOTP', response);
+  }
+  sendSnapShot(req: any) {
+    return this.http.post('http://localhost:8000/recognize/', req);
   }
 }
