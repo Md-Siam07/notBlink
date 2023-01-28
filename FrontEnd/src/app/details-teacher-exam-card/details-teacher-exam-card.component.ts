@@ -117,7 +117,7 @@ export class DetailsTeacherExamCardComponent implements OnInit {
   goTable(a: any) {
     this.userService.examNum = a;
     console.log('herer' + this.userService.examNum);
-    this.router.navigateByUrl('table');
+    this.router.navigateByUrl(`table/${this.id}`);
   }
   userNameUpdate(name: string): void {
     //this.socket = io.io(`https://chat-competent-programming.herokuapp.com/?userName=${name}`);

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { UserService } from '../shared/user.service';
 
@@ -13,7 +13,8 @@ export class TableComponent implements OnInit {
   constructor(
     private userService: UserService,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
   id: string = '63d3c99796ffaca8c95042d5';
   data = {};
@@ -23,9 +24,11 @@ export class TableComponent implements OnInit {
   listArr = new Array();
   name: string = 'dummy';
   ngOnInit(): void {
+    this.id = this.activatedRoute.snapshot.params['id'];
     this.func();
     // this.id = this.userService.examNum;
   }
+
   func() {
     this.http
       .post(environment.apiBaseUrl + '/report', { id: this.id })
@@ -62,7 +65,7 @@ export class TableComponent implements OnInit {
 
     console.log('VIEW', a);
 
-    this.router.navigateByUrl('list');
+    this.router.navigateByUrl(`list/${this.id}`);
   };
   evaluate = (a: any): boolean => {
     return a > 1;

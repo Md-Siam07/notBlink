@@ -79,11 +79,12 @@ const routes: Routes = [
     component: ChunkedTransmissionComponent,
   },
   {
-    path: 'table',
+    path: 'table/:id',
+
     component: TableComponent,
   },
   {
-    path: 'list',
+    path: 'list/:id',
     component: ListComponent,
   },
 ];

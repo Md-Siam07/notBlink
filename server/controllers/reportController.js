@@ -57,43 +57,26 @@ module.exports.generateTable = (req, res) => {
 
 module.exports.viewData = (req, res) => {
   try {
-    console.log("CONTROLLER")
-    console.log(req.body)
+    // console.log("CONTROLLER")
+    console.log("LOGG", req.body)
+
     let id = req.body.id
-    let type = req.body.type
+    let message = req.body.type
     let email = req.body.email
 
     Exam.findOne({ _id: id }, (err, obj1) => {
-      if (err) {
-        return res.send("No data found")
-      } else {
-        let obj = {
-          notification: [],
-          notification1: [],
-        }
+      const notification = obj1.notification
 
-        console.log(type)
-        console.log(email)
-        console.log(obj1.notification.length)
+      console.log("NOT", notification)
 
-        for (let i in obj1.notification) {
-          if (
-            obj1.notification[i].message == type &&
-            obj1.notification[i].email == email
-          ) {
-            obj.notification1.push(obj1.notification[i])
-          }
-        }
+      const finalRes = notification
+        .filter((struct) => struct.message == message)
+        .filter((struct) => struct.email == email)
 
-        obj.notification = obj.notification1.sort(function (a, b) {
-          return b.time - a.time
-        })
-        console.log(obj.notification.length)
-
-        return res.send(obj.notification)
-      }
+      console.log(finalRes.length)
+      res.json(finalRes)
     })
   } catch (error) {
-    return res.send(error)
+    res.send(error)
   }
 }

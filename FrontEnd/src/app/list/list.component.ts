@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { UserService } from '../shared/user.service';
 
@@ -13,15 +13,18 @@ export class ListComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private activatedRoute: ActivatedRoute
   ) {}
+  id = '';
   arr = new Array();
   name = '';
   listArr = new Array();
 
   ngOnInit(): void {
+    this.id = this.activatedRoute.snapshot.params['id'];
     const marshall = JSON.stringify({
-      id: this.userService.examNum,
+      id: this.id,
       email: this.userService.email,
       type: this.userService.type,
     });
@@ -32,19 +35,21 @@ export class ListComponent implements OnInit {
       },
       body: marshall,
     })
-      .then((res: any) => {
-        console.log('RESPONSE', res);
+      .then((res) =>
+        res.json().then((res: any) => {
+          console.log('RESPONSE', res);
 
-        for (let i in res) {
-          let dt = new Date(res[i].time);
-          console.log(dt);
-          let tm = dt;
-          this.listArr.push({
-            message: res[i].message,
-            time: tm,
-          });
-        }
-      })
+          for (let i in res) {
+            let dt = new Date(res[i].time);
+            console.log(dt);
+            let tm = dt;
+            this.listArr.push({
+              message: res[i].message,
+              time: tm,
+            });
+          }
+        })
+      )
       .catch((err) => {
         console.log('ERROR');
       });
