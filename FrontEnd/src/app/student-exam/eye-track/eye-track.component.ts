@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 declare function startTrack(time_limit: number): any;
 declare function suspectedStatus(): any;
 declare function stopWebGazer(): any;
-const socket = io('http://localhost:3000');
+const socket = io('https://exam-server.xpeedlab.tech');
 
 const mediaDevices = navigator.mediaDevices as any;
 let completeBlob: Blob;

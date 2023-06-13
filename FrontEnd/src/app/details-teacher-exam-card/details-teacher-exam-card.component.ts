@@ -10,7 +10,7 @@ import { BehaviorSubject, observable, Observable, tap, timer } from 'rxjs';
 import { UserService } from '../shared/user.service';
 import { ToastrService } from 'ngx-toastr';
 
-const socket = io('http://localhost:3000');
+const socket = io('https://exam-server.xppedlab.tech');
 
 @Component({
   selector: 'app-details-teacher-exam-card',

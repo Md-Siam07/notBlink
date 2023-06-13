@@ -12,7 +12,7 @@ declare function screenWidthHeight():any;
 
 const mediaDevices = navigator.mediaDevices as any;
 let completeBlob: Blob;
-const socket = io('http://localhost:3000');
+const socket = io('https://exam-server.xpeedlab.tech');
 
 declare var MediaRecorder: any;
 @Component({

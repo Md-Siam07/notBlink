@@ -47,7 +47,7 @@ function isScreenWidthHeightOK(){
   var windowWidth = window.innerWidth;
   var windowHeight = window.innerHeight;
 
-  return (screenWidth == windowWidth && screenHeight*0.8 <= windowHeight);
+  return (screenWidth*0.8 <= windowWidth && screenHeight*0.8 <= windowHeight);
 }
 
 function stopWebGazer(){

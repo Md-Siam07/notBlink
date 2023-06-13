@@ -6,7 +6,7 @@ import { UserService } from 'src/app/shared/user.service';
 import io from 'socket.io-client';
 import { ActivatedRoute } from '@angular/router';
 
-const socket = io('http://localhost:3000');
+const socket = io('https://exam-server.xpeedlab.tech');
 declare function isScreenWidthHeightOK():any;
 @Component({
   selector: 'app-window-monitoring',
