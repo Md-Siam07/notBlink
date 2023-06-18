@@ -183,7 +183,10 @@ module.exports.addEvidence = (req, res, next) => {
 
 module.exports.getNotification = (req, res, next) => {
     Exam.findById(req.params.id, (err, doc) => {
-        if(!err) res.send(doc.notification);
+        if(!err) {
+            const notification = doc.notification.reverse();
+            res.send(notification);
+        }
         else {
             console.log(`Error in retriving notification`);
         }
@@ -201,5 +204,36 @@ module.exports.addAnswer = (req, res, next) => {
         phone_number: req.body.phone_number,
         asnwerURL: screenRecord = url + '/public/' + req.file.filename
     };
-    Exam.findByIdAndUpdate(req.params.id, )
+    Exam.findByIdAndUpdate(req.params.id, {$push: {answer: answer}}, {new:true}, (err, doc) => {
+        if(!err) {
+            console.log(answer)
+            res.send(doc);}
+        else{
+            console.log(`Error in add answer: `+ JSON.stringify(err, undefined, 2));
+        }
+    })
+}
+
+module.exports.getAllAnswers = (req, res) => {
+    Exam.findById(req.params.id, (err, doc) => {
+        if(!err) {
+            const answer = doc.answer;
+            res.send(answer);
+        }
+        else {
+            console.log(`Error in retriving answer`);
+        }
+    } )
+}
+
+module.exports.getSingleAnswer = (req, res) => {
+    Exam.findById(req.params.id, (err, doc) => {
+        if(!err) {
+            let singleAnswer = doc.answer.find((answer) => answer.email === req.params.examineeEmail);
+            res.send(singleAnswer);
+        }
+        else {
+            console.log("error in retriving single asnwer");
+        }
+    })
 }

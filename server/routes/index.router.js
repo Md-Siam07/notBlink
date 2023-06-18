@@ -67,7 +67,15 @@ router.post(
 router.post("/report", reportController.generateTable)
 router.post("/viewData", reportController.viewData)
 module.exports = router
+router.put(
+  "/submitAnswer/:id",
+  upload.single("answer"),
+  examController.addAnswer
+)
 
+router.get("/answer/:id", examController.getAllAnswers)
+
+router.get("/answer/:id/:examineeEmail", examController.getSingleAnswer)
 // {
 //     "examName": "exam1",
 //     "startTime": "09.30",

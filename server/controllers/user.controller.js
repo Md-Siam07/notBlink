@@ -32,8 +32,7 @@ module.exports.register = (req, res, next) => {
   user.verified = false
   user.save((err, doc) => {
     if (!err) {
-      console.log(user)
-      res.send(user)
+      return res.status(200).json({"message": "registration successful"});
     } else {
       if (err.code == 11000)
         res.status(422).send(["Duplicate email address found"])
