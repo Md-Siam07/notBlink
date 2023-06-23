@@ -16,6 +16,7 @@ import { StudentUnderExamComponent } from './student-under-exam/student-under-ex
 import { ChunkedTransmissionComponent } from './chunked-transmission-component/chunked-transmission-component.component';
 import { TableComponent } from './table/table.component';
 import { ListComponent } from './list/list.component';
+import { QuestionCreationComponent } from './question-creation/question-creation.component';
 
 const routes: Routes = [
   {
@@ -87,6 +88,10 @@ const routes: Routes = [
     path: 'list/:id',
     component: ListComponent,
   },
+  {
+    path: 'createQuestion/:id',
+    component: QuestionCreationComponent
+  }
 ];
 
 @NgModule({

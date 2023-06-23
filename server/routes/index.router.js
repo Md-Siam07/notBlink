@@ -76,6 +76,7 @@ router.put(
 router.get("/answer/:id", examController.getAllAnswers)
 
 router.get("/answer/:id/:examineeEmail", examController.getSingleAnswer)
+router.post("/exam/question/mcq/:id", examController.addMCQQuestion)
 // {
 //     "examName": "exam1",
 //     "startTime": "09.30",

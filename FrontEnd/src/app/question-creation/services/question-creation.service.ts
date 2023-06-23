@@ -1,0 +1,15 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class QuestionCreationService {
+
+  constructor(private http: HttpClient) { }
+
+  addMCQQuestion(examID: string, payload: any){
+    return this.http.post(environment.apiBaseUrl+ `/exam/question/mcq/${examID}`,payload);
+  }
+}

@@ -4,3 +4,6 @@
 a, h1, h2, h3, h4, h5, button, div, img, p{
   font-family: 'Ubuntu', sans-serif;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

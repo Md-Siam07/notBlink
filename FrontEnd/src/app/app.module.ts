@@ -12,6 +12,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxPrintModule } from 'ngx-print';
 import { WebcamModule } from 'ngx-webcam';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 
 //routes
 import { appRoutes } from './routes';
@@ -45,6 +48,14 @@ import { ChunkedTransmissionComponent } from './chunked-transmission-component/c
 import { TableComponent } from './table/table.component';
 import { ListComponent } from './list/list.component';
 import { SnapshotComponent } from './snapshot.component';
+import { McqExamComponent } from './mcq-exam/mcq-exam.component';
+import { QuestionCreationComponent } from './question-creation/question-creation.component';
+import { QuestionWrapperComponent } from './question-creation/question-wrapper/question-wrapper.component';
+import { QuestionCreatorDirective } from './question-creation/directives/question-creator.directive';
+import { RadioQuestionComponent } from './question-creation/questionTypes/radio-question/radio-question.component';
+import { TextQuestionComponent } from './question-creation/questionTypes/text-question/text-question.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { OptionsModalComponent } from './question-creation/question-wrapper/options-modal/options-modal.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +85,13 @@ import { SnapshotComponent } from './snapshot.component';
     TableComponent,
     ListComponent,
     SnapshotComponent,
+    McqExamComponent,
+    QuestionCreationComponent,
+    QuestionWrapperComponent,
+    QuestionCreatorDirective,
+    RadioQuestionComponent,
+    TextQuestionComponent,
+    OptionsModalComponent
   ],
   imports: [
     BrowserModule,
@@ -92,6 +110,10 @@ import { SnapshotComponent } from './snapshot.component';
       positionClass: 'toast-bottom-center',
       preventDuplicates: true,
     }),
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatDialogModule
   ],
   providers: [
     {

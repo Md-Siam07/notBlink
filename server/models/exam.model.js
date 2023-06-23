@@ -35,6 +35,12 @@ var ExamSchema = new mongoose.Schema({
     question:{
         type: String
     },
+    isMcq: {
+        type: Boolean
+    },
+    mcqQuestion: {
+        type: Array
+    },
     notification: [{
         fullName: String,
         email: String, 
@@ -69,6 +75,15 @@ var ExamSchema = new mongoose.Schema({
         },
         asnwerURL:{
             type: String
+        },
+        mcqAnswer: {
+            type: String
+        },
+        obtainedMCQMarks: {
+            type: String
+        },
+        obtainedMarks: {
+            type: Number
         }
     }]
 });
