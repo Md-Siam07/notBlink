@@ -296,7 +296,6 @@ module.exports.addMCQQuestion = (req, res) => {
 };
 
 module.exports.getMCQQuestion = (req, res) => {
-  console.log(req._id);
   User.findOne({ _id: req._id }, (err, user) => {
     if (!user)
       return res
@@ -305,16 +304,7 @@ module.exports.getMCQQuestion = (req, res) => {
     else {
     let examFinished = false;
       let userIsTeacher = _.pick(user, [
-        "_id",
-        "fullName",
-        "faceID",
-        "email",
         "isTeacher",
-        "institute",
-        "phone_number",
-        "batch",
-        "roll",
-        "designation",
       ]).isTeacher;
       if(userIsTeacher) {
         //user is teacher, so return the correct answers as well
