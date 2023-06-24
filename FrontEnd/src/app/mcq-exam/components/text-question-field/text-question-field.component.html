@@ -1,0 +1,15 @@
+
+{{index+1}}.
+<div [formGroup]="questionForm">
+    <mat-form-field>
+        <mat-label>
+            {{ question.question }}
+        </mat-label>
+        <input
+            matInput
+            type="text"
+            formControlName="{{index.toString()}}"
+        />
+        
+    </mat-form-field>
+</div>

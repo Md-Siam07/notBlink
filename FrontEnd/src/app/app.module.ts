@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
 
 //routes
 import { appRoutes } from './routes';
@@ -57,6 +58,10 @@ import { RadioQuestionComponent } from './question-creation/questionTypes/radio-
 import { TextQuestionComponent } from './question-creation/questionTypes/text-question/text-question.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { OptionsModalComponent } from './question-creation/question-wrapper/options-modal/options-modal.component';
+import { QuestionHostDirective } from './mcq-exam/directives/question-host.directive';
+import { McqQuestionWrapperComponent } from './mcq-exam/mcq-question-wrapper/mcq-question-wrapper.component';
+import { TextQuestionFieldComponent } from './mcq-exam/components/text-question-field/text-question-field.component';
+import { RadioQuestionFieldComponent } from './mcq-exam/components/radio-question-field/radio-question-field.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +97,11 @@ import { OptionsModalComponent } from './question-creation/question-wrapper/opti
     QuestionCreatorDirective,
     RadioQuestionComponent,
     TextQuestionComponent,
-    OptionsModalComponent
+    OptionsModalComponent,
+    QuestionHostDirective,
+    McqQuestionWrapperComponent,
+    TextQuestionFieldComponent,
+    RadioQuestionFieldComponent
   ],
   imports: [
     BrowserModule,
@@ -115,7 +124,8 @@ import { OptionsModalComponent } from './question-creation/question-wrapper/opti
     MatInputModule,
     MatIconModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatRadioModule
   ],
   providers: [
     {

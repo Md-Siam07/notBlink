@@ -17,6 +17,7 @@ import { ChunkedTransmissionComponent } from './chunked-transmission-component/c
 import { TableComponent } from './table/table.component';
 import { ListComponent } from './list/list.component';
 import { QuestionCreationComponent } from './question-creation/question-creation.component';
+import { McqExamComponent } from './mcq-exam/mcq-exam.component';
 
 const routes: Routes = [
   {
@@ -91,6 +92,10 @@ const routes: Routes = [
   {
     path: 'createQuestion/:id',
     component: QuestionCreationComponent
+  },
+  {
+    path: 'exam/appear/:id',
+    component: McqExamComponent
   }
 ];
 

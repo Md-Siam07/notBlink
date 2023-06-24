@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { QuestionCreationService } from '../question-creation/services/question-creation.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-mcq-exam',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class McqExamComponent implements OnInit {
 
-  constructor() { }
+  @Input('examID') examID!: string;
+  
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.examID = params.get('id');
+    });
   }
+
+  
 
 }

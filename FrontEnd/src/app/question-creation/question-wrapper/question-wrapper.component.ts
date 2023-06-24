@@ -15,7 +15,6 @@ export class QuestionWrapperComponent implements OnInit {
   @Input('examID') examID!: string;
   @Input('questions') questions!: any[];
   @ViewChild(QuestionCreatorDirective, { static: true })
- 
   questionHost!: QuestionCreatorDirective;
   COMPONENT_MAP = new ComponentMap().COMPONENT_MAP;
   mainForm: FormGroup;
