@@ -51,14 +51,17 @@ export class QuestionWrapperComponent implements OnInit {
   ngAfterViewInit(): void {
     this.populateInitialQuestion();
     this.questionService.deleteEventEmitter.subscribe((index)=>{
-      const componentRef = this.componentRefs[index];
+      this.deleteComponent(index);
+    })
+  }
+
+  deleteComponent(index: number) {
+    const componentRef = this.componentRefs[index];
       componentRef.destroy();
       this.componentRefs.splice(index, 1);
       this.removeFormGroup(index);
       this.updateCurrentIndex();
-    })
   }
-
   get questionArray(): FormArray {
     return this.mainForm.get('questionArray') as FormArray;
   }
