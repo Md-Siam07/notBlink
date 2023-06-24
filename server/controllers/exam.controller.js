@@ -239,7 +239,9 @@ module.exports.getSingleAnswer = (req, res) => {
 }
 
 module.exports.addMCQQuestion = (req, res) => {
-    Exam.findByIdAndUpdate(req.params.id, {$push: {mcqQuestion: req.body.mcqQuestion}}, {new:true}, (err, doc) => {
+    // console.log(req.body.mcqQuestion.questionArray)
+    // res.send(req.body.mcqQuestion)
+    Exam.findByIdAndUpdate(req.params.id, {$push: {mcqQuestion: req.body.mcqQuestion.questionArray}}, {new:true}, (err, doc) => {
         if(!err) {
             res.send(doc);}
         else{

@@ -15,6 +15,7 @@ import { WebcamModule } from 'ngx-webcam';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 //routes
 import { appRoutes } from './routes';
@@ -113,7 +114,8 @@ import { OptionsModalComponent } from './question-creation/question-wrapper/opti
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ],
   providers: [
     {

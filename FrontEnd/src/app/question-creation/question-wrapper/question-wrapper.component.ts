@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { QuestionCreatorDirective } from '../directives/question-creator.directive';
 import { ComponentMap } from '../utils/componentMap';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { OptionsModalComponent } from './options-modal/options-modal.component';
 import { QuestionCreationService } from '../services/question-creation.service';
@@ -47,14 +47,16 @@ export class QuestionWrapperComponent implements OnInit {
   private createQuestionForm(questionType: string): FormGroup {
     if(questionType=='radio'){
       return this.formBuilder.group({
-        question: '',
-        options: this.formBuilder.array([]),
-        fullMarks: ''
+        question: ['', Validators.required],
+        options: this.formBuilder.array([], Validators.required),
+        fullMarks: ['', Validators.required],
+        correctAnswer: ['', Validators.required]
       });
     }
     else return this.formBuilder.group({
-      question: '',
-      fullMarks: ''
+        question: ['', Validators.required],
+        fullMarks: ['', Validators.required],
+        correctAnswer: ['', Validators.required]
     })
   }
   
