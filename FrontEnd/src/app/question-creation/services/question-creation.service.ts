@@ -9,7 +9,11 @@ export class QuestionCreationService {
 
   constructor(private http: HttpClient) { }
 
-  addMCQQuestion(examID: string, payload: any){
+  addMCQQuestion(examID: string, payload: any) {
     return this.http.post(environment.apiBaseUrl+ `/exam/question/mcq/${examID}`,payload);
+  }
+
+  getMCQQuestion(examID: string) {
+    return this.http.get(environment.apiBaseUrl+ `/exam/question/mcq/${examID}`);
   }
 }
