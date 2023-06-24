@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 export class QuestionCreationComponent implements OnInit {
 
   @Input('examID') examID!: string;
+  
 
   constructor(private route: ActivatedRoute) { }
 

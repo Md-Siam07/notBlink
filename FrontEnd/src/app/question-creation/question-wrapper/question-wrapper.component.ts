@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentRef, Input, OnInit, ViewChild } from '@angular/core';
 import { QuestionCreatorDirective } from '../directives/question-creator.directive';
 import { ComponentMap } from '../utils/componentMap';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,10 +15,11 @@ export class QuestionWrapperComponent implements OnInit {
   @Input('examID') examID!: string;
   @Input('questions') questions!: any[];
   @ViewChild(QuestionCreatorDirective, { static: true })
+ 
   questionHost!: QuestionCreatorDirective;
-
   COMPONENT_MAP = new ComponentMap().COMPONENT_MAP;
   mainForm: FormGroup;
+  componentRefs: ComponentRef<any>[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,17 +43,30 @@ export class QuestionWrapperComponent implements OnInit {
       });
   }
 
+  removeFormGroup(index: number) {
+    const questionArray = this.mainForm.get('questionArray') as FormArray;
+    questionArray.removeAt(index);
+  }
+
   ngAfterViewInit(): void {
-    //set timeout to avoid error
-    // setTimeout(() => {
-    //   this.addComponent('radio');
-    //   this.addComponent('text')
-    // }, 0);
     this.populateInitialQuestion();
+    this.questionService.deleteEventEmitter.subscribe((index)=>{
+      const componentRef = this.componentRefs[index];
+      componentRef.destroy();
+      this.componentRefs.splice(index, 1);
+      this.removeFormGroup(index);
+      this.updateCurrentIndex();
+    })
   }
 
   get questionArray(): FormArray {
     return this.mainForm.get('questionArray') as FormArray;
+  }
+
+  updateCurrentIndex() {
+    this.componentRefs.forEach((componentRef, i) => {
+      componentRef.instance.index = i;
+    });
   }
 
   removeQuestion(index: number) {
@@ -87,7 +101,9 @@ export class QuestionWrapperComponent implements OnInit {
     );
     const questionForm = this.createQuestionForm(componentType, question);
     componentRef.instance.questionForm = questionForm;
+    componentRef.instance.index = this.questionArray.length;
     this.questionArray.push(questionForm);
+    this.componentRefs.push(componentRef);
   }
 
   openModal() {

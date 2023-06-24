@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { QuestionCreationService } from '../../services/question-creation.service';
 
 @Component({
   selector: 'app-radio-question',
@@ -9,8 +10,9 @@ import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 export class RadioQuestionComponent implements OnInit {
 
   @Input('questionForm') questionForm: FormGroup;
+  @Input('index') index: number;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private questionService: QuestionCreationService) { }
 
   ngOnInit() {
   }
@@ -36,5 +38,9 @@ export class RadioQuestionComponent implements OnInit {
     return String.fromCharCode(65 + index);
   }
 
-
+  deleteComponent() {
+    this.questionService.deleteEventEmitter.emit(this.index);
+  }
 }
+
+

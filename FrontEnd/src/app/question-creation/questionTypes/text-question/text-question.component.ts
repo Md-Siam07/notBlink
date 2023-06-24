@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { QuestionCreationService } from '../../services/question-creation.service';
 
 @Component({
   selector: 'app-text-question',
@@ -9,8 +10,9 @@ import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 export class TextQuestionComponent implements OnInit {
 
   @Input('questionForm') questionForm: FormGroup;
+  @Input('index') index: number;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private questionService: QuestionCreationService) { }
 
   ngOnInit() {
   }
@@ -34,6 +36,10 @@ export class TextQuestionComponent implements OnInit {
 
   getOptionPrefix(index: number): string {
     return String.fromCharCode(65 + index);
+  }
+
+  deleteComponent() {
+    this.questionService.deleteEventEmitter.emit(this.index);
   }
 
 }
