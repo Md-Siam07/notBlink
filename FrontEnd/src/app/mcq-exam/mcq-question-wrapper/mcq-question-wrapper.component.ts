@@ -100,32 +100,3 @@ export class McqQuestionWrapperComponent implements OnInit {
   }
 }
 
-
-// ngOnInit(): void {
-//   this.mainForm = this.formBuilder.group({
-//     questionArray: this.formBuilder.array([]),
-//   });
-//   this.questionService
-//     .getMCQQuestion(this.examID)
-//     .subscribe((questions: any[]) => {
-//       this.populateInitialAnswers(questions);
-//       // this.loadQuestions(questions);
-//     });
-// }
-
-// populateInitialAnswers(questions: any[]) {
-//   this.questionService.getMCQAnswer(this.examID).subscribe((res:any)=>{
-//     if(res.answered){
-//       this.initialAnswer = res.currentAnswer.mcqAnswer;
-//       this.loadQuestions(questions);
-//       // console.log(this.initialAnswer[0][0]);
-//     }
-//   })
-// }
-
-// loadQuestions(questions: any[]) {
-//   questions.forEach((question, index) => {
-//     this.addComponent(question.questionType, index, question);
-//     this.totalMarks += question.fullMarks;
-//   });
-// }
