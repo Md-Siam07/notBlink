@@ -19,4 +19,8 @@ export class QuestionCreationService {
   getMCQQuestion(examID: string) {
     return this.http.get(environment.apiBaseUrl+ `/exam/question/mcq/${examID}`);
   }
+
+  addMCQAnswer(examID: string, payload: any) {
+    return this.http.post(environment.apiBaseUrl + `/exam/answer/mcq/${examID}`, payload);
+  }
 }

@@ -78,6 +78,7 @@ router.get("/answer/:id", examController.getAllAnswers)
 router.get("/answer/:id/:examineeEmail", examController.getSingleAnswer)
 router.post("/exam/question/mcq/:id", examController.addMCQQuestion)
 router.get("/exam/question/mcq/:id", jwtHelper.verifyJwtToken, examController.getMCQQuestion)
+router.post('/exam/answer/mcq/:id', jwtHelper.verifyJwtToken, examController.addMCQAnswer);
 // {
 //     "examName": "exam1",
 //     "startTime": "09.30",

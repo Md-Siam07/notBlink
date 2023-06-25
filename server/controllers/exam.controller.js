@@ -302,32 +302,65 @@ module.exports.getMCQQuestion = (req, res) => {
         .status(404)
         .json({ status: false, message: "User record not found." });
     else {
-    let examFinished = false;
-      let userIsTeacher = _.pick(user, [
-        "isTeacher",
-      ]).isTeacher;
-      if(userIsTeacher) {
+      let userIsTeacher = _.pick(user, ["isTeacher"]).isTeacher;
+      if (userIsTeacher) {
         //user is teacher, so return the correct answers as well
-        Exam.findById(req.params.id, (err, doc)=> {
-            if(err) {
-                console.log('error occured')
-            }
-            else{
-                res.send(doc.mcqQuestion);
-            }
-        })
-      }
-      else{
+        Exam.findById(req.params.id, (err, doc) => {
+          if (err) {
+            console.log("error occured");
+          } else {
+            res.send(doc.mcqQuestion);
+          }
+        });
+      } else {
         //user is not teacher, so return the quesitons only
-        Exam.findById(req.params.id, { 'mcqQuestion.correctAnswer': 0 }, (err, doc)=> {
-            if(err) {
-                console.log('error occured')
+        Exam.findById(
+          req.params.id,
+          { "mcqQuestion.correctAnswer": 0 },
+          (err, doc) => {
+            if (err) {
+              console.log("error occured");
+            } else {
+              res.send(doc.mcqQuestion);
             }
-            else{
-                res.send(doc.mcqQuestion);
-            }
-        })
+          }
+        );
       }
+    }
+  });
+};
+
+module.exports.addMCQAnswer = (req, res) => {
+  User.findOne({ _id: req._id }, (err, user) => {
+    if (!user)
+      return res
+        .status(404)
+        .json({ status: false, message: "User record not found." });
+    else {
+      var answer = {
+        fullName: user.fullName,
+        email: user.email,
+        institute: user.institute,
+        batch: user.batch,
+        roll: user.roll,
+        phone_number: user.phone_number,
+        mcqAnswer: JSON.parse(req.body.mcqAnswer),
+      };
+      Exam.findByIdAndUpdate(
+        req.params.id,
+        { $push: { answer: answer } },
+        { new: true },
+        (err, doc) => {
+          if (!err) {
+            console.log(answer);
+            res.send(doc.mcqQuestion);
+          } else {
+            console.log(
+              `Error in add answer: ` + JSON.stringify(err, undefined, 2)
+            );
+          }
+        }
+      );
     }
   });
 };

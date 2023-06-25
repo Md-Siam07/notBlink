@@ -55,7 +55,10 @@ export class McqQuestionWrapperComponent implements OnInit {
   }
 
   check(){
-    console.log(this.mainForm.value)
+    console.log(JSON.stringify(this.mainForm.value.questionArray))
+    this.questionService.addMCQAnswer(this.examID, {mcqAnswer: JSON.stringify(this.mainForm.value.questionArray)}).subscribe(res=>{
+      console.log('done');
+    })
   }
 
 }

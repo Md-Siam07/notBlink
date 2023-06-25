@@ -77,7 +77,7 @@ var ExamSchema = new mongoose.Schema({
             type: String
         },
         mcqAnswer: {
-            type: String
+            type: Array
         },
         obtainedMCQMarks: {
             type: String
