@@ -4,6 +4,7 @@ import { QuestionHostDirective } from '../directives/question-host.directive';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ComponentMap } from '../utils/componentMap';
 import { Status } from '../utils/status';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-mcq-question-wrapper',
@@ -21,6 +22,7 @@ export class McqQuestionWrapperComponent implements OnInit {
   STATUS = new Status().STATUS;
   componentRefs: ComponentRef<any>[] = [];
   totalMarks: number = 0;
+  initialAnswer: any = [];
 
   constructor(
     private questionService: QuestionCreationService,
@@ -31,19 +33,29 @@ export class McqQuestionWrapperComponent implements OnInit {
     this.mainForm = this.formBuilder.group({
       questionArray: this.formBuilder.array([]),
     });
-    this.questionService
-      .getMCQQuestion(this.examID)
-      .subscribe((questions: any[]) => {
-        questions.forEach((question, index) => {
-          this.addComponent(question.questionType, index, question);
-          this.totalMarks += question.fullMarks;
-        });
+    this.questionService.getMCQQuestion(this.examID)
+    .pipe(
+      switchMap((questions: any[]) => this.populateInitialAnswers().then(() => questions))
+    )
+    .subscribe((questions: any[]) => {
+      questions.forEach((question, index) => {
+        this.addComponent(question.questionType, index, question);
+        this.totalMarks += question.fullMarks;
       });
+    });
+  }
+
+  async populateInitialAnswers() {
+    const res: any = await this.questionService.getMCQAnswer(this.examID).toPromise();
+    if (res.answered) {
+      this.initialAnswer = res.currentAnswer.mcqAnswer;
+      // console.log(this.initialAnswer[0][0]);
+    }
   }
 
   private createQuestionForm(questionType: string, index: number): FormGroup {
     return this.formBuilder.group({
-      [index]: '',
+      [index]: this.initialAnswer[index][index] || '',
     });
   }
 
@@ -64,7 +76,7 @@ export class McqQuestionWrapperComponent implements OnInit {
     this.componentRefs.push(componentRef);
   }
 
-  check() {
+  save() {
     console.log(JSON.stringify(this.mainForm.value.questionArray));
     this.questionService
       .addMCQAnswer(this.examID, {
@@ -87,3 +99,33 @@ export class McqQuestionWrapperComponent implements OnInit {
       });
   }
 }
+
+
+// ngOnInit(): void {
+//   this.mainForm = this.formBuilder.group({
+//     questionArray: this.formBuilder.array([]),
+//   });
+//   this.questionService
+//     .getMCQQuestion(this.examID)
+//     .subscribe((questions: any[]) => {
+//       this.populateInitialAnswers(questions);
+//       // this.loadQuestions(questions);
+//     });
+// }
+
+// populateInitialAnswers(questions: any[]) {
+//   this.questionService.getMCQAnswer(this.examID).subscribe((res:any)=>{
+//     if(res.answered){
+//       this.initialAnswer = res.currentAnswer.mcqAnswer;
+//       this.loadQuestions(questions);
+//       // console.log(this.initialAnswer[0][0]);
+//     }
+//   })
+// }
+
+// loadQuestions(questions: any[]) {
+//   questions.forEach((question, index) => {
+//     this.addComponent(question.questionType, index, question);
+//     this.totalMarks += question.fullMarks;
+//   });
+// }

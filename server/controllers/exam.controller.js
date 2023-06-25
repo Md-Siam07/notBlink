@@ -331,22 +331,22 @@ module.exports.getMCQQuestion = (req, res) => {
 };
 
 module.exports.processAnswer = (req, res, next) => {
-  Exam.findById( req.params.id, (err, doc) => {
-    if(!err){
+  Exam.findById(req.params.id, (err, doc) => {
+    if (!err) {
       let questions = doc.mcqQuestion;
       let answers = req.body.mcqAnswer;
       let totalMarks = 0;
-      for(var i=0; i< questions.length; i++){
+      for (var i = 0; i < questions.length; i++) {
         // console.log(questions[i].correctAnswer, answers[i][i])
-        if(questions[i].correctAnswer == answers[i][i]){
+        if (questions[i].correctAnswer == answers[i][i]) {
           totalMarks += questions[i].fullMarks;
         }
       }
       req.totalMarks = totalMarks;
       next();
     }
-  } )
-}
+  });
+};
 
 module.exports.addMCQAnswer = (req, res) => {
   User.findOne({ _id: req._id }, (err, user) => {
@@ -363,7 +363,7 @@ module.exports.addMCQAnswer = (req, res) => {
         roll: user.roll,
         phone_number: user.phone_number,
         mcqAnswer: req.body.mcqAnswer,
-        obtainedMarks: req.totalMarks
+        obtainedMarks: req.totalMarks,
       };
       Exam.findByIdAndUpdate(
         req.params.id,
@@ -371,10 +371,10 @@ module.exports.addMCQAnswer = (req, res) => {
         { new: true },
         (err, doc) => {
           if (!err) {
-            console.log(answer);
+            // console.log(answer);
             res.send({
               question: doc.mcqQuestion,
-              obtainedMarks: req.totalMarks
+              obtainedMarks: req.totalMarks,
             });
           } else {
             console.log(
@@ -385,4 +385,38 @@ module.exports.addMCQAnswer = (req, res) => {
       );
     }
   });
+};
+
+module.exports.getMCQAnswer = (req, res) => {
+
+  User.findOne({ _id: req._id }, (err, user) => {
+    if (!user)
+      return res
+        .status(404)
+        .json({ status: false, message: "User record not found." });
+    else {
+      let email = _.pick(user, ["email"]).email;
+      console.log(email)
+      Exam.findById(req.params.id, (err, docExam) => {
+        if (!err) {
+          let mcqAnswers = docExam.answer;
+          let currentAnswer = [];
+          // console.log(mcqAnswers)
+          currentAnswer = mcqAnswers.filter(
+            (answer) => answer.email === email
+          );
+          currentAnswer = currentAnswer.filter(
+            (answer) => answer.mcqAnswer != null
+          )
+          if(currentAnswer.length > 0){
+            res.status(200).send({answered: true, currentAnswer: currentAnswer[0]})
+          }
+          else {
+            res.status(200).send({answered: false, currentAnswer: []})
+          }
+        }
+      });
+    }
+  });
+  
 };
