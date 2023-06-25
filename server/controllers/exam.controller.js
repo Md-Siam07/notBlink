@@ -330,6 +330,24 @@ module.exports.getMCQQuestion = (req, res) => {
   });
 };
 
+module.exports.processAnswer = (req, res, next) => {
+  Exam.findById( req.params.id, (err, doc) => {
+    if(!err){
+      let questions = doc.mcqQuestion;
+      let answers = req.body.mcqAnswer;
+      let totalMarks = 0;
+      for(var i=0; i< questions.length; i++){
+        // console.log(questions[i].correctAnswer, answers[i][i])
+        if(questions[i].correctAnswer == answers[i][i]){
+          totalMarks += questions[i].fullMarks;
+        }
+      }
+      req.totalMarks = totalMarks;
+      next();
+    }
+  } )
+}
+
 module.exports.addMCQAnswer = (req, res) => {
   User.findOne({ _id: req._id }, (err, user) => {
     if (!user)
@@ -344,7 +362,8 @@ module.exports.addMCQAnswer = (req, res) => {
         batch: user.batch,
         roll: user.roll,
         phone_number: user.phone_number,
-        mcqAnswer: JSON.parse(req.body.mcqAnswer),
+        mcqAnswer: req.body.mcqAnswer,
+        obtainedMarks: req.totalMarks
       };
       Exam.findByIdAndUpdate(
         req.params.id,
@@ -353,7 +372,10 @@ module.exports.addMCQAnswer = (req, res) => {
         (err, doc) => {
           if (!err) {
             console.log(answer);
-            res.send(doc.mcqQuestion);
+            res.send({
+              question: doc.mcqQuestion,
+              obtainedMarks: req.totalMarks
+            });
           } else {
             console.log(
               `Error in add answer: ` + JSON.stringify(err, undefined, 2)

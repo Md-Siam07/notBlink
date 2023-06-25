@@ -1,40 +1,50 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentRef, Input, OnInit, ViewChild } from '@angular/core';
 import { QuestionCreationService } from 'src/app/question-creation/services/question-creation.service';
 import { QuestionHostDirective } from '../directives/question-host.directive';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ComponentMap } from '../utils/componentMap';
+import { Status } from '../utils/status';
 
 @Component({
   selector: 'app-mcq-question-wrapper',
   templateUrl: './mcq-question-wrapper.component.html',
-  styleUrls: ['./mcq-question-wrapper.component.css']
+  styleUrls: ['./mcq-question-wrapper.component.css'],
 })
 export class McqQuestionWrapperComponent implements OnInit {
-
   @Input('examID') examID: string;
   questions: any[];
   @ViewChild(QuestionHostDirective, { static: true })
   questionHost!: QuestionHostDirective;
   mainForm: FormGroup;
+  obtainedMarks !: number;
   COMPONENT_MAP = new ComponentMap().COMPONENT_MAP;
+  STATUS = new Status().STATUS;
+  componentRefs: ComponentRef<any>[] = [];
+  totalMarks: number = 0;
 
-  constructor(private questionService: QuestionCreationService, private formBuilder: FormBuilder) { }
+  constructor(
+    private questionService: QuestionCreationService,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.mainForm = this.formBuilder.group({
       questionArray: this.formBuilder.array([]),
     });
-    this.questionService.getMCQQuestion(this.examID).subscribe((questions: any[])=>{
-      questions.forEach((question, index)=>{
-        this.addComponent(question.questionType, index, question);
-      })
-    });
+    this.questionService
+      .getMCQQuestion(this.examID)
+      .subscribe((questions: any[]) => {
+        questions.forEach((question, index) => {
+          this.addComponent(question.questionType, index, question);
+          this.totalMarks += question.fullMarks;
+        });
+      });
   }
 
   private createQuestionForm(questionType: string, index: number): FormGroup {
-      return this.formBuilder.group({
-        [index]: ''
-      });
+    return this.formBuilder.group({
+      [index]: '',
+    });
   }
 
   get questionArray(): FormArray {
@@ -51,14 +61,29 @@ export class McqQuestionWrapperComponent implements OnInit {
     componentRef.instance.question = question;
     componentRef.instance.index = this.questionArray.length;
     this.questionArray.push(questionForm);
-    // this.componentRefs.push(componentRef);
+    this.componentRefs.push(componentRef);
   }
 
-  check(){
-    console.log(JSON.stringify(this.mainForm.value.questionArray))
-    this.questionService.addMCQAnswer(this.examID, {mcqAnswer: JSON.stringify(this.mainForm.value.questionArray)}).subscribe(res=>{
-      console.log('done');
-    })
+  check() {
+    console.log(JSON.stringify(this.mainForm.value.questionArray));
+    this.questionService
+      .addMCQAnswer(this.examID, {
+        mcqAnswer: this.mainForm.value.questionArray,
+      })
+      .subscribe((res:any) => {
+        let questions = res.question;
+        let answers = this.mainForm.value.questionArray;
+        console.log(questions, answers)
+        questions.forEach((question, index)=>{
+          this.componentRefs[index].instance.question = question;
+          if(question.correctAnswer == answers[index][index]) {
+            this.componentRefs[index].instance.status = this.STATUS.RIGHT;
+          }
+          else {
+            this.componentRefs[index].instance.status = this.STATUS.WRONG;
+          }
+        })
+        this.obtainedMarks = res.obtainedMarks;
+      });
   }
-
 }

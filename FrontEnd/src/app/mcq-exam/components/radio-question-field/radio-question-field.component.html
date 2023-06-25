@@ -1,5 +1,5 @@
 {{index+1}}.
-<div [formGroup]="questionForm">
+<div [formGroup]="questionForm" [ngClass]="{ 'correct-answer': status === STATUS.RIGHT, 'wrong-answer': status === STATUS.WRONG }">
     <div>
         <mat-label>
             {{ question.question }} - {{ question.fullMarks }}
@@ -17,4 +17,8 @@
             </mat-radio-button>
         </mat-radio-group>
     </div>
+</div>
+
+<div *ngIf="status == STATUS.WRONG">
+    Correct answer is {{question.correctAnswer}}
 </div>
