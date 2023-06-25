@@ -55,7 +55,7 @@ export class McqQuestionWrapperComponent implements OnInit {
 
   private createQuestionForm(questionType: string, index: number): FormGroup {
     return this.formBuilder.group({
-      [index]: this.initialAnswer[index][index] || '',
+      [index]: this.initialAnswer[index]?.[index] || '',
     });
   }
 
