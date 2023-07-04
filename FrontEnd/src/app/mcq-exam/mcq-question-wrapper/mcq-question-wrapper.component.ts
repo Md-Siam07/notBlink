@@ -49,13 +49,12 @@ export class McqQuestionWrapperComponent implements OnInit {
     const res: any = await this.questionService.getMCQAnswer(this.examID).toPromise();
     if (res.answered) {
       this.initialAnswer = res.currentAnswer.mcqAnswer;
-      // console.log(this.initialAnswer[0][0]);
     }
   }
 
   private createQuestionForm(questionType: string, index: number): FormGroup {
     return this.formBuilder.group({
-      [index]: this.initialAnswer[index]?.[index] || '',
+      [index]: this.initialAnswer[index]?.[index]==0 ? 0 : this.initialAnswer[index]?.[index] || '',
     });
   }
 
